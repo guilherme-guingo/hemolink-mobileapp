@@ -1,0 +1,31 @@
+name: Enforce Dev Branch PR
+
+
+
+on:
+
+  pull_request:
+
+    branches:
+
+      - main
+
+
+
+jobs:
+
+  verify-source-branch:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Verificar se a origem e a branch dev
+
+        if: github.head_ref != 'dev'
+
+        run: |
+
+          echo "ERRO DE PIPELINE: Pull Requests para a branch 'main' so sao permitidos se a origem for a branch 'dev'."
+
+          exit 1 
