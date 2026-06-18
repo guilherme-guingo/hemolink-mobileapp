@@ -5,9 +5,19 @@ import { theme } from "./src/theme";
 import { Routers } from "./src/routers";
 import { NavigationContainer } from "@react-navigation/native";
 import 'react-native-gesture-handler';
+import { useEffect } from "react";
+import { signInRequest } from "./src/services/auth";
 
 
 export default function App() {
+
+  //===== APAGAR após teste
+  useEffect(() => {
+    signInRequest({ email: 'teste@teste.com', senha: 'teste123' })
+      .then(u => console.log('Deu bom', u))
+      .catch(e => console.log('deu ruim:', e.message))
+  }, [])
+
   return (
     // <View style={styles.container}>
     //   <Text>Open up App.tsx to start working on your app!</Text>
@@ -15,9 +25,9 @@ export default function App() {
     // </View>
 
     // <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <Routers />
-      </NavigationContainer>
+    <NavigationContainer>
+      <Routers />
+    </NavigationContainer>
     // </ThemeProvider>
   );
 }
