@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import 'react-native-gesture-handler';
 import { useEffect } from "react";
 import { signInRequest } from "./src/services/auth";
+import Toast from "react-native-toast-message";
 
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
     // <ThemeProvider theme={theme}>
     <NavigationContainer>
       <Routers />
+      <Toast />
     </NavigationContainer>
     // </ThemeProvider>
   );
