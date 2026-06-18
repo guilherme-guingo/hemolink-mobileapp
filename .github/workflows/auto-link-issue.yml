@@ -1,0 +1,23 @@
+name: Auto Link Issue
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  link:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Link Issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ github.head_ref }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          if [[ $BRANCH =~ issue/([0-9]+)/ ]]; then
+            ISSUE="${BASH_REMATCH[1]}"
+            BODY=$(gh pr view $PR --json body -q .body)
+            NEW_BODY="$BODY"$'\n\nCloses #'${ISSUE}
+            gh pr edit $PR --body "$NEW_BODY"
+          fi
