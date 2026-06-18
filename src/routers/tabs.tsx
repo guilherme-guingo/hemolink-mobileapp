@@ -39,7 +39,7 @@ export const TabsRouters = () => {
                   // { color: focused ? "white" : "#E4E4E4" },
                 ]}
               >
-                Buscar
+                Home
               </Text>
             </View>
           ),
