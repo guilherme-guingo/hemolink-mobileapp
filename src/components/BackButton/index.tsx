@@ -1,17 +1,16 @@
 import { TouchableOpacity, Text } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { styles } from './style';
+import { theme } from '../../theme';  
 
 type BackButtonProps = {
-    location: string;
+    onPress: () => void;
 };
 
-export const BackButton = ({ location }: BackButtonProps) => {
-    const navigation = useNavigation();
+export const BackButton = ({ onPress }: BackButtonProps) => {
     return (
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.navigate(location)}>
-            <Ionicons name="arrow-back" size={20} color="#..." />
+        <TouchableOpacity style={styles.backBtn} onPress={onPress}>
+            <Ionicons name="arrow-back" size={20} color={theme.colors.secondary} />
             <Text style={styles.texto}>Voltar</Text>
         </TouchableOpacity>
     );
