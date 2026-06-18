@@ -9,8 +9,9 @@ import { Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { Perfil } from "./pagesTestes/Perfil";
 import { Teste } from "./pagesTestes/Teste";
+import { ParametrosRotasDrawer } from "./navigation";
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<ParametrosRotasDrawer>();
 
 //talvez importar esse componente em um arquivo(segregar ele desse arquivo)
 const CustimizacaoDrower = (props: DrawerContentComponentProps) => {
@@ -32,7 +33,7 @@ export const DrawerRouters = () => {
       drawerContent={(props) => <CustimizacaoDrower {...props} />}
     >
       <Drawer.Screen
-        name="DrowerHome"
+        name="DrawerHome"
         component={TabsRouters}
         options={{
           drawerIcon: ({ color, size }) => (
@@ -42,7 +43,7 @@ export const DrawerRouters = () => {
         }}
       />
       <Drawer.Screen
-        name="DrowerPerfil"
+        name="DrawerPerfil"
         component={Perfil}
         options={{
           drawerIcon: ({ color, size }) => (
@@ -52,7 +53,7 @@ export const DrawerRouters = () => {
         }}
       />
       <Drawer.Screen
-        name="DrowerTeste"
+        name="DrawerTeste"
         component={Teste}
         options={{
           drawerIcon: ({ color, size }) => (
