@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import 'react-native-gesture-handler';
 import { useEffect } from "react";
 import { signInRequest } from "./src/services/auth";
+import Toast from "react-native-toast-message";
 import { AuthProvider, useAuth } from "./src/contexts/AuthContext";
 
 
@@ -22,7 +23,7 @@ export default function App() {
         .catch(e => console.log('Deu Ruim: ', e.message))
     }, [])
     useEffect(() => {
-      console.log('o usuario logado é : ',user)
+      console.log('o usuario logado é : ', user)
     })
 
     return null
@@ -37,9 +38,10 @@ export default function App() {
 
     // <ThemeProvider theme={theme}>
     <AuthProvider>
-      <TesteDoLogin />
       <NavigationContainer>
         <Routers />
+        <TesteDoLogin />
+        <Toast />
       </NavigationContainer>
     </AuthProvider>
 
