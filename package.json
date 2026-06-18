@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
     "@expo/vector-icons": "^15.0.3",
+    "@lottiefiles/dotlottie-react": "^0.13.5",
     "@react-native-async-storage/async-storage": "^3.1.1",
     "@react-navigation/bottom-tabs": "^7.18.2",
     "@react-navigation/drawer": "^7.12.2",
@@ -19,6 +20,7 @@
     "axios": "^1.18.0",
     "expo": "~54.0.34",
     "expo-status-bar": "~3.0.9",
+    "lottie-react-native": "~7.3.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
