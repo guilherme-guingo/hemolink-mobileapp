@@ -25,7 +25,7 @@ export const TabsRouters = () => {
           backgroundColor: "#F6FAFF",
           height: 90,
           borderTopWidth: 1,
-          elevation: 0,
+          // elevation: 0,
           position: "absolute",
           borderColor: "#E5BDBB",
         },

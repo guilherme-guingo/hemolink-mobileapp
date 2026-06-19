@@ -22,7 +22,7 @@ interface PropsCardBase {
   cardStyleView?: ViewStyle
 }
 
-export const CardBase = ({
+export const CardBaseCatalogo = ({
   source,
   state,
   city,

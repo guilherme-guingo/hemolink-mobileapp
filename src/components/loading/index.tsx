@@ -15,22 +15,22 @@ interface PropsLoading {
   size: "large" | "small";
   color?: string;
   message?: string;
-  messageStyle?: TextStyle;
-  containerStyle?: ViewStyle;
+  messageStyleAdd?: TextStyle;
+  containerStyleAdd?: ViewStyle;
 }
 
 // OBS: O componente começa com estilos próprios de cor e message, caso não passem nada de props para ele 
 export const Loading = ({
   size,
   color = "blue",
-  message = "Carregando dados da API. Aguarde...",
-  messageStyle,
-  containerStyle,
+  message = "Carregando dados. Aguarde...",
+  messageStyleAdd,
+  containerStyleAdd,
 }: PropsLoading) => {
   return (
-    <View style={containerStyle}>
+    <View style={containerStyleAdd}>
       <ActivityIndicator size={size} color={color} />
-      {message && <Text style={messageStyle}>{message}</Text>}
+      {message && <Text style={[{fontSize: 20, marginTop: 20},messageStyleAdd]}>{message}</Text>}
     </View>
   );
 };
