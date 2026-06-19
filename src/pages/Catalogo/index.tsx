@@ -15,7 +15,7 @@ export const Catalogo = () => {
 
   async function carregarInformacoes() {
     setIsLoading(true);
-
+    // NOTA: FALTA VERIFICACAO DA CHEGADA DOS DADOS DA API + TOAST DE ERRO, CASO HAJA
     const response = await listarHospitais();
     // if (response.status !== 200) {
     //   // toast.error("Erro ao carregar as informações");

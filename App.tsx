@@ -44,8 +44,8 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <AuthProvider>
         <NavigationContainer>
-          {/* <Routers /> */}
-          <Catalogo/>
+          <Routers />
+          {/* <Catalogo/> */}
           <TesteDoLogin />
           <Toast />
         </NavigationContainer>
