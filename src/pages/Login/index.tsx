@@ -4,11 +4,11 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native'; 
 
-import { Input } from '../../../components/Input';
-import { AuthFormWrapper } from '../../../components/AuthFormWrapper'; 
+import { Input } from '../../components/Input';
+import { AuthFormWrapper } from '../../components/AuthFormWrapper'; 
 
 import Toast from 'react-native-toast-message'; 
-import { useAuth } from '../../../contexts/AuthContext'; 
+import { useAuth } from '../../contexts/AuthContext'; 
 
 import { 
   ErrorText, 
@@ -18,7 +18,7 @@ import {
   SignUpContainer,
   SignUpText,
   SignUpBoldText
-} from './style';
+} from './styles';
 
 const loginSchema = z.object({
   email: z.string().min(1, 'O e-mail é obrigatório.').email({ message: 'Insira um e-mail válido.' }),
