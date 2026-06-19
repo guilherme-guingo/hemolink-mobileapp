@@ -29,28 +29,21 @@ const CustimizacaoDrower = (props: DrawerContentComponentProps) => {
 export const DrawerRouters = () => {
   return (
     <Drawer.Navigator
-      //   screenOptions={{ title: ""  ,headerLeft: () => (
-      //   <MaterialIcons
-      //     name="menu"
-      //     size={28}
-      //     color="#2563EB"
-      //   />
-      // ),}}
-      // screenOptions={({ navigation }) => ({
-      //   headerShown: false,
-      //   headerStyle: {
-      //     borderBottomWidth: 1,
-      //     borderBottomColor: "#E5BDBB",
-      //   },
-      //   headerLeft: () => (
-      //     <TouchableOpacity
-      //       onPress={() => navigation.openDrawer()}
-      //       style={{ marginLeft: 15 }}
-      //     >
-      //       <MaterialIcons name="menu" size={28} color="#9E001F" />
-      //     </TouchableOpacity>
-      //   ),
-      // })}
+      screenOptions={() => ({
+        headerShown: false,
+        // headerStyle: {
+        //   borderBottomWidth: 1,
+        //   borderBottomColor: "#E5BDBB",
+        // },
+        // headerLeft: () => (
+        //   <TouchableOpacity
+        //     onPress={() => navigation.openDrawer()}
+        //     style={{ marginLeft: 15 }}
+        //   >
+        //     <MaterialIcons name="menu" size={28} color="#9E001F" />
+        //   </TouchableOpacity>
+        // ),
+      })}
       drawerContent={(props) => <CustimizacaoDrower {...props} />}
     >
       <Drawer.Screen
