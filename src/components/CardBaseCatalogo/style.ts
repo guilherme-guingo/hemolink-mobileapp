@@ -2,10 +2,16 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    width: 320,
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     overflow: "hidden",
+
+    // teste
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: "blue",
+    marginBottom: 16,
   },
 
   containerImagem: {

@@ -36,13 +36,18 @@ export const styles = StyleSheet.create({
     color: "#5C5F60",
     fontSize: 15,
     fontWeight: 400,
-
-    // width: "80%",
   },
 
   containerInput: {
     marginVertical: 15,
   },
 
-  containerCard: {},
+  containerCard: {
+    padding: "5%",
+    paddingTop: 20,
+
+    // teste
+    borderWidth: 2,
+    borderColor: "red",
+  },
 });

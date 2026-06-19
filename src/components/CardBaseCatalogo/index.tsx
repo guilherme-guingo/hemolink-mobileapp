@@ -20,7 +20,7 @@ interface PropsCardBase {
   sourceStyleAdd?: ImageStyle;
 }
 
-export const CardBase = ({
+export const CardBaseCatalogo = ({
   source,
   state,
   city,
