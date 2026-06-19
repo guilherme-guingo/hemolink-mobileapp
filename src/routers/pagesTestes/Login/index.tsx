@@ -2,23 +2,28 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
 
 import { Input } from '../../../components/Input';
-import { AuthFormWrapper } from '../../../components/AuthFormWrapper'; 
+import { AuthFormWrapper } from '../../../components/AuthFormWrapper';
 
-import Toast from 'react-native-toast-message'; 
-import { useAuth } from '../../../contexts/AuthContext'; 
+import Toast from 'react-native-toast-message';
+import { useAuth } from '../../../contexts/AuthContext';
 
-import { 
-  ErrorText, 
-  PasswordContainer, 
-  ToggleButton, 
-  EyeIcon, 
+
+import { FontAwesome5 } from '@expo/vector-icons'; // APAGAR ANTES DA PRODUCAO
+
+import {
+  ErrorText,
+  PasswordContainer,
+  ToggleButton,
+  EyeIcon,
   SignUpContainer,
   SignUpText,
   SignUpBoldText
 } from './style';
+import { TouchableOpacity, View } from 'react-native';
+import { Text } from 'react-native';
 
 const loginSchema = z.object({
   email: z.string().min(1, 'O e-mail é obrigatório.').email({ message: 'Insira um e-mail válido.' }),
@@ -29,10 +34,10 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export function Login() {
   const [loading, setLoading] = useState(false);
-  const [secureMode, setSecureMode] = useState(true); 
-  
-  const navigation = useNavigation<any>(); 
-  const { signIn } = useAuth(); 
+  const [secureMode, setSecureMode] = useState(true);
+
+  const navigation = useNavigation<any>();
+  const { signIn } = useAuth();
 
   const { control, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -44,6 +49,7 @@ export function Login() {
     try {
       setLoading(true);
       await signIn({ email: data.email, senha: data.password });
+      navigation.navigate('StackHome')
       Toast.show({
         type: 'success',
         text1: 'Sucesso',
@@ -62,10 +68,12 @@ export function Login() {
   }
 
   function handleNavigateToRegister() {
-    navigation.navigate('Cadastro'); 
+    navigation.navigate('Cadastro');
   }
 
   return (
+
+
     <AuthFormWrapper
       title="HemoLink"
       subtitle="Conectando doadores a vidas"
@@ -107,7 +115,7 @@ export function Login() {
             <PasswordContainer>
               <Input
                 placeholder="Senha"
-                secureTextEntry={secureMode} 
+                secureTextEntry={secureMode}
                 onChangeText={onChange}
                 value={value || ''}
                 hasError={!!errors.password}
@@ -120,6 +128,16 @@ export function Login() {
           </>
         )}
       />
+      <TouchableOpacity
+        style={{ backgroundColor: 'red',flexDirection:'row', paddingVertical:10, alignItems:'center', justifyContent:'center' }}
+        onPress={() => navigation.navigate('StackHome')}>
+        <FontAwesome5 name='skull-crossbones' size={20} color='white' />
+        <Text style={{ color: 'white',  }}>
+          Botao Bandido
+        </Text>
+      </TouchableOpacity>
     </AuthFormWrapper>
+
+
   );
 }

@@ -6,6 +6,7 @@ import { ParametrosRotasTabs } from "./navigation";
 import { Text, View } from "react-native";
 import { styles } from "./style";
 import Icon from "@expo/vector-icons/Ionicons";
+import { Administrador } from "./pagesTestes/Administrador";
 
 const Tabs = createBottomTabNavigator<ParametrosRotasTabs>();
 
@@ -31,7 +32,7 @@ export const TabsRouters = () => {
               <Icon
                 name="home-outline"
                 size={30}
-                // color={focused ? "#FDFCFE" : "#A4A3A3"}
+              // color={focused ? "#FDFCFE" : "#A4A3A3"}
               />
               <Text
                 style={[
@@ -55,7 +56,7 @@ export const TabsRouters = () => {
               <Icon
                 name="home-outline"
                 size={30}
-                // color={focused ? "#FDFCFE" : "#A4A3A3"}
+              // color={focused ? "#FDFCFE" : "#A4A3A3"}
               />
               <Text
                 style={[
@@ -79,7 +80,7 @@ export const TabsRouters = () => {
               <Icon
                 name="home-outline"
                 size={30}
-                // color={focused ? "#FDFCFE" : "#A4A3A3"}
+              // color={focused ? "#FDFCFE" : "#A4A3A3"}
               />
               <Text
                 style={[
@@ -88,6 +89,30 @@ export const TabsRouters = () => {
                 ]}
               >
                 Teste
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="TabsAdministrador"
+        component={Administrador}
+        options={{
+          title: "",
+          tabBarIcon: ({ focused }) => (
+            <View style={styles.cardTabs}>
+              <Icon
+                name="home-outline"
+                size={30}
+              // color={focused ? "#FDFCFE" : "#A4A3A3"}
+              />
+              <Text
+                style={[
+                  styles.textTabs,
+                  // { color: focused ? "white" : "#E4E4E4" },
+                ]}
+              >
+                Administrador
               </Text>
             </View>
           ),
