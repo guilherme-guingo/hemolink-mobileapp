@@ -24,7 +24,7 @@ export default function App() {
     //   <StatusBar style="auto" />
     // </View>
 
-    // <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
     <NavigationContainer>
       <Routers />
     </NavigationContainer>
