@@ -18,7 +18,7 @@ export default function App() {
     const { signIn, user, loading } = useAuth()
 
     useEffect(() => {
-      console.log('Iniciando Login')
+      console.log('Iniciando Login do usuario')
       signIn({ email: 'jojo@teste.com', senha: '123123' })
         .catch(e => console.log('Deu Ruim: ', e.message))
     }, [])
