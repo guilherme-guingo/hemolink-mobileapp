@@ -5,6 +5,7 @@ import {
   Text,
   TextStyle,
   View,
+  ViewStyle,
 } from "react-native";
 import { styles } from "./style";
 
@@ -18,6 +19,7 @@ interface PropsCardBase {
   cityStyleAdd?: TextStyle;
   stateStyleAdd?: TextStyle;
   sourceStyleAdd?: ImageStyle;
+  cardStyleView?: ViewStyle
 }
 
 export const CardBase = ({
@@ -29,9 +31,10 @@ export const CardBase = ({
   cityStyleAdd,
   nameStyleAdd,
   stateStyleAdd,
+  cardStyleView
 }: PropsCardBase) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,cardStyleView]}>
       <View style={[styles.containerImagem]}>
         {source && (
           <Image
