@@ -8,6 +8,7 @@ export type ParametrosRotasTabs = {
   TabsHome: undefined;
   TabsPerfil: undefined;
   TabsTeste: undefined;
+  TabsAdministrador:undefined;
 };
 
 export type ParametrosRotasDrawer = {
