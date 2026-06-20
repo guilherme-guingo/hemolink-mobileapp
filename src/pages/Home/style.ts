@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   containerMain: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#F6FAFF",
   },
 
   containerTitulo: {
@@ -17,14 +17,14 @@ export const styles = StyleSheet.create({
     marginTop: 30,
   },
 
-  title: {
+  titulo: {
     fontSize: 33,
     color: "#141D23",
     marginBottom: 5,
     fontWeight: 700,
   },
 
-  subTitle: {
+  subTitulo: {
     color: "#5C5F60",
     fontSize: 16,
     fontWeight: 400,
@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  headerTitle: {
+  headerTitulo: {
     color: "#FFDAD8",
     fontSize: 14,
     fontWeight: "700",
@@ -93,7 +93,7 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
     marginHorizontal: "5%",
-    marginTop: 20,
+    marginTop: 30,
   },
 
   tituloAgendamento: {
@@ -105,5 +105,62 @@ export const styles = StyleSheet.create({
 
   containerCalendario: {
     justifyContent: "center",
+  },
+
+  containerAgenda: {
+    marginTop: 10,
+    marginHorizontal: "5%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#FFFFFF",
+    paddingVertical: "5%",
+    paddingHorizontal: "5%",
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+  },
+
+  data: {
+    backgroundColor: "#FFDAD8",
+    paddingHorizontal: "5%",
+    paddingVertical: "2%",
+    borderRadius: 12,
+  },
+
+  dataMes: {
+    color: "#9E001F",
+    fontSize: 15,
+    textAlign: "center",
+    lineHeight: 16,
+  },
+
+  dataDia: {
+    color: "#9E001F",
+    fontWeight: "700",
+    fontSize: 30,
+    textAlign: "center",
+    lineHeight: 32,
+  },
+
+  containerData: {
+    flex: 1,
+    justifyContent: "center",
+    marginRight: 30,
+    marginLeft: 10,
+  },
+
+  tituloData: {
+    color: "#141D23",
+    fontSize: 15,
+  },
+
+  subtituloData: {
+    color: "#5C5F60",
+  },
+
+  containerBotao: {
+    justifyContent: "center",
+    // marginLeft: 20,
   },
 });
