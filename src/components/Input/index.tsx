@@ -46,7 +46,7 @@ export const Input = ({
         errorColor,
         isFocused,
         disabled,
-        paddingLeft: paddingLeft ?? (iconLeft ? 36 : 0), //Quanto tiver icone ele empurra o texto
+        paddingLeft: paddingLeft ?? (iconLeft ? 36 : 10), //Quanto tiver icone ele empurra o texto
     });
 
     return (

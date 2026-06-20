@@ -26,12 +26,12 @@ export const Button = ({ texto, onPress, bg, color, width, height, borderRadius,
             style={[
                 styles.botao,
                 bg && { backgroundColor: bg },
-                width && { width },
-                height && { height },
-                borderRadius && { borderRadius },
+                width !== undefined && { width },
+                height !== undefined && { height },
+                borderRadius !== undefined && { borderRadius },
                 soIcon && { paddingHorizontal: 0 },
                 centerIcon && { justifyContent: 'center' },
-                (borderWidth || borderColor) && { borderWidth: borderWidth ?? 1, borderColor: borderColor ?? bg ?? '#000' },
+                borderColor !== undefined && { borderWidth: borderWidth ?? 1, borderColor },
             ]}
             onPress={onPress}
         >
