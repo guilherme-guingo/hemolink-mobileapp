@@ -96,14 +96,13 @@ export const Administrador = () => {
             </View>
 
 
-            <Text>Hospitais</Text>
+            <Text style={styles.titleFilter}>Hospitais</Text>
             <View style={styles.fullWidthSection}>
-
                 <ScrollView
                     contentContainerStyle={styles.containerStat}
                     horizontal
                     showsHorizontalScrollIndicator={false}>
-                    <View style={{ flexDirection: 'row', gap: 8, height: 60 }}>
+                    <View style={{ flexDirection: 'row', gap: 8, height: 51 }}>
                         {filtrosHospital.map((item) => {
                             const ativo = filtroAtivo === item.action
                             return (
@@ -122,11 +121,10 @@ export const Administrador = () => {
                         })}
                     </View>
                 </ScrollView>
-
             </View>
 
 
-            <View style={{ flexDirection: 'row',gap:12, paddingTop: 16 }}>
+            <View style={{ flexDirection: 'row', gap: 12, paddingTop: 16 }}>
                 <View style={{ flex: 1 }}>
                     <Input
                         value={filter}
@@ -134,7 +132,7 @@ export const Administrador = () => {
                         onChangeText={setFilter}
                     />
                 </View>
-                
+
                 <Button
                     texto=''
                     onPress={() => navigation.navigate('StackCadastroHospital')}
@@ -172,7 +170,7 @@ export const Administrador = () => {
                         return (
                             <TouchableOpacity
                                 key={item.id}
-                                style={{ width: '48%', marginBottom: 8 }}
+                                style={{ width: '100%', marginBottom: 8 }}
                                 onPress={() => navigation.navigate('StackDetalheHospital', { id: item.id })}
                             >
                                 <CardBase
@@ -183,14 +181,16 @@ export const Administrador = () => {
                                         borderRadius: 10,
                                         backgroundColor: '#fff',
                                         paddingBottom: 20,
-                                        borderWidth:2,
-                                        borderColor:`${theme.colors?.textMuted}70`
-                                    },styles.HeroTitle}
+                                        borderWidth: 2,
+                                        borderColor: `${theme.colors?.textMuted}70`,
+                                        boxShadow: '0 3px 8px rgba(0,0,0,.12)'
+                                    }}
                                     sourceStyleAdd={{}}
                                     source={item.image}
                                     name={item.name}
+                                    nameStyleAdd={{ fontSize: 16 }}
                                     city={item.city}
-                                    cityStyleAdd={{marginBottom:100}}
+                                    cityStyleAdd={{ marginBottom: 100 }}
                                     state={item.state}
                                 />
                             </TouchableOpacity>

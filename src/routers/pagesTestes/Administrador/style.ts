@@ -50,6 +50,14 @@ export const styles = StyleSheet.create({
         justifyContent: "space-around",
 
     },
+    titleFilter:{
+        fontSize:30,
+        color:`${theme.colors.primary}`,
+        fontWeight:600,
+        borderBottomWidth:2,
+        borderColor:`${theme.colors.primary}`,
+
+    },
     cardValue: {
         color: `${theme.colors.primary}`,
         fontWeight: 'bold',
