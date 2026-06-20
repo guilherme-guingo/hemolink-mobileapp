@@ -6,19 +6,24 @@ export const styles = StyleSheet.create({
     backgroundColor: "#F6FAFF",
   },
 
-  containerTitulo: {
-    marginHorizontal: "5%",
-    display: "flex",
-    flexDirection: "column",
-    gap: 10,
+  containerSaudacao: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
   },
 
-  containerTituloFilho: {
+  emojiMao: {
+    fontSize: 30,
+  },
+
+  containerTitulo: {
+    display: "flex",
+    marginHorizontal: "5%",
     marginTop: 30,
   },
 
   titulo: {
-    fontSize: 33,
+    fontSize: 35,
     color: "#141D23",
     marginBottom: 5,
     fontWeight: 700,

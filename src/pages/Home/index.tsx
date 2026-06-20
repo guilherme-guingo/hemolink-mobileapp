@@ -11,7 +11,56 @@ import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { Button } from "../../components/Button";
 import { BotaoAtalho } from "../../components/BotaoAtalho";
 
+import { Animated, Easing } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import { useRef, useCallback } from "react";
+
 export const Home = () => {
+  const rotacao = useRef(new Animated.Value(0)).current;
+
+  const animarMao = useCallback(() => {
+    rotacao.setValue(0);
+
+    Animated.sequence([
+      Animated.timing(rotacao, {
+        toValue: 1,
+        duration: 300,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(rotacao, {
+        toValue: -1,
+        duration: 300,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(rotacao, {
+        toValue: 1,
+        duration: 300,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(rotacao, {
+        toValue: 0,
+        duration: 300,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, [rotacao]);
+
+  useFocusEffect(
+    useCallback(() => {
+      animarMao();
+    }, [animarMao]),
+  );
+
+  // objetivo de conversao
+  const rotacaoInterpolado = rotacao.interpolate({
+    inputRange: [-1, 0, 1],
+    outputRange: ["-18deg", "0deg", "18deg"],
+  });
+
   const botoesFiltros = [
     {
       id: "1",
@@ -67,12 +116,24 @@ export const Home = () => {
       <Header />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.containerTitulo}>
-          <View style={styles.containerTituloFilho}>
-            <Text style={styles.titulo}>Olá, "usuário" 👋​</Text>
-            <Text style={styles.subTitulo}>
-              Seu gesto salva vidas todos os dias.
-            </Text>
+          <View style={styles.containerSaudacao}>
+            <Text style={styles.titulo}>Olá, "usuário"</Text>
+
+            <Animated.Text
+              style={[
+                styles.emojiMao,
+                {
+                  transform: [{ rotate: rotacaoInterpolado }],
+                },
+              ]}
+            >
+              👋
+            </Animated.Text>
           </View>
+
+          <Text style={styles.subTitulo}>
+            Seu gesto salva vidas todos os dias.
+          </Text>
         </View>
 
         <View style={styles.cardContainer}>
@@ -166,7 +227,15 @@ export const Home = () => {
                       <Ionicons name={item.icon} size={28} color="#9E001F" />
                     </View>
                     <View>
-                      <Text style={{ color: "#141D23", fontWeight: 500, fontSize: 15, }}>{item.titulo}</Text>
+                      <Text
+                        style={{
+                          color: "#141D23",
+                          fontWeight: 500,
+                          fontSize: 15,
+                        }}
+                      >
+                        {item.titulo}
+                      </Text>
                     </View>
                     <View>
                       <Text style={{ color: "#5C5F60" }}>{item.subtitulo}</Text>
