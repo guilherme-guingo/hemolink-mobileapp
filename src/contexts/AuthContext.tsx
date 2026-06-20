@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react';
 import { SignInData, signInRequest } from '../services/auth';
 import { User } from '../services/auth'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 
 export interface AuthContextData {
     user: User | null;
@@ -12,7 +12,7 @@ export interface AuthContextData {
 
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
-const STORAGE_KEY = '@hemolink:user'
+const STORAGE_KEY = 'hemolink.user'
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -25,7 +25,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     useEffect(() => {
         async function loadStoragedUser() {
             try {
-                const userStoraged = await AsyncStorage.getItem(STORAGE_KEY)
+                const userStoraged = await SecureStore.getItemAsync(STORAGE_KEY)
                 if (userStoraged) {
                     const userLogged = JSON.parse(userStoraged)
                     setUser(userLogged);
@@ -42,12 +42,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     //Login
     async function signIn(data:SignInData) {
         const loggedUser = await signInRequest(data)
-        await AsyncStorage.setItem(STORAGE_KEY,JSON.stringify(loggedUser))
+        await SecureStore.setItemAsync(STORAGE_KEY,JSON.stringify(loggedUser))
         setUser(loggedUser)
     }
     //Logout
     async function signOut(){
-        await AsyncStorage.removeItem(STORAGE_KEY)
+        await SecureStore.deleteItemAsync(STORAGE_KEY)
         setUser(null)
     }
 

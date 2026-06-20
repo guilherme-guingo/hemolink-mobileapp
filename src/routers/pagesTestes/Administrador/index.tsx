@@ -12,6 +12,7 @@ import { Button } from '../../../components/Button'
 import { obterBloodStock } from '../../../util/obterBloodStock'
 import { obterTiposSanguineosCriticos } from '../../../util/obterTiposSanguineosCriticos'
 import { filtrosHospital } from './helper'
+import { theme } from '../../../theme'
 /*
     [x] Criacao de estatisticas
     [x] Get Hospital
@@ -27,7 +28,7 @@ export const Administrador = () => {
     const [filter, setFilter] = useState('')
     const [filtroAtivo, setFiltroAtivo] = useState('todos')
 
-
+    //Render dos Cards
     useFocusEffect(
         useCallback(() => {
             listarHospitais()
@@ -46,6 +47,7 @@ export const Administrador = () => {
         { id: '3', title: 'Doacoes em aberto', value: 45, color: '#EBC964' },
         { id: '4', title: 'Doações recebidas', value: 110, color: '#4592E5' },
     ];
+
     return (
         <ScrollView style={styles.container}>
 
@@ -89,8 +91,6 @@ export const Administrador = () => {
                         )
                     })}
 
-
-
                 </ScrollView>
 
             </View>
@@ -103,7 +103,7 @@ export const Administrador = () => {
                     contentContainerStyle={styles.containerStat}
                     horizontal
                     showsHorizontalScrollIndicator={false}>
-                    <View style={{ flexDirection: 'row', gap: 8, height:24 }}>
+                    <View style={{ flexDirection: 'row', gap: 8, height: 60 }}>
                         {filtrosHospital.map((item) => {
                             const ativo = filtroAtivo === item.action
                             return (
@@ -121,16 +121,27 @@ export const Administrador = () => {
                             )
                         })}
                     </View>
-
-
-
                 </ScrollView>
 
             </View>
 
 
-            <View style={{ flex: 1,paddingTop:16 }}>
-                <Input value={filter} placeholder='Digite o nome do Hospital' onChangeText={setFilter} />
+            <View style={{ flexDirection: 'row',gap:12, paddingTop: 16 }}>
+                <View style={{ flex: 1 }}>
+                    <Input
+                        value={filter}
+                        placeholder='Digite o nome do Hospital'
+                        onChangeText={setFilter}
+                    />
+                </View>
+                
+                <Button
+                    texto=''
+                    onPress={() => navigation.navigate('StackCadastroHospital')}
+                    height={46}
+                    width={46}
+                    icon='add'
+                />
             </View>
 
 
@@ -172,11 +183,14 @@ export const Administrador = () => {
                                         borderRadius: 10,
                                         backgroundColor: '#fff',
                                         paddingBottom: 20,
-                                    }}
+                                        borderWidth:2,
+                                        borderColor:`${theme.colors?.textMuted}70`
+                                    },styles.HeroTitle}
                                     sourceStyleAdd={{}}
                                     source={item.image}
                                     name={item.name}
                                     city={item.city}
+                                    cityStyleAdd={{marginBottom:100}}
                                     state={item.state}
                                 />
                             </TouchableOpacity>
