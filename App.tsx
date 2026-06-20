@@ -11,6 +11,7 @@ import Toast from "react-native-toast-message";
 import { AuthProvider, useAuth } from "./src/contexts/AuthContext";
 import { Perfil } from "./src/routers/pagesTestes/Perfil";
 import { Catalogo } from "./src/pages/Catalogo";
+import { Home } from "./src/pages/Home";
 
 //teste perfil abrir camera e escolher da galeria
 //export default function App() {
@@ -18,9 +19,6 @@ import { Catalogo } from "./src/pages/Catalogo";
 //}
 
 export default function App() {
-
-
-
   return (
     // <View style={styles.container}>
     //   <Text>Open up App.tsx to start working on your app!</Text>
@@ -30,8 +28,9 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <AuthProvider>
         <NavigationContainer>
-          {/* <Routers /> */}
-          <Catalogo />
+          <Routers />
+          {/* <Catalogo /> */}
+          {/* <Home /> */}
           <Toast />
         </NavigationContainer>
       </AuthProvider>
