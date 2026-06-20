@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home } from "./pagesTestes/Home";
-import { Perfil } from "./pagesTestes/Perfil";
+import { Perfil } from "../pages/Perfil";
 import { Teste } from "./pagesTestes/Teste";
 import { ParametrosRotasTabs } from "./navigation";
 import { Text, View } from "react-native";

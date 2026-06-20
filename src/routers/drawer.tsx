@@ -7,7 +7,7 @@ import {
 import { TabsRouters } from "./tabs";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Feather, MaterialIcons } from "@expo/vector-icons";
-import { Perfil } from "./pagesTestes/Perfil";
+import { Perfil } from "../pages/Perfil";
 import { Teste } from "./pagesTestes/Teste";
 import { ParametrosRotasDrawer } from "./navigation";
 
