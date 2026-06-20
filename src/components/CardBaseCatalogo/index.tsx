@@ -70,9 +70,8 @@ export const CardBaseCatalogo = ({
           </View>
         )}
       </View>
-      {name && <Text style={[nameStyleAdd]}>{name}</Text>}
       <View style={styles.containerConteudo}>
-        {name && <Text style={styles.title}>{name}</Text>}
+        {name && <Text style={[styles.title, nameStyleAdd]}>{name}</Text>}
 
         <View style={styles.containerEndereco}>
           <Ionicons name="location-sharp" size={16} color="#DC2626" />
@@ -101,11 +100,11 @@ export const CardBaseCatalogo = ({
           />
         </View>
       </View>
-      {/* {name && <Text style={[nameStyleAdd]}>{name}</Text>}
+      {/* {/* {name && <Text style={[nameStyleAdd]}>{name}</Text>}
       <View style={styles.containerEndereco}>
         {city && <Text style={[cityStyleAdd]}>{city}</Text>}
         {state && <Text style={[stateStyleAdd]}>{state}</Text>}
-      </View>
+      </View> */}
     </View>
   );
 };

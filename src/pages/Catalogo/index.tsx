@@ -35,13 +35,13 @@ export const Catalogo = () => {
     setIsLoading(true);
     // NOTA: FALTA VERIFICACAO DA CHEGADA DOS DADOS DA API + TOAST DE ERRO, CASO HAJA
     const response = await listarHospitais();
-    // if (response.status !== 200) {
-    //   // toast.error("Erro ao carregar as informações");
-    //   setIsLoading(false);
-    //   return;
-    // }
+    if (response.status !== 200) {
+      // toast.error("Erro ao carregar as informações");
+      setIsLoading(false);
+      return;
+    }
     setTimeout(() => {
-      setHospitais(response);
+      setHospitais(response.data);
       // setResultadoFiltro(response.data);
       setIsLoading(false);
       setIsDados(true);
