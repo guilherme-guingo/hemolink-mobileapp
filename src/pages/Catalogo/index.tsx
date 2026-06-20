@@ -22,6 +22,7 @@ export const Catalogo = () => {
   const [hospitais, setHospitais] = useState<Hospital[]>([]);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [isDados, setIsDados] = useState<Boolean>(false);
+  const [filter, setFilter] = useState('')
 
   const [filtroSelecionado, setFiltroSelecionado] = useState<string>("1");
   const botoesFiltros = [
@@ -66,8 +67,11 @@ export const Catalogo = () => {
   // }, []);
 
   const hospitaisFiltrados = hospitais.filter((hospital) => {
-    if (filtroSelecionado === "1") {
-      return true;
+    const textoFiltro = filter.toLowerCase().trim();
+    if (textoFiltro) {
+      const matchNome = hospital.name.toLowerCase().includes(textoFiltro);
+      const matchCidade = hospital.city.toLowerCase().includes(textoFiltro);
+      if (!matchNome && !matchCidade) return false;
     }
 
     if (filtroSelecionado === "2") {
@@ -99,7 +103,8 @@ export const Catalogo = () => {
               </View>
               <View style={styles.containerInput}>
                 <Input
-                  value=""
+                  value={filter}
+                  onChangeText={setFilter}
                   placeholder="Buscar hospitais ou cidades..."
                   iconLeft={<EvilIcons name="search" size={24} color="black" />}
                   // falta colocar um height e um borderColor talvez
