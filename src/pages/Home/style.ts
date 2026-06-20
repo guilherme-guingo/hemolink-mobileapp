@@ -208,4 +208,29 @@ export const styles = StyleSheet.create({
     gap: 5,
     justifyContent: "center",
   },
+
+  containerDoacao: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#FFFFFF",
+    marginHorizontal: "5%",
+    marginTop: 30,
+    padding: "5%",
+    borderColor: "#EAD0CF",
+    borderWidth: 1,
+    borderRadius: 20,
+  },
+
+  tituloApoie: {
+    color: "#141D23",
+  },
+
+  containerBotaoDoaco: {
+    flex: 1,
+    marginRight: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

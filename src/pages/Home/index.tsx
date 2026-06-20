@@ -13,9 +13,12 @@ import { BotaoAtalho } from "../../components/BotaoAtalho";
 
 import { Animated, Easing } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState } from "react";
+import { ModalDoacao } from "../../components/ModalDoacao";
 
 export const Home = () => {
+  const [modalVisivel, setModalVisivel] = useState(false);
+
   const rotacao = useRef(new Animated.Value(0)).current;
 
   const animarMao = useCallback(() => {
