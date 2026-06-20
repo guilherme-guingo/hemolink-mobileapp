@@ -16,6 +16,7 @@ type Props = {
     hasError?: boolean;
     errorColor?: string;
     disabled?: boolean; //vamos usar quando precis de uma condição pra ativar input
+    paddingLeft?:number
 };
 
 export const Input = ({
@@ -32,6 +33,7 @@ export const Input = ({
     hasError,
     errorColor,
     disabled,
+    paddingLeft,
 }: Props) => {
     const [isFocused, setIsFocused] = useState(false);
 
@@ -44,6 +46,7 @@ export const Input = ({
         errorColor,
         isFocused,
         disabled,
+        paddingLeft: paddingLeft ?? (iconLeft ? 36 : 0), //Quanto tiver icone ele empurra o texto
     });
 
     return (

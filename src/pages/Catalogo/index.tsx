@@ -106,7 +106,7 @@ export const Catalogo = () => {
                   value={filter}
                   onChangeText={setFilter}
                   placeholder="Buscar hospitais ou cidades..."
-                  iconLeft={<EvilIcons name="search" size={24} color="black" />}
+                  iconLeft={<EvilIcons name="search" size={24} color="black"   />}
                   // falta colocar um height e um borderColor talvez
                 />
               </View>
