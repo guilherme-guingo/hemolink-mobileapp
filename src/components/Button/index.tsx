@@ -20,12 +20,15 @@ type ButtonProps = {
     paddingVertical?: number;
     paddingHorizontal?: number;
     fontSizeTexto?:number;
+    disabled?: boolean;
 };
 
-export const Button = ({ texto, onPress, bg, color, width, height, borderRadius, icon, iconColor, borderWidth, borderColor, centerIcon, paddingVertical, paddingHorizontal, fontSizeTexto }: ButtonProps) => {
+export const Button = ({ texto, onPress, bg, color, width, height, borderRadius, icon, iconColor, borderWidth, borderColor, centerIcon, paddingVertical, paddingHorizontal, fontSizeTexto, disabled }: ButtonProps) => {
     const soIcon = !texto && icon
     return (
         <TouchableOpacity
+            onPress={disabled ? undefined : onPress}
+            activeOpacity={disabled ? 1 : 0.7}
             style={[
                 styles.botao,
                 bg && { backgroundColor: bg },
@@ -37,8 +40,8 @@ export const Button = ({ texto, onPress, bg, color, width, height, borderRadius,
                 paddingHorizontal !== undefined && { paddingHorizontal },
                 centerIcon && { justifyContent: 'center' },
                 borderColor !== undefined && { borderWidth: borderWidth ?? 1, borderColor },
+                disabled && { opacity: 0.5 },
             ]}
-            onPress={onPress}
         >
             {icon && centerIcon ? (
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
