@@ -30,4 +30,14 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 400,
   },
+
+  cardContainer: {
+    marginTop: 50,
+    paddingHorizontal: "5%",
+    backgroundColor: "#C8102E",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+
+  headerContainer: {},
 });
