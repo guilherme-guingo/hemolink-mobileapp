@@ -212,24 +212,31 @@ export const styles = StyleSheet.create({
   containerDoacao: {
     display: "flex",
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: "#FFFFFF",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#C8102E",
     marginHorizontal: "5%",
     marginTop: 30,
     padding: "5%",
-    borderColor: "#EAD0CF",
-    borderWidth: 1,
     borderRadius: 20,
   },
 
   tituloApoie: {
-    color: "#141D23",
+    color: "#FFFFFF",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+
+  subTituloApoie: {
+    color: "#F8E2E6",
+    marginBottom: 10,
+    textAlign: "center",
   },
 
   containerBotaoDoaco: {
+    marginTop: 10,
     flex: 1,
-    marginRight: 12,
     justifyContent: "center",
     alignItems: "center",
   },
