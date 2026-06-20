@@ -84,4 +84,8 @@ export const styles = StyleSheet.create({
     marginTop: 24,
     marginBottom: 40,
   },
+  backButton:{
+    top:15,
+    left:-14
+  }
 })

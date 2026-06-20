@@ -3,7 +3,7 @@ import { theme } from "../../../theme";
 
 export const styles = StyleSheet.create({
     container: {
-        paddingTop: 40,
+        paddingTop: 20,
         paddingHorizontal: 30
 
     },
@@ -50,12 +50,19 @@ export const styles = StyleSheet.create({
         justifyContent: "space-around",
 
     },
-    titleFilter:{
-        fontSize:30,
-        color:`${theme.colors.primary}`,
-        fontWeight:600,
-        borderBottomWidth:2,
-        borderColor:`${theme.colors.primary}`,
+    filterContainer: {
+        flexDirection: 'row',
+        gap: 12,
+        paddingTop: 4,
+        paddingBottom: 10
+    },
+
+    titleFilter: {
+        fontSize: 30,
+        color: `${theme.colors.primary}`,
+        fontWeight: 600,
+        borderBottomWidth: 2,
+        borderColor: `${theme.colors.primary}`,
 
     },
     cardValue: {
@@ -67,17 +74,25 @@ export const styles = StyleSheet.create({
         padding: 8,
         borderRadius: 10,
         position: 'absolute',
-        top:14,
-        right:16
+        top: 14,
+        right: 16
     },
-    cartTitle:{
-        paddingRight:8
+    cartTitle: {
+        paddingRight: 8
     },
     containerHospitais: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
         paddingBottom: 160
-    }
+    },
+
+    loadingContainer: {
+        display: "flex",
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+    },
 
 })

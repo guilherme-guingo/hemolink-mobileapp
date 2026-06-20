@@ -9,20 +9,12 @@ import { Button } from '../../../components/Button'
 import { BackButton } from '../../../components/BackButton'
 import { styles } from './style'
 import { theme } from '../../../theme'
+import { formatPhone } from '../../../util/formataTelefone'
+import { formatCEP } from '../../../util/formataCEP'
+import { formatCNPJ } from '../../../util/formataCNPJ'
+import { apenasNumeros } from '../../../util/apenasNumeros'
+import { BLOOD_VAZIO, TIPOS_SANGUE, UF_LIST } from './helper'
 
-const TIPOS_SANGUE: (keyof BloodStock)[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
-
-const BLOOD_VAZIO: BloodStock = { 'A+': 0, 'A-': 0, 'B+': 0, 'B-': 0, 'AB+': 0, 'AB-': 0, 'O+': 0, 'O-': 0 }
-
-const UF_LIST = [
-  'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
-  'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
-  'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
-]
-
-function apenasNumeros(text: string) {
-  return text.replace(/\D/g, '')
-}
 
 export const DetalheHospital = ({ route, navigation }: any) => {
   const id = route.params?.id
@@ -76,14 +68,23 @@ export const DetalheHospital = ({ route, navigation }: any) => {
   }
 
   function atualizarSangue(tipo: keyof BloodStock, valor: string) {
+    const num = Math.min(100, Math.max(0, Number(apenasNumeros(valor))))
     setDados({
       ...dados,
-      bloodStock: { ...dados.bloodStock, [tipo]: Number(valor) } as BloodStock,
+      bloodStock: { ...dados.bloodStock, [tipo]: num } as BloodStock,
     })
   }
 
+  function isFormValid(): boolean {
+    const required: (keyof Hospital)[] = [
+      'name', 'cnpj', 'address', 'city', 'state',
+      'cep', 'phone', 'email', 'website', 'openingHours', 'image',
+    ]
+    return required.every(f => dados[f]?.toString().trim())
+  }
+
   const inputProps = (chave: keyof Hospital) => ({
-    value: editando ? dados[chave] || '' : hospital?.[chave] || '',
+    value: editando ? String(dados[chave] ?? '') : String(hospital?.[chave] ?? ''),
     disabled: !editando,
     onChangeText: (text: string) => atualizarCampo(chave, text),
   })
@@ -93,7 +94,9 @@ export const DetalheHospital = ({ route, navigation }: any) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <BackButton onPress={() => navigation.goBack()} />
+        <View style={styles.backButton}>
+          <BackButton onPress={() => navigation.goBack()} />
+        </View>
 
         <Text style={styles.sectionTitle}>Dados do Hospital</Text>
 
@@ -101,10 +104,10 @@ export const DetalheHospital = ({ route, navigation }: any) => {
 
         <View style={styles.row}>
           <View style={styles.half}>
-            <Input label="CNPJ" placeholder="CNPJ" keyboardType="numeric" maxLength={14} {...inputProps('cnpj')} onChangeText={t => atualizarCampo('cnpj', apenasNumeros(t))} />
+            <Input label="CNPJ" placeholder="CNPJ" keyboardType="numeric" maxLength={18} value={formatCNPJ(editando ? (dados.cnpj || '') : (hospital?.cnpj || ''))} disabled={!editando} onChangeText={t => atualizarCampo('cnpj', apenasNumeros(t))} />
           </View>
           <View style={styles.half}>
-            <Input label="CEP" placeholder="CEP" keyboardType="numeric" maxLength={8} {...inputProps('cep')} onChangeText={t => atualizarCampo('cep', apenasNumeros(t))} />
+            <Input label="CEP" placeholder="CEP" keyboardType="numeric" maxLength={9} value={formatCEP(editando ? (dados.cep || '') : (hospital?.cep || ''))} disabled={!editando} onChangeText={t => atualizarCampo('cep', apenasNumeros(t))} />
           </View>
         </View>
 
@@ -117,8 +120,17 @@ export const DetalheHospital = ({ route, navigation }: any) => {
           <View style={styles.half}>
             {editando ? (
               <>
-                <TouchableOpacity style={styles.dropdown} onPress={() => setShowUfModal(true)}>
-                  <Text style={dados.state ? styles.dropdownText : styles.dropdownPlaceholder}>
+                <Text >Estado</Text>
+                <TouchableOpacity
+                  style={styles.dropdown}
+                  onPress={() => setShowUfModal(true)}
+                >
+                  <Text
+                    style={
+                      dados.state
+                        ? styles.dropdownText
+                        : styles.dropdownPlaceholder}
+                  >
                     {dados.state || 'Estado'}
                   </Text>
                 </TouchableOpacity>
@@ -153,7 +165,7 @@ export const DetalheHospital = ({ route, navigation }: any) => {
 
         <View style={styles.row}>
           <View style={styles.half}>
-            <Input label="Telefone" placeholder="Telefone" keyboardType="phone-pad" {...inputProps('phone')} onChangeText={t => atualizarCampo('phone', apenasNumeros(t))} />
+            <Input label="Telefone" placeholder="Telefone" keyboardType="phone-pad" maxLength={15} value={formatPhone(editando ? (dados.phone || '') : (hospital?.phone || ''))} disabled={!editando} onChangeText={t => atualizarCampo('phone', apenasNumeros(t))} />
           </View>
           <View style={styles.half}>
             <Input label="Email" placeholder="Email" keyboardType="email-address" {...inputProps('email')} />
@@ -171,6 +183,7 @@ export const DetalheHospital = ({ route, navigation }: any) => {
               <Input
                 placeholder={tipo}
                 keyboardType="numeric"
+                maxLength={3}
                 value={editando ? String(dados.bloodStock?.[tipo] ?? '') : String(hospital?.bloodStock?.[tipo] ?? '')}
                 disabled={!editando}
                 onChangeText={text => atualizarSangue(tipo, text)}
@@ -183,7 +196,7 @@ export const DetalheHospital = ({ route, navigation }: any) => {
           {editando ? (
             <>
               <View style={{ flex: 1 }}>
-                <Button texto={isCadastro ? 'Criar' : 'Salvar'} onPress={handleSalvar} bg={theme.colors.primary} color="#fff" />
+                <Button texto={isCadastro ? 'Criar' : 'Salvar'} onPress={handleSalvar} bg={theme.colors.primary} color="#fff" disabled={!isFormValid()} />
               </View>
               {!isCadastro && (
                 <View style={{ flex: 1 }}>
