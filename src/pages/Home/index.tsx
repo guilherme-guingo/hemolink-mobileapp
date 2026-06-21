@@ -7,15 +7,23 @@ import {
 } from "react-native";
 import { Header } from "../../components/Hearder";
 import { styles } from "./style";
-import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
+import {
+  Feather,
+  FontAwesome,
+  FontAwesome5,
+  Ionicons,
+} from "@expo/vector-icons";
 import { Button } from "../../components/Button";
 import { BotaoAtalho } from "../../components/BotaoAtalho";
 
 import { Animated, Easing } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState } from "react";
+import { ModalDoacao } from "../../components/ModalDoacao";
 
 export const Home = () => {
+  const [modalVisivel, setModalVisivel] = useState(false);
+
   const rotacao = useRef(new Animated.Value(0)).current;
 
   const animarMao = useCallback(() => {
@@ -177,8 +185,7 @@ export const Home = () => {
             <Button
               texto="Ver local"
               fontSizeTexto={12}
-              paddingHorizontal={5}
-              paddingVertical={0}
+              paddingHorizontal={8}
               onPress={() => {}}
             />
           </View>
@@ -245,6 +252,41 @@ export const Home = () => {
               );
             }}
           />
+        </View>
+        <View style={styles.containerDoacao}>
+          <View>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: 10,
+              }}
+            >
+              <FontAwesome5
+                name="hand-holding-heart"
+                size={32}
+                color="#FFFFFF"
+              />
+            </View>
+            <Text style={styles.tituloApoie}>Apoie a HemoLink</Text>
+            <Text style={styles.subTituloApoie}>
+              Sua doação financeira nos ajuda a manter equipamento de ponta.
+            </Text>
+          </View>
+          <View style={styles.containerBotaoDoaco}>
+            <Button
+              texto="Fazer Doação"
+              onPress={() => setModalVisivel(true)}
+              bg="#FFFFFF"
+              color="#C8102E"
+              paddingHorizontal={100}
+            />
+            <ModalDoacao
+              visible={modalVisivel}
+              onClose={() => setModalVisivel(false)}
+              modalClose={() => setModalVisivel(false)}
+            />
+          </View>
         </View>
         <View style={{ marginTop: 50 }}></View>
       </ScrollView>
