@@ -1,18 +1,13 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Text, View } from "react-native";
+import { FontAwesome5, AntDesign } from "@expo/vector-icons";
+import Icon from "@expo/vector-icons/Ionicons";
+import { ParametrosRotasTabs } from "./navigation";
+import { styles } from "./style";
 import { Home } from "./pagesTestes/Home";
 import { Perfil } from "../pages/Perfil";
 import { Teste } from "./pagesTestes/Teste";
-import { ParametrosRotasTabs } from "./navigation";
-import { Text, View } from "react-native";
-import { styles } from "./style";
-import Icon from "@expo/vector-icons/Ionicons";
 import { Administrador } from "./pagesTestes/Administrador";
-
-import { ICONS } from "../icones";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 
 const Tabs = createBottomTabNavigator<ParametrosRotasTabs>();
 
@@ -25,7 +20,6 @@ export const TabsRouters = () => {
           backgroundColor: "#F6FAFF",
           height: 90,
           borderTopWidth: 1,
-          // elevation: 0,
           position: "absolute",
           borderColor: "#E5BDBB",
         },
@@ -41,16 +35,9 @@ export const TabsRouters = () => {
             <View
               style={[
                 styles.cardTabs,
-                focused
-                  ? { backgroundColor: "#C8102E" }
-                  : { backgroundColor: "" },
+                focused ? { backgroundColor: "#C8102E" } : { backgroundColor: "transparent" },
               ]}
             >
-              {/* <Icon
-                name={ICONS.home}
-                size={30}
-                // color={focused ? "#FDFCFE" : "#A4A3A3"}
-              /> */}
               <FontAwesome5
                 name="hospital"
                 size={27}
@@ -74,16 +61,9 @@ export const TabsRouters = () => {
             <View
               style={[
                 styles.cardTabs,
-                focused
-                  ? { backgroundColor: "#C8102E" }
-                  : { backgroundColor: "" },
+                focused ? { backgroundColor: "#C8102E" } : { backgroundColor: "transparent" },
               ]}
             >
-              {/* <Icon
-                name="home-outline"
-                size={30}
-                // color={focused ? "#FDFCFE" : "#A4A3A3"}
-              /> */}
               <AntDesign
                 name="home"
                 size={25}
@@ -98,7 +78,6 @@ export const TabsRouters = () => {
           ),
         }}
       />
-
       <Tabs.Screen
         name="TabsPerfil"
         component={Perfil}
@@ -108,16 +87,9 @@ export const TabsRouters = () => {
             <View
               style={[
                 styles.cardTabs,
-                focused
-                  ? { backgroundColor: "#C8102E" }
-                  : { backgroundColor: "" },
+                focused ? { backgroundColor: "#C8102E" } : { backgroundColor: "transparent" },
               ]}
             >
-              {/* <Icon
-                  name="home-outline"
-                  size={30}
-                  // color={focused ? "#FDFCFE" : "#A4A3A3"}
-                /> */}
               <FontAwesome5
                 name="user"
                 size={24}
@@ -132,7 +104,6 @@ export const TabsRouters = () => {
           ),
         }}
       />
-
       <Tabs.Screen
         name="TabsAdministrador"
         component={Administrador}
@@ -143,14 +114,9 @@ export const TabsRouters = () => {
               <Icon
                 name="home-outline"
                 size={30}
-                // color={focused ? "#FDFCFE" : "#A4A3A3"}
+                color={focused ? "#FFDAD8" : "#5C5F60"}
               />
-              <Text
-                style={[
-                  styles.textTabs,
-                  // { color: focused ? "white" : "#E4E4E4" },
-                ]}
-              >
+              <Text style={styles.textTabs}>
                 Administrador
               </Text>
             </View>

@@ -1,16 +1,19 @@
-export type ParametrosRotasStack = {
-  StackLogin: undefined;
-  StackHome: undefined;
-  StackCadastro: undefined;
-  StackCadastroHospital: undefined;
-  StackDetalheHospital: { id: string };
+export type ParametrosRotasAuth = {
+  Login: undefined;
+  Cadastro: undefined;
+};
+
+export type ParametrosRotasApp = {
+  AppHome: undefined;
+  DetalheHospital: { id: string };
+  CadastroHospital: undefined;
 };
 
 export type ParametrosRotasTabs = {
   TabsHome: undefined;
   TabsPerfil: undefined;
   TabsTeste: undefined;
-  TabsAdministrador:undefined;
+  TabsAdministrador: undefined;
 };
 
 export type ParametrosRotasDrawer = {
@@ -21,8 +24,6 @@ export type ParametrosRotasDrawer = {
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends ParametrosRotasDrawer {}
-    interface RootParamList extends ParametrosRotasStack {}
-    interface RootParamList extends ParametrosRotasTabs {}
+    interface RootParamList extends ParametrosRotasDrawer, ParametrosRotasTabs, ParametrosRotasAuth, ParametrosRotasApp {}
   }
 }

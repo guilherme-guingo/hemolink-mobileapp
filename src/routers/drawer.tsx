@@ -5,22 +5,20 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { TabsRouters } from "./tabs";
-import { Text, TouchableOpacity, View } from "react-native";
-import { Feather, MaterialIcons } from "@expo/vector-icons";
+import { Text, View } from "react-native";
+import { Feather } from "@expo/vector-icons";
 import { Perfil } from "../pages/Perfil";
 import { Teste } from "./pagesTestes/Teste";
 import { ParametrosRotasDrawer } from "./navigation";
 
 const Drawer = createDrawerNavigator<ParametrosRotasDrawer>();
 
-//talvez importar esse componente em um arquivo(segregar ele desse arquivo)
-const CustimizacaoDrower = (props: DrawerContentComponentProps) => {
+const CustomizacaoDrawer = (props: DrawerContentComponentProps) => {
   return (
     <DrawerContentScrollView {...props}>
       <View style={{ padding: 20, backgroundColor: "#f4f4f4" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>Menu</Text>
       </View>
-
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
   );
@@ -29,22 +27,10 @@ const CustimizacaoDrower = (props: DrawerContentComponentProps) => {
 export const DrawerRouters = () => {
   return (
     <Drawer.Navigator
-      screenOptions={() => ({
+      screenOptions={{
         headerShown: false,
-        // headerStyle: {
-        //   borderBottomWidth: 1,
-        //   borderBottomColor: "#E5BDBB",
-        // },
-        // headerLeft: () => (
-        //   <TouchableOpacity
-        //     onPress={() => navigation.openDrawer()}
-        //     style={{ marginLeft: 15 }}
-        //   >
-        //     <MaterialIcons name="menu" size={28} color="#9E001F" />
-        //   </TouchableOpacity>
-        // ),
-      })}
-      drawerContent={(props) => <CustimizacaoDrower {...props} />}
+      }}
+      drawerContent={(props) => <CustomizacaoDrawer {...props} />}
     >
       <Drawer.Screen
         name="DrawerHome"
