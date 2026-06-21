@@ -19,8 +19,11 @@ import { Animated, Easing } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useRef, useCallback, useState } from "react";
 import { ModalDoacao } from "../../components/ModalDoacao";
+import { useNotifications } from "../../hooks/useNotification";
+import { enviarNotificacaoBoasVindas } from "../../services/notifications";
 
 export const Home = () => {
+  useNotifications(5, enviarNotificacaoBoasVindas);
   const [modalVisivel, setModalVisivel] = useState(false);
 
   const rotacao = useRef(new Animated.Value(0)).current;

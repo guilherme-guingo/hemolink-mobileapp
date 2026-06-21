@@ -16,12 +16,15 @@ import { CardBaseCatalogo } from "../../components/CardBaseCatalogo";
 import { obterBloodStock } from "../../util/obterBloodStock";
 import { obterTiposSanguineosCriticos } from "../../util/obterTiposSanguineosCriticos";
 import { Button } from "../../components/Button";
+import { useNotifications } from "../../hooks/useNotification";
+import { enviarNotificacaoPromo } from "../../services/notifications";
 
 export const Catalogo = () => {
+  useNotifications(10, enviarNotificacaoPromo);
   const [hospitais, setHospitais] = useState<Hospital[]>([]);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [isDados, setIsDados] = useState<Boolean>(false);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState("");
 
   const [filtroSelecionado, setFiltroSelecionado] = useState<string>("1");
   const botoesFiltros = [
@@ -83,7 +86,7 @@ export const Catalogo = () => {
           />
         </View>
       </View>
-      
+
       <FlatList
         data={botoesFiltros}
         keyExtractor={(item) => item.id}
@@ -122,7 +125,7 @@ export const Catalogo = () => {
         <FlatList
           data={hospitaisFiltrados}
           showsVerticalScrollIndicator={false}
-          ListHeaderComponent={renderHeader} 
+          ListHeaderComponent={renderHeader}
           contentContainerStyle={{
             paddingBottom: 20,
             gap: 12,
