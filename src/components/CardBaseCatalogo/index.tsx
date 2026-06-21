@@ -12,8 +12,8 @@ import { Hospital } from "../../util/tipagemDadosApi";
 import { Ionicons } from "@expo/vector-icons";
 
 interface PropsCardBase {
-  // OBS: ANY POR ENQUANTO
-  source?: any;
+  // OBS: ANY POR ENQUANTO (mudei pra string, ve se ta bom dps)
+  source?: string;
   percentage?: number;
   state?: string;
   city?: string;
