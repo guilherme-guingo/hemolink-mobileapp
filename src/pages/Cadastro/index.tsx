@@ -11,6 +11,7 @@ import { apiAuth } from '../../services/api/api';
 
 import { formatCPF } from '../../util/formataCPF'; 
 import { apenasNumeros } from '../../util/apenasNumeros'; 
+import { formatPhone } from '../../util/formataTelefone'; 
 
 import Toast from 'react-native-toast-message';
 import { 
@@ -20,15 +21,28 @@ import {
   EyeIcon, 
   SignInContainer,
   SignInText,
-  SignInBoldText
+  SignInBoldText,
+  Label,        
+  BloodGrid,    
+  BloodChip,    
+  BloodText,    
 } from './styles';
+
+const tiposSanguineos = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as const;
 
 const cadastroSchema = z.object({
   nome: z.string().min(1, 'O nome é obrigatório.'),
   cpf: z.string()
     .min(1, 'O CPF é obrigatório.')
     .length(11, 'O CPF deve conter exatamente 11 números.'),
+  telefone: z.string()
+    .min(1, 'O telefone é obrigatório.')
+    .min(10, 'O telefone deve conter no mínimo 10 dígitos com DDD.')
+    .max(11, 'O telefone deve conter no máximo 11 dígitos.'),
   email: z.string().min(1, 'O e-mail é obrigatório.').email({ message: 'Insira um e-mail válido.' }),
+  tipoSanguineo: z.enum(tiposSanguineos, {
+    message: 'Selecione um tipo sanguíneo.',
+  }),
   senha: z.string().min(6, 'A senha deve ter no mínimo 6 caracteres.'),
   confirmarSenha: z.string().min(1, 'A confirmação de senha é obrigatória.'),
 }).refine((data) => data.senha === data.confirmarSenha, {
@@ -47,7 +61,7 @@ export function Cadastro() {
 
   const { control, handleSubmit, formState: { errors } } = useForm<CadastroFormData>({
     resolver: zodResolver(cadastroSchema),
-    defaultValues: { nome: '', cpf: '', email: '', senha: '', confirmarSenha: '' },
+    defaultValues: { nome: '', cpf: '', telefone: '', email: '', tipoSanguineo: '' as any, senha: '', confirmarSenha: '' },
   });
 
   async function handleCadastro(data: CadastroFormData) {
@@ -99,7 +113,6 @@ export function Cadastro() {
         </SignInContainer>
       }
     >
-
       <Controller
         control={control}
         name="nome"
@@ -122,13 +135,29 @@ export function Cadastro() {
         render={({ field: { onChange, value } }) => (
           <>
             <Input
-              placeholder="CPF (000.000.000-00)"
-              /* 🌟 ATUALIZADO: Agora usa as duas funções da pasta util em perfeita sintonia */
+              placeholder="CPF"
               onChangeText={(text) => onChange(apenasNumeros(text).slice(0, 11))}
               value={formatCPF(value || '')}
               hasError={!!errors.cpf}
             />
             {errors.cpf?.message && <ErrorText>{errors.cpf.message}</ErrorText>}
+          </>
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="telefone"
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Input
+              placeholder="Telefone"
+              keyboardType="phone-pad"
+              onChangeText={(text) => onChange(apenasNumeros(text).slice(0, 11))}
+              value={formatPhone(value || '')}
+              hasError={!!errors.telefone}
+            />
+            {errors.telefone?.message && <ErrorText>{errors.telefone.message}</ErrorText>}
           </>
         )}
       />
@@ -145,6 +174,31 @@ export function Cadastro() {
               hasError={!!errors.email}
             />
             {errors.email?.message && <ErrorText>{errors.email.message}</ErrorText>}
+          </>
+        )}
+      />
+
+      <Label>Tipo Sanguíneo</Label>
+      <Controller
+        control={control}
+        name="tipoSanguineo"
+        render={({ field: { onChange, value } }) => (
+          <>
+            <BloodGrid>
+              {tiposSanguineos.map((tipo) => (
+                <BloodChip
+                  key={tipo}
+                  activeOpacity={0.7}
+                  selected={value === tipo}
+                  onPress={() => onChange(tipo)}
+                >
+                  <BloodText selected={value === tipo}>{tipo}</BloodText>
+                </BloodChip>
+              ))}
+            </BloodGrid>
+            {errors.tipoSanguineo?.message && (
+              <ErrorText style={{ marginBottom: 12 }}>{errors.tipoSanguineo.message}</ErrorText>
+            )}
           </>
         )}
       />
