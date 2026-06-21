@@ -1,8 +1,6 @@
 import {
   FlatList,
-  ScrollView,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { styles } from "./style";
@@ -18,15 +16,16 @@ import { obterTiposSanguineosCriticos } from "../../util/obterTiposSanguineosCri
 import { Button } from "../../components/Button";
 import { useNotifications } from "../../hooks/useNotification";
 import { enviarNotificacaoPromo } from "../../services/notifications";
+import Toast from "react-native-toast-message";
 
 export const Catalogo = () => {
   useNotifications(10, enviarNotificacaoPromo);
   const [hospitais, setHospitais] = useState<Hospital[]>([]);
-  const [isLoading, setIsLoading] = useState<Boolean>(false);
-  const [isDados, setIsDados] = useState<Boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isDados, setIsDados] = useState<boolean>(false);
   const [filter, setFilter] = useState("");
-
   const [filtroSelecionado, setFiltroSelecionado] = useState<string>("1");
+
   const botoesFiltros = [
     { id: "1", nome: "Todos" },
     { id: "2", nome: "Urgência Crítica" },
@@ -36,16 +35,31 @@ export const Catalogo = () => {
 
   async function carregarInformacoes() {
     setIsLoading(true);
-    const response = await listarHospitais();
-    if (response.status !== 200) {
+
+    try {
+      const response = await listarHospitais();
+      if (response.status !== 200) {
+        setIsLoading(false);
+        Toast.show({
+          type: "error",
+          text1: "Erro ao carregar dados",
+          text2: "Não foi possível buscar a lista de hospitais.",
+        });
+        return;
+      }
+      setTimeout(() => {
+        setHospitais(response.data);
+        setIsLoading(false);
+        setIsDados(true);
+      }, 0);
+    } catch (error) {
       setIsLoading(false);
-      return;
+      Toast.show({
+        type: "error",
+        text1: "Falha na conexão",
+        text2: "Verifique sua internet ou tente novamente mais tarde.",
+      });
     }
-    setTimeout(() => {
-      setHospitais(response.data);
-      setIsLoading(false);
-      setIsDados(true);
-    }, 0);
   }
 
   useEffect(() => {
@@ -125,7 +139,7 @@ export const Catalogo = () => {
         <FlatList
           data={hospitaisFiltrados}
           showsVerticalScrollIndicator={false}
-          ListHeaderComponent={renderHeader}
+          ListHeaderComponent={renderHeader()}
           contentContainerStyle={{
             paddingBottom: 20,
             gap: 12,

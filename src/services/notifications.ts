@@ -3,7 +3,7 @@ import { Alert, Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
-// Configura como a notificação será exibidaquando o app estiver aberto
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowBanner: true,
@@ -13,7 +13,6 @@ Notifications.setNotificationHandler({
   }),
 });
 
-// funcao para permissão para o usuário receber notificações
 export async function pedirPermissaoNotificacao() {
   if (!Device.isDevice) {
     Alert.alert("Aviso", "Teste notificações em um dispositivo físico.");
@@ -48,17 +47,6 @@ export async function pedirPermissaoNotificacao() {
 
   return true;
 }
-
-// export async function enviarNotificacaoLocal() {
-//   await Notifications.scheduleNotificationAsync({
-//     content: {
-//       title: "Lembrete 🔔",
-//       body: "Notificacao instantanea",
-//       sound: true,
-//     },
-//     trigger: null,
-//   });
-// }
 
 export async function enviarNotificacaoPromo(segundos: number) {
   await Notifications.scheduleNotificationAsync({
