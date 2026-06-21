@@ -87,5 +87,11 @@ export const styles = StyleSheet.create({
   backButton:{
     top:15,
     left:-14
+  },
+  percent:{
+    position:'absolute', 
+    bottom:8,
+    right:10,
+    color:`${theme.colors.textBase}`
   }
 })
