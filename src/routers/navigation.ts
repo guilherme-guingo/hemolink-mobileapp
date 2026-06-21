@@ -17,9 +17,7 @@ export type ParametrosRotasTabs = {
 };
 
 export type ParametrosRotasDrawer = {
-  DrawerHome: undefined;
-  DrawerPerfil: undefined;
-  DrawerCatalogo: undefined;
+  DrawerHome: { screen: keyof ParametrosRotasTabs } | undefined;
 };
 
 declare global {

@@ -5,7 +5,6 @@ import {
   View,
   FlatList,
 } from "react-native";
-import { Header } from "../../components/Hearder";
 import { styles } from "./style";
 import {
   Feather,
@@ -121,7 +120,6 @@ export const Home = () => {
 
   return (
     <View style={styles.containerMain}>
-      <Header />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.containerTitulo}>
           <View style={styles.containerSaudacao}>

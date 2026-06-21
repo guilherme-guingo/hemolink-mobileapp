@@ -6,7 +6,6 @@ import {
   View,
 } from "react-native";
 import { styles } from "./style";
-import { Header } from "../../components/Hearder";
 import { Input } from "../../components/Input";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import { useEffect, useState } from "react";
@@ -92,7 +91,6 @@ export const Catalogo = () => {
         <EmptyState />
       ) : (
         <>
-          <Header />
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.containerTitulo}>
               <View style={styles.containerTituloFilho}>

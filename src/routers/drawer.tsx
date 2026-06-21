@@ -1,14 +1,13 @@
+import React from "react";
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
   DrawerContentScrollView,
-  DrawerItemList,
+  DrawerItem,
 } from "@react-navigation/drawer";
 import { TabsRouters } from "./tabs";
 import { Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { Perfil } from "../pages/Perfil";
-import { Catalogo } from "../pages/Catalogo";
 import { ParametrosRotasDrawer } from "./navigation";
 
 const Drawer = createDrawerNavigator<ParametrosRotasDrawer>();
@@ -19,7 +18,22 @@ const CustomizacaoDrawer = (props: DrawerContentComponentProps) => {
       <View style={{ padding: 20, backgroundColor: "#f4f4f4" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>Menu</Text>
       </View>
-      <DrawerItemList {...props} />
+      
+      <DrawerItem
+        label="Início"
+        icon={({ color, size }) => <Feather name="home" color={color} size={size} />}
+        onPress={() => props.navigation.navigate("DrawerHome", { screen: "TabsHome" })}
+      />
+      <DrawerItem
+        label="Catálogo"
+        icon={({ color, size }) => <Feather name="list" color={color} size={size} />}
+        onPress={() => props.navigation.navigate("DrawerHome", { screen: "TabsCatalogo" })}
+      />
+      <DrawerItem
+        label="Perfil"
+        icon={({ color, size }) => <Feather name="user" color={color} size={size} />}
+        onPress={() => props.navigation.navigate("DrawerHome", { screen: "TabsPerfil" })}
+      />
     </DrawerContentScrollView>
   );
 };
@@ -27,44 +41,10 @@ const CustomizacaoDrawer = (props: DrawerContentComponentProps) => {
 export const DrawerRouters = () => {
   return (
     <Drawer.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
+      screenOptions={{ headerShown: false }}
       drawerContent={(props) => <CustomizacaoDrawer {...props} />}
     >
-      <Drawer.Screen
-        name="DrawerHome"
-        component={TabsRouters}
-        options={{
-          drawerIcon: ({ color, size }) => (
-            <Feather name="home" color={color} size={size} />
-          ),
-          drawerLabel: "Início",
-          title: "",
-        }}
-      />
-      <Drawer.Screen
-        name="DrawerPerfil"
-        component={Perfil}
-        options={{
-          drawerIcon: ({ color, size }) => (
-            <Feather name="user" color={color} size={size} />
-          ),
-          drawerLabel: "Perfil",
-          title: "Perfil",
-        }}
-      />
-      <Drawer.Screen
-        name="DrawerCatalogo"
-        component={Catalogo}
-        options={{
-          drawerIcon: ({ color, size }) => (
-            <Feather name="list" color={color} size={size} />
-          ),
-          drawerLabel: "Catalogo",
-          title: "Catalogo",
-        }}
-      />
+      <Drawer.Screen name="DrawerHome" component={TabsRouters} />
     </Drawer.Navigator>
   );
 };

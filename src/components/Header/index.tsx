@@ -9,6 +9,7 @@ type DrawerProps = DrawerNavigationProp<ParametrosRotasDrawer>;
 
 export const Header = () => {
   const navigation = useNavigation<DrawerProps>();
+  
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.openDrawer()}>

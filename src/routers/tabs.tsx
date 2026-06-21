@@ -9,6 +9,7 @@ import { Perfil } from "../pages/Perfil";
 import { Catalogo } from "../pages/Catalogo";
 import { Administrador } from "../pages/Administrador";
 import { TabBarIcon } from "../components/TabBarIcon";
+import { Header } from "../components/Header";
 
 const Tabs = createBottomTabNavigator<ParametrosRotasTabs>();
 
@@ -16,7 +17,8 @@ export const TabsRouters = () => {
   return (
     <Tabs.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        header: () => <Header />,
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: "#F6FAFF",

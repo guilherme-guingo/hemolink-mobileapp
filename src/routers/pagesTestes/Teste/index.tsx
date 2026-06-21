@@ -1,7 +1,7 @@
 import { FlatList, Text, View } from "react-native";
 import { dadosVindoApiTeste } from "../Home/dadosVindoApiTeste";
 import { CardBase } from "../../../components/CardBaseCatalogo";
-import { Header } from "../../../components/Hearder";
+import { Header } from "../../../components/Header";
 
 export const Teste = () => {
   return (

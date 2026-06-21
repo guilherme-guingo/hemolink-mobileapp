@@ -14,7 +14,6 @@ import { obterTiposSanguineosCriticos } from '../../../util/obterTiposSanguineos
 import { filtrosHospital } from './helper'
 import { theme } from '../../../theme'
 import { Loading } from '../../../components/loading'
-import { Header } from '../../../components/Hearder'
 
 export const Administrador = () => {
     const navigation = useNavigation()
@@ -61,7 +60,6 @@ export const Administrador = () => {
 
     return (
         <View >
-            <Header />
             <ScrollView style={styles.container}>
 
                 <View style={styles.heroContainer}>
