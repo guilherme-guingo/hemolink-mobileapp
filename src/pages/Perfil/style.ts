@@ -126,6 +126,7 @@ export const styles = StyleSheet.create({
     alerta: {
         flexDirection: 'row',
         alignItems: 'flex-start',
+        gap: 12
     },
     alertaTexto: {
         flex: 1,
@@ -139,5 +140,23 @@ export const styles = StyleSheet.create({
         fontSize: 13,
         color: theme.colors.textTitle,
         lineHeight: 18,
+    },
+    cardAcao: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 16,
+        width: 130,
+        alignItems: 'center',
+        gap: 8,
+        shadowColor: '#000',
+        shadowOpacity: 0.05,
+        shadowRadius: 4,
+        elevation: 2,
+    },
+    cardAcaoTexto: {
+        fontSize: 13,
+        fontWeight: '500',
+        textAlign: 'center',
+        color: '#333',
     },
 });

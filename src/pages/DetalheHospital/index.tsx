@@ -14,6 +14,7 @@ import { formatCEP } from '../../util/formataCEP'
 import { formatCNPJ } from '../../util/formataCNPJ'
 import { apenasNumeros } from '../../util/apenasNumeros'
 import { BLOOD_VAZIO, TIPOS_SANGUE, UF_LIST } from './helper'
+import { ICONS } from '../../icones'
 
 
 export const DetalheHospital = ({ route, navigation }: any) => {
@@ -178,20 +179,29 @@ export const DetalheHospital = ({ route, navigation }: any) => {
 
         <Text style={styles.sectionTitle}>Estoque de Sangue</Text>
         <View style={styles.bloodGrid}>
-          {TIPOS_SANGUE.map(tipo => (
+          {TIPOS_SANGUE.map((tipo) => (
             <View key={tipo} style={styles.bloodInput}>
-              <Input
-                placeholder={tipo}
-                keyboardType="numeric"
-                maxLength={3}
-                value={editando ? String(dados.bloodStock?.[tipo] ?? '') : String(hospital?.bloodStock?.[tipo] ?? '')}
-                disabled={!editando}
-                onChangeText={text => atualizarSangue(tipo, text)}
-              />
+
+              <Text>
+                {tipo}
+              </Text>
+              <View style={{position:'relative', height:40}}>
+                <Input
+                  placeholder={tipo}
+                  keyboardType="numeric"
+                  maxLength={3}
+                  value={editando ? String(dados.bloodStock?.[tipo] ?? '') : String(hospital?.bloodStock?.[tipo] ?? '')}
+                  disabled={!editando}
+                  onChangeText={text => atualizarSangue(tipo, text)}
+
+                />
+                <Text style={styles.percent}>%</Text>
+              </View>
+
+
             </View>
           ))}
         </View>
-
         <View style={styles.buttonRow}>
           {editando ? (
             <>

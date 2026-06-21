@@ -19,8 +19,12 @@ import { Animated, Easing } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useRef, useCallback, useState } from "react";
 import { ModalDoacao } from "../../components/ModalDoacao";
+import { useNotifications } from "../../hooks/useNotification";
+import { enviarNotificacaoBoasVindas } from "../../services/notifications";
+import { compartilharApp } from "../../util/share";
 
 export const Home = () => {
+  useNotifications(5, enviarNotificacaoBoasVindas);
   const [modalVisivel, setModalVisivel] = useState(false);
 
   const rotacao = useRef(new Animated.Value(0)).current;
@@ -74,19 +78,28 @@ export const Home = () => {
       label: "Agendar",
       icon: "calendar-outline",
       corIcone: "#9E001F",
+      funcao: () => {},
     },
-    { id: "2", label: "Histórico", icon: "time-outline", corIcone: "#9E001F" },
+    {
+      id: "2",
+      label: "Histórico",
+      icon: "time-outline",
+      corIcone: "#9E001F",
+      funcao: () => {},
+    },
     {
       id: "3",
       label: "Carteirinha",
       icon: "card-outline",
       corIcone: "#9E001F",
+      funcao: () => {},
     },
     {
       id: "4",
       label: "Indicar",
       icon: "share-social-outline",
       corIcone: "#9E001F",
+      funcao: compartilharApp,
     },
   ] as const;
 
@@ -202,7 +215,7 @@ export const Home = () => {
                   <BotaoAtalho
                     label={item.label}
                     icon={item.icon}
-                    onPress={() => {}}
+                    onPress={() => item.funcao()}
                     corIcone={item.corIcone}
                   />
                 </View>

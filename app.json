@@ -2,22 +2,28 @@
   "expo": {
     "name": "hemolink-mobileapp",
     "slug": "hemolink-mobileapp",
+    "scheme": "hemolink-mobileapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "platforms": ["android", "web"], 
+    "platforms": [
+      "android",
+      "ios",
+      "web"
+    ],
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hemolink.mobileapp"
     },
     "android": {
-      "package": "com.hemolink.app",
+      "package": "com.hemolink.mobileapp",
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -30,8 +36,7 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-secure-store",
-      "@react-native-google-signin/google-signin"
+      "expo-secure-store"
     ]
   }
 }

@@ -14,10 +14,10 @@ export const styles = StyleSheet.create({
         height: 160
     },
     //===  HERO SECTION 
-    heroAdmImg: {
+    heroAdm: {
         width: '100%',
         height: 600,
-        objectFit: "cover",
+        backgroundColor: `${theme.colors.primary}`,
         position: 'absolute',
         top: -180
 

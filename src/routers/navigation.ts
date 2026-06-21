@@ -6,7 +6,7 @@ export type ParametrosRotasAuth = {
 export type ParametrosRotasApp = {
   AppHome: undefined;
   DetalheHospital: { id: string };
-  CadastroHospital: undefined;
+  CadastroHospital: { id?: string };
   VisualizarHospital: { id: string }
 };
 

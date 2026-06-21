@@ -1,4 +1,4 @@
-import { Text, View, Image, Modal, TouchableOpacity, ScrollView, TextInput } from "react-native"
+import { Text, View, Image, Modal, TouchableOpacity, ScrollView, TextInput, FlatList } from "react-native"
 import React, { useEffect, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker'
 import { Button } from "../../components/Button";
@@ -11,6 +11,8 @@ import { theme } from '../../theme';
 import { lerFoto, salvarFoto } from "../../util/fotoStorage";
 import { useAuth } from "../../contexts/AuthContext";
 import { lerDados, salvarDados } from "../../util/dadosEditaveis";
+import { Input } from "../../components/Input";
+import { acoesRapidas } from "./acoesRapidas";
 
 export const Perfil = () => {
   const [foto, setFoto] = useState<string | null>(null);
@@ -19,7 +21,7 @@ export const Perfil = () => {
   const [telefone, setTelefone] = useState('');
   const [modalEditarVisible, setModalEditarVisible] = useState(false);
   
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const carregarFoto = async () => {
@@ -81,12 +83,19 @@ export const Perfil = () => {
     setModalEditarVisible(false);
   };
 
+  const handleLogout = async () => {
+    await signOut();
+  }
 
 
 
 
   return(
-  <ScrollView style={styles.container}>
+<View style={{flex: 1}}>
+  <ScrollView 
+    style={styles.container}
+    contentContainerStyle={{ paddingBottom: 100 }}
+    >
     <LinearGradient
       colors={['#fff', '#ffcfcf']}
       style={styles.cardPerfil}
@@ -121,6 +130,21 @@ export const Perfil = () => {
         </View>
       </View>
     </LinearGradient>
+    
+    <FlatList
+      data={acoesRapidas}
+      keyExtractor={(item) => item.id}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 12, gap: 12 }}
+      renderItem={({ item }) => (
+        <TouchableOpacity style={styles.cardAcao}>
+            <Ionicons name={item.icone} size={28} color={theme.colors.primary} />
+            <Text style={styles.cardAcaoTexto}>{item.titulo}</Text>
+        </TouchableOpacity>
+    )}
+    />
+
     <View style={styles.tituloLinha}>
       <Text style={styles.tituloCard}>DADOS PESSOAIS</Text>
       <TouchableOpacity onPress= {() => setModalEditarVisible(true)}>
@@ -152,6 +176,12 @@ export const Perfil = () => {
         </View>
     </View>
     </CardBasePerfil>
+    <TouchableOpacity onPress={handleLogout} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 20 }}>
+        <Ionicons name="log-out-outline" size={20} color={theme.colors.primary} />
+        <Text style={{ color: theme.colors.primary, fontSize: 16, fontWeight: '600' }}>
+            Sair da Conta
+        </Text>
+    </TouchableOpacity>
       <Modal
       animationType="slide"
       transparent={true}
@@ -179,25 +209,16 @@ export const Perfil = () => {
           <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'flex-start' }}>
               <View style={{ backgroundColor: '#fff', padding: 20, borderTopLeftRadius: 16, borderTopRightRadius: 16, gap: 12 }}>
                   <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Editar Dados</Text>
-
-                  <Text>Nome</Text>
-                  <TextInput
-                      value={nome}
-                      onChangeText={setNome}
-                      style={{ borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 10 }}
-                  />     
-                  <Text>Telefone</Text>
-                  <TextInput
-                      value={telefone}
-                      onChangeText={setTelefone}
-                      style={{ borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 10 }}
-                      keyboardType="phone-pad"
-                  />
+                  <Text style={{ marginBottom: 4 }}>Nome</Text>
+                  <Input value={nome} onChangeText={setNome} />
+                  <Text style={{ marginBottom: 4 }}>Telefone</Text>
+                  <Input value={telefone} onChangeText={setTelefone} keyboardType="phone-pad" />
                   <Button texto="Salvar" onPress={salvarEdicao} />
                   <Button texto="Cancelar" onPress={() => setModalEditarVisible(false)} />
               </View>
           </View>
       </Modal>
     </ScrollView>
+</View>
   )
 }

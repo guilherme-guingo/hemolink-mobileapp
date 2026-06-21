@@ -14,8 +14,8 @@ interface ThemeProps {
   };
 }
 
-interface ChipProps {
-  isSelected: boolean;
+interface BloodChipProps {
+  selected: boolean;
 }
 
 export const ErrorText = styled.Text`
@@ -67,7 +67,8 @@ export const SignInBoldText = styled.Text`
   color: ${({ theme }: ThemeProps) => theme?.colors?.primary};
 `;
 
-export const SectionLabel = styled.Text`
+
+export const Label = styled.Text`
   font-size: 14px;
   font-weight: bold;
   color: ${({ theme }: ThemeProps) => theme?.colors?.textBase};
@@ -76,32 +77,33 @@ export const SectionLabel = styled.Text`
   padding-left: 4px;
 `;
 
-export const ChipsGrid = styled.View`
+export const BloodGrid = styled.View`
   width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 12px;
+  justify-content: space-between;
   margin-bottom: 4px;
 `;
 
-export const ChipButton = styled.TouchableOpacity<ChipProps>`
+export const BloodChip = styled.TouchableOpacity<BloodChipProps>`
   padding: 12px 0px;
   border-radius: 8px;
   border-width: 1px;
   align-items: center;
   justify-content: center;
-  width: 48%; 
+  width: 22%; 
+  margin-bottom: 10px;
   
-  border-color: ${({ isSelected, theme }) => 
-    isSelected ? (theme?.colors?.primary) : '#D1D5DB'};
+  border-color: ${({ selected, theme }) => 
+    selected ? (theme?.colors?.primary || '#DB4437') : '#D1D5DB'};
     
-  background-color: ${({ isSelected, theme }) => 
-    isSelected ? (theme?.colors?.primary) : 'transparent'};
+  background-color: ${({ selected, theme }) => 
+    selected ? (theme?.colors?.primary || '#DB4437') : 'transparent'};
 `;
 
-export const ChipText = styled.Text<ChipProps>`
+export const BloodText = styled.Text<BloodChipProps>`
   font-size: 14px;
   font-weight: bold;
-  color: ${({ isSelected, theme }) => 
-    isSelected ? '#FFFFFF' : (theme?.colors?.textBase)};
+  color: ${({ selected, theme }) => 
+    selected ? '#FFFFFF' : (theme?.colors?.textBase)};
 `;
