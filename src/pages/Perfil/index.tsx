@@ -12,7 +12,6 @@ import { lerFoto, salvarFoto } from "../../util/fotoStorage";
 import { useAuth } from "../../contexts/AuthContext";
 import { lerDados, salvarDados } from "../../util/dadosEditaveis";
 import { Input } from "../../components/Input";
-import { Header } from "../../components/Hearder";
 
 export const Perfil = () => {
   const [foto, setFoto] = useState<string | null>(null);
@@ -89,7 +88,6 @@ export const Perfil = () => {
 
   return(
 <View style={{flex: 1}}>
-  <Header />
   <ScrollView 
     style={styles.container}
     contentContainerStyle={{ paddingBottom: 100 }}
