@@ -20,7 +20,6 @@ export const styles = StyleSheet.create({
     padding: "5%",
     width: "90%",
     alignItems: "center",
-    // height: "80%"
   },
 
   modalHeader: {
@@ -29,7 +28,38 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     justifyContent: "space-between",
-    // borderColor: "pink",
-    // borderWidth: 2
+    marginBottom: 10
+  },
+
+  containerQrCode: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 40,
+    width: "100%",
+  },
+
+  containerPai: {
+    display: "flex",
+    backgroundColor: "#ECF5FE",
+    borderColor: "#EAD0CF",
+    borderWidth: 1,
+    padding: 48,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  containerFilho: {
+    backgroundColor: "#F1F1F1",
+    borderColor: "#ffffff",
+    borderWidth: 10,
+    borderRadius: 12,
+    padding: 24,
+  },
+
+  qrCodeDescricao: {
+    marginTop: 10,
+    justifyContent: "center",
+    alignItems: "center"
   },
 });
