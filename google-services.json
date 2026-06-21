@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "77714710968",
+    "project_id": "hemolink-d9dee",
+    "storage_bucket": "hemolink-d9dee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77714710968:android:520844e002592c58c4af4d",
+        "android_client_info": {
+          "package_name": "com.hemolink.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRtp9cqo0zjPNAfcuhEUEl5Cjv4Wg4xyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
