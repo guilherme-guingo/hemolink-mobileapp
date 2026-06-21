@@ -11,6 +11,8 @@ import { theme } from '../../theme';
 import { lerFoto, salvarFoto } from "../../util/fotoStorage";
 import { useAuth } from "../../contexts/AuthContext";
 import { lerDados, salvarDados } from "../../util/dadosEditaveis";
+import { Input } from "../../components/Input";
+import { Header } from "../../components/Hearder";
 
 export const Perfil = () => {
   const [foto, setFoto] = useState<string | null>(null);
@@ -86,7 +88,12 @@ export const Perfil = () => {
 
 
   return(
-  <ScrollView style={styles.container}>
+<View style={{flex: 1}}>
+  <Header />
+  <ScrollView 
+    style={styles.container}
+    contentContainerStyle={{ paddingBottom: 100 }}
+    >
     <LinearGradient
       colors={['#fff', '#ffcfcf']}
       style={styles.cardPerfil}
@@ -179,25 +186,16 @@ export const Perfil = () => {
           <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'flex-start' }}>
               <View style={{ backgroundColor: '#fff', padding: 20, borderTopLeftRadius: 16, borderTopRightRadius: 16, gap: 12 }}>
                   <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Editar Dados</Text>
-
-                  <Text>Nome</Text>
-                  <TextInput
-                      value={nome}
-                      onChangeText={setNome}
-                      style={{ borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 10 }}
-                  />     
-                  <Text>Telefone</Text>
-                  <TextInput
-                      value={telefone}
-                      onChangeText={setTelefone}
-                      style={{ borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 10 }}
-                      keyboardType="phone-pad"
-                  />
+                  <Text style={{ marginBottom: 4 }}>Nome</Text>
+                  <Input value={nome} onChangeText={setNome} />
+                  <Text style={{ marginBottom: 4 }}>Telefone</Text>
+                  <Input value={telefone} onChangeText={setTelefone} keyboardType="phone-pad" />
                   <Button texto="Salvar" onPress={salvarEdicao} />
                   <Button texto="Cancelar" onPress={() => setModalEditarVisible(false)} />
               </View>
           </View>
       </Modal>
     </ScrollView>
+</View>
   )
 }

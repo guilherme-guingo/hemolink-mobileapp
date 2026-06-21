@@ -126,6 +126,7 @@ export const styles = StyleSheet.create({
     alerta: {
         flexDirection: 'row',
         alignItems: 'flex-start',
+        gap: 12
     },
     alertaTexto: {
         flex: 1,
