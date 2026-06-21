@@ -7,8 +7,10 @@ import { TouchableOpacity } from 'react-native';
 
 import { Input } from '../../../components/Input';
 import { AuthFormWrapper } from '../../../components/AuthFormWrapper';
-
 import { apiAuth } from '../../../services/api/api'; 
+
+import { formatCPF } from '../../../util/formataCPF'; 
+import { apenasNumeros } from '../../../util/apenasNumeros'; 
 
 import Toast from 'react-native-toast-message';
 import { 
@@ -28,7 +30,7 @@ const cadastroSchema = z.object({
     .length(11, 'O CPF deve conter exatamente 11 números.'),
   email: z.string().min(1, 'O e-mail é obrigatório.').email({ message: 'Insira um e-mail válido.' }),
   senha: z.string().min(6, 'A senha deve ter no mínimo 6 caracteres.'),
-  confirmarSenha: z.string().min(1, 'A confirmation de senha é obrigatória.'),
+  confirmarSenha: z.string().min(1, 'A confirmação de senha é obrigatória.'),
 }).refine((data) => data.senha === data.confirmarSenha, {
   message: "As senhas não coincidem.",
   path: ["confirmarSenha"], 
@@ -97,6 +99,7 @@ export function Cadastro() {
         </SignInContainer>
       }
     >
+
       <Controller
         control={control}
         name="nome"
@@ -119,13 +122,10 @@ export function Cadastro() {
         render={({ field: { onChange, value } }) => (
           <>
             <Input
-              placeholder="CPF (apenas 11 números)"
-              onChangeText={(text) => {
-                const apenasNumeros = text.replace(/\D/g, ''); 
-                const limitado = apenasNumeros.slice(0, 11);
-                onChange(limitado);
-              }}
-              value={value || ''}
+              placeholder="CPF (000.000.000-00)"
+              /* 🌟 ATUALIZADO: Agora usa as duas funções da pasta util em perfeita sintonia */
+              onChangeText={(text) => onChange(apenasNumeros(text).slice(0, 11))}
+              value={formatCPF(value || '')}
               hasError={!!errors.cpf}
             />
             {errors.cpf?.message && <ErrorText>{errors.cpf.message}</ErrorText>}
