@@ -86,7 +86,7 @@ export function Login() {
       console.error(error);
       Toast.show({
         type: 'error',
-        text1: 'Falha no Login Social',
+        text1: 'Falha no Login',
         text2: 'Não foi possível autenticar com a conta Google.',
       });
     } finally {
@@ -107,7 +107,6 @@ export function Login() {
       onSubmit={handleSubmit(handleLogin)}
       footer={
         <>
-          
           <GoogleButton
             activeOpacity={0.8}
             disabled={loading || loadingGoogle}
