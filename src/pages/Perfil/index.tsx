@@ -1,4 +1,4 @@
-import { Text, View, Image, Modal, TouchableOpacity, ScrollView, TextInput } from "react-native"
+import { Text, View, Image, Modal, TouchableOpacity, ScrollView, TextInput, FlatList } from "react-native"
 import React, { useEffect, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker'
 import { Button } from "../../components/Button";
@@ -12,6 +12,7 @@ import { lerFoto, salvarFoto } from "../../util/fotoStorage";
 import { useAuth } from "../../contexts/AuthContext";
 import { lerDados, salvarDados } from "../../util/dadosEditaveis";
 import { Input } from "../../components/Input";
+import { acoesRapidas } from "./acoesRapidas";
 
 export const Perfil = () => {
   const [foto, setFoto] = useState<string | null>(null);
@@ -20,7 +21,7 @@ export const Perfil = () => {
   const [telefone, setTelefone] = useState('');
   const [modalEditarVisible, setModalEditarVisible] = useState(false);
   
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const carregarFoto = async () => {
@@ -82,6 +83,9 @@ export const Perfil = () => {
     setModalEditarVisible(false);
   };
 
+  const handleLogout = async () => {
+    await signOut();
+  }
 
 
 
@@ -126,6 +130,21 @@ export const Perfil = () => {
         </View>
       </View>
     </LinearGradient>
+    
+    <FlatList
+      data={acoesRapidas}
+      keyExtractor={(item) => item.id}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 12, gap: 12 }}
+      renderItem={({ item }) => (
+        <TouchableOpacity style={styles.cardAcao}>
+            <Ionicons name={item.icone} size={28} color={theme.colors.primary} />
+            <Text style={styles.cardAcaoTexto}>{item.titulo}</Text>
+        </TouchableOpacity>
+    )}
+    />
+
     <View style={styles.tituloLinha}>
       <Text style={styles.tituloCard}>DADOS PESSOAIS</Text>
       <TouchableOpacity onPress= {() => setModalEditarVisible(true)}>
@@ -157,6 +176,12 @@ export const Perfil = () => {
         </View>
     </View>
     </CardBasePerfil>
+    <TouchableOpacity onPress={handleLogout} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 20 }}>
+        <Ionicons name="log-out-outline" size={20} color={theme.colors.primary} />
+        <Text style={{ color: theme.colors.primary, fontSize: 16, fontWeight: '600' }}>
+            Sair da Conta
+        </Text>
+    </TouchableOpacity>
       <Modal
       animationType="slide"
       transparent={true}
