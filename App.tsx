@@ -11,6 +11,8 @@ import Toast from "react-native-toast-message";
 import { AuthProvider, useAuth } from "./src/contexts/AuthContext";
 import { Catalogo } from "./src/pages/Catalogo";
 import { Home } from "./src/pages/Home";
+import { Perfil } from "./src/pages/Perfil";
+import { FavoritosProvider } from "./src/contexts/FavoritosContext";
 
 //teste perfil abrir camera e escolher da galeria
 //export default function App() {
@@ -26,12 +28,15 @@ export default function App() {
 
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <NavigationContainer>
-          <Routers />
-          {/* <Catalogo /> */}
-          {/* <Home /> */}
-          <Toast />
-        </NavigationContainer>
+        <FavoritosProvider>
+          <NavigationContainer>
+            <Routers />
+            {/* <Catalogo /> */}
+            {/* <Home /> */}
+            {/*<Perfil/> */}
+            <Toast />
+          </NavigationContainer>
+        </FavoritosProvider>
       </AuthProvider>
     </ThemeProvider>
   );

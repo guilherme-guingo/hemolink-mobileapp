@@ -1,5 +1,5 @@
 import { Text, View, Image, Modal, TouchableOpacity, ScrollView } from "react-native"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker'
 import { Button } from "../../components/Button";
 import { styles } from './style';
@@ -8,10 +8,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { CardBasePerfil } from "../../components/CardBasePerfil";
 import { InfoPerfil } from "../../components/InfoPerfil";
 import { theme } from '../../theme'; 
+import { lerFavoritos, salvarFavoritos } from "../../util/favoritosStorage";
 
 export const Perfil = () => {
   const [foto, setFoto] = useState<string | null>(null);
-  
   const [modalVisible, setModalVisible] = useState(false)
 
   const escolherDaGaleria = async () => {

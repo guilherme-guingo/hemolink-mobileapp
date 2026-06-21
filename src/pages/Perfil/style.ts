@@ -122,5 +122,22 @@ export const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: 'bold',
         color: theme.colors.primary,
-    }
+    },
+    alerta: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+    },
+    alertaTexto: {
+        flex: 1,
+    },
+    alertaTitulo: {
+        fontSize: 13,
+        fontWeight: 'bold',
+        color: theme.colors.primary,
+    },
+    alertaDescricao: {
+        fontSize: 13,
+        color: theme.colors.textTitle,
+        lineHeight: 18,
+    },
 });
