@@ -1,4 +1,4 @@
-import { BloodStock } from "../../../services/HospitalService";
+import { BloodStock } from "../../services/HospitalService";
 
 export const TIPOS_SANGUE: (keyof BloodStock)[] = [
     'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'

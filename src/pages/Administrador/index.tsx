@@ -5,7 +5,7 @@ import { Hospital, listarHospitais } from '../../services/HospitalService'
 import { listarDoadores } from '../../services/DoadorService'
 import { CardBaseCatalogo as CardBase } from '../../components/CardBaseCatalogo'
 import { styles } from './style'
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { EvilIcons, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import admHero from '../../assets/imagens/admHero.webp'
 import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
@@ -51,12 +51,12 @@ export const Administrador = () => {
         color: string;
         icon: IconName;
     };
-    
+
     const data: StatItem[] = [
-        { id: '1', title: 'Hospitais', value: hospitais.length, color: '#0ecf00', icon: 'medical-services' },
+        { id: '1', title: 'Hospitais', value: hospitais.length, color: '#CE636D', icon: 'medical-services' },
         { id: '2', title: 'Doadores', value: qtDoadores, color: '#CE636D', icon: 'people' },
-        { id: '3', title: 'Doacoes em aberto', value: 45, color: '#EBC964', icon: 'pending-actions' },
-        { id: '4', title: 'Doações recebidas', value: 110, color: '#4592E5', icon: 'check-circle' },
+        { id: '3', title: 'Doacoes em aberto', value: 45, color: '#CE636D', icon: 'pending-actions' },
+        { id: '4', title: 'Doações recebidas', value: 110, color: '#CE636D', icon: 'check-circle' },
     ];
 
     return (
@@ -65,11 +65,10 @@ export const Administrador = () => {
             <ScrollView style={styles.container}>
 
                 <View style={styles.heroContainer}>
-                    <Image
-                        style={styles.heroAdmImg}
-                        source={admHero}
-                        resizeMode='contain'
-                    />
+                    <View
+                        style={styles.heroAdm}>
+
+                    </View>
                     <View style={{ marginLeft: 40, marginTop: 20 }}>
                         <Text style={styles.HeroTitle}>Bem-Vindo(a),{"\n"}
                             <Text style={{ fontWeight: 'bold' }}>
@@ -95,8 +94,8 @@ export const Administrador = () => {
                                     <MaterialIcons
                                         name={item.icon}
                                         size={16}
-                                        color={item.color}
-                                        style={[styles.cardIcon, { backgroundColor: `${item.color}40` }]}
+                                        color={`${theme.colors.primary}`}
+                                        style={[styles.cardIcon, { backgroundColor: `${theme.colors.primary}40` }]}
                                     />
 
                                     <Text style={styles.cardValue}>{item.value}</Text>
@@ -123,11 +122,11 @@ export const Administrador = () => {
                                         key={item.id}
                                         icon={item.icon}
                                         texto={item.texto}
-                                        bg={ativo ? item.bg : '#fff'}
-                                        color={ativo ? item.color : item.disableColor}
+                                        bg={ativo ? `${theme.colors.primary}` : `${theme.colors.terciary}`}
+                                        color={ativo ? `${theme.colors.terciary}` : `${theme.colors.primary}`}
                                         borderRadius={item.borderRadius}
                                         borderWidth={1}
-                                        borderColor={item.borderColor}
+                                        borderColor={`${theme.colors.primary}`}
                                         onPress={() => setFiltroAtivo(item.action)}
                                     />
                                 )
@@ -143,16 +142,18 @@ export const Administrador = () => {
                             value={filter}
                             placeholder='Digite o nome do Hospital'
                             onChangeText={setFilter}
+                            iconLeft={<EvilIcons name="search" size={24} color="black"   />}
                         />
                     </View>
-
                     <Button
                         texto=''
-                        onPress={() => navigation.navigate('StackCadastroHospital')}
+                        onPress={() => navigation.navigate('CadastroHospital', {})}
                         height={46}
                         width={46}
                         icon='add'
                     />
+
+
                 </View>
 
                 {!loading ?
@@ -184,7 +185,7 @@ export const Administrador = () => {
                                     <TouchableOpacity
                                         key={item.id}
                                         style={{ width: '100%', marginBottom: 8 }}
-                                        onPress={() => navigation.navigate('StackDetalheHospital', { id: item.id })}
+                                        onPress={() => navigation.navigate('CadastroHospital', { id: item.id })}
                                     >
                                         <CardBase
                                             percentage={percentage}
