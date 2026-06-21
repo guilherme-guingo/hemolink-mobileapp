@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 
 interface ThemeProps {
   theme?: {
@@ -69,3 +69,40 @@ export const SignUpBoldText = styled.Text`
   font-weight: bold;
   color: ${({ theme }: ThemeProps) => theme?.colors?.primary};
 `;
+
+export const GoogleButton = styled.TouchableOpacity.attrs(() => ({
+  style: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
+    elevation: 1, 
+  },
+}))`
+  background-color: #FFFFFF;
+  border-width: 1px;
+  border-color: #E2E8F0;
+  border-radius: 8px;
+  flex-direction: row;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 5px;
+`;
+
+export const GoogleIcon = styled(FontAwesome5).attrs(() => ({
+  name: 'google',
+  size: 16,
+  color: '#DB4437',
+}))`
+  margin-right: 10px;
+`;
+
+export const GoogleButtonText = styled.Text`
+  color: #4A5568;
+  font-weight: 600;
+  font-size: 15px;
+`;
+
