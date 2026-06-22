@@ -8,11 +8,9 @@ import {
   ViewStyle,
 } from "react-native";
 import { styles } from "./style";
-import { Hospital } from "../../util/tipagemDadosApi";
 import { Ionicons } from "@expo/vector-icons";
 
 interface PropsCardBase {
-  // OBS: ANY POR ENQUANTO (mudei pra string, ve se ta bom dps)
   source?: string;
   percentage?: number;
   state?: string;
@@ -34,9 +32,7 @@ export const CardBaseCatalogo = ({
   percentage = 0,
   tipoCritico = "Nenhum",
   sourceStyleAdd,
-  cityStyleAdd,
   nameStyleAdd,
-  stateStyleAdd,
   cardStyleView,
 }: PropsCardBase) => {
   const getStatusInfo = (percentage: number) => {
@@ -100,11 +96,6 @@ export const CardBaseCatalogo = ({
           />
         </View>
       </View>
-      {/* {/* {name && <Text style={[nameStyleAdd]}>{name}</Text>}
-      <View style={styles.containerEndereco}>
-        {city && <Text style={[cityStyleAdd]}>{city}</Text>}
-        {state && <Text style={[stateStyleAdd]}>{state}</Text>}
-      </View> */}
     </View>
   );
 };

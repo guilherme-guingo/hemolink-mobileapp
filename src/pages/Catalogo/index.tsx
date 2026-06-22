@@ -76,7 +76,7 @@ export const Catalogo = () => {
           text2: "Não foi possível atualizar a lista.",
         });
       }
-    } catch (error) {
+    } catch {
       Toast.show({
         type: "error",
         text1: "Falha na atualização",
@@ -133,7 +133,7 @@ export const Catalogo = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           paddingHorizontal: 16,
-          paddingVertical: 10,
+          marginBottom: 20,
         }}
         renderItem={({ item }) => {
           const ativo = item.id === filtroSelecionado;
@@ -173,11 +173,9 @@ export const Catalogo = () => {
           }}
           keyExtractor={(item) => String(item.id)}
           ListEmptyComponent={() => (
-            <View style={{justifyContent: "center", alignItems: "center"}}>
-              <EmptyState/>
-              <Text>
-                Nenhum hospital encontrado para os filtros aplicados.
-              </Text>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <EmptyState />
+              <Text>Nenhum hospital encontrado para os filtros aplicados.</Text>
             </View>
           )}
           renderItem={({ item }) => {
@@ -206,6 +204,7 @@ export const Catalogo = () => {
           }}
         />
       )}
+      <View style={{ marginTop: 70 }}></View>
     </View>
   );
 };

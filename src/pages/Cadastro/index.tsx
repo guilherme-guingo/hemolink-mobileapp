@@ -86,8 +86,6 @@ export function Cadastro() {
       navigation.navigate('Login');
 
     } catch (error: any) {
-      console.error('Erro ao cadastrar doador no MockAPI:', error?.response?.data || error.message);
-      
       Toast.show({
         type: 'error',
         text1: 'Erro no cadastro',

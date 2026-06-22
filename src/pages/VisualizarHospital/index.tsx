@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Text, ActivityIndicator, Alert } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ParametrosRotasApp } from '../../routers/navigation';
-import { Hospital, buscarHospital } from '../../services/HospitalService';
-import { CardDetalheHospital } from '../../components/CardDetalheHospital';
-import { Button } from '../../components/Button';
-import { BackButton } from '../../components/BackButton';
-import { theme } from '../../theme';
-import { styles } from './style';
-import MapView, { Marker } from 'react-native-maps';
+import React, { useEffect, useState } from "react";
+import { View, ScrollView, Text, ActivityIndicator, Alert } from "react-native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ParametrosRotasApp } from "../../routers/navigation";
+import { Hospital, buscarHospital } from "../../services/HospitalService";
+import { CardDetalheHospital } from "../../components/CardDetalheHospital";
+import { Button } from "../../components/Button";
+import { BackButton } from "../../components/BackButton";
+import { theme } from "../../theme";
+import { styles } from "./style";
+import MapView, { Marker } from "react-native-maps";
+import Toast from "react-native-toast-message";
 
-type Props = NativeStackScreenProps<ParametrosRotasApp, 'VisualizarHospital'>;
+type Props = NativeStackScreenProps<ParametrosRotasApp, "VisualizarHospital">;
 
 interface Coordenadas {
   latitude: number;
@@ -21,17 +22,23 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
   const id = route.params?.id;
   const [hospital, setHospital] = useState<Hospital | null>(null);
   const [loading, setLoading] = useState(true);
-  
+
   const [coordenadas, setCoordenadas] = useState<Coordenadas | null>(null);
 
   useEffect(() => {
     buscarHospital(id)
-      .then(res => {
+      .then((res) => {
         const hospitalData = res.data;
         setHospital(hospitalData);
         buscarCoordenadasPorEndereco(hospitalData);
       })
-      .catch(console.error)
+      .catch(() => {
+        Toast.show({
+          type: "error",
+          text1: "Erro ao carregar detalhes",
+          text2: "Não foi possível carregar as informações deste hospital.",
+        });
+      })
       .finally(() => setLoading(false));
   }, [id]);
 
@@ -39,11 +46,11 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
     try {
       const enderecoBusca = `${hosp.address}, ${hosp.city}, ${hosp.state}, Brasil`;
       const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(enderecoBusca)}&limit=1`;
-      
+
       const response = await fetch(url, {
         headers: {
-          'User-Agent': 'HemoLinkApp/1.0', 
-        }
+          "User-Agent": "HemoLinkApp/1.0",
+        },
       });
       const data = await response.json();
 
@@ -55,8 +62,12 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
       } else {
         buscarCoordenadasPorCEP(hosp.cep);
       }
-    } catch (error) {
-      console.error("Erro ao buscar coordenadas:", error);
+    } catch{
+      Toast.show({
+        type: "error",
+        text1: "Erro",
+        text2: "Erro ao buscar coordenadas",
+      });
     }
   };
 
@@ -64,7 +75,7 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
     try {
       const url = `https://nominatim.openstreetmap.org/search?format=json&postalcode=${cep}&country=Brazil&limit=1`;
       const response = await fetch(url, {
-        headers: { 'User-Agent': 'HemoLinkApp/1.0' }
+        headers: { "User-Agent": "HemoLinkApp/1.0" },
       });
       const data = await response.json();
 
@@ -74,17 +85,19 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
           longitude: parseFloat(data[0].lon),
         });
       }
-    } catch (error) {
-      console.error("Erro ao buscar coordenadas por CEP:", error);
+    } catch {
+      Toast.show({
+        type: "error",
+        text1: "Erro",
+        text2: "Erro ao buscar credenciais do mapa",
+      });
     }
   };
 
   const handleFavoritar = () => {
-    Alert.alert(
-      "Sucesso",
-      "Hospital adicionado aos favoritos com sucesso!",
-      [{ text: "OK", style: "default" }]
-    );
+    Alert.alert("Sucesso", "Hospital adicionado aos favoritos com sucesso!", [
+      { text: "OK", style: "default" },
+    ]);
   };
 
   if (loading) {
@@ -114,7 +127,7 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
 
         <View style={styles.mapContainer}>
           <Text style={styles.mapTitle}>Localização</Text>
-          
+
           {coordenadas ? (
             <MapView
               style={styles.map}
@@ -137,25 +150,27 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
           ) : (
             <View style={[styles.map, styles.center]}>
               <ActivityIndicator color={theme.colors.primary} />
-              <Text style={{ marginTop: 10, color: '#666' }}>Carregando mapa...</Text>
+              <Text style={{ marginTop: 10, color: "#666" }}>
+                Carregando mapa...
+              </Text>
             </View>
           )}
         </View>
 
         <View style={styles.acoes}>
-          <Button 
-            texto="Agendar Doação" 
-            onPress={() => console.log('Ir para Formulário')} 
-            bg={theme.colors.primary} 
-            color="#fff" 
+          <Button
+            texto="Agendar Doação"
+            onPress={() => console.log("Ir para Formulário")}
+            bg={theme.colors.primary}
+            color="#fff"
           />
           <View style={{ height: 10 }} />
-          <Button 
-            texto="Favoritar Hospital" 
-            onPress={handleFavoritar} 
-            bg="#fff" 
-            color={theme.colors.primary} 
-            borderColor={theme.colors.primary} 
+          <Button
+            texto="Favoritar Hospital"
+            onPress={handleFavoritar}
+            bg="#fff"
+            color={theme.colors.primary}
+            borderColor={theme.colors.primary}
           />
         </View>
       </ScrollView>

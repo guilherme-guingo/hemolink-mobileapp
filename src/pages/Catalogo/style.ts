@@ -28,7 +28,6 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     color: "#141D23",
-    // lineHeight: 1.2,
     marginBottom: 5,
     fontWeight: 700,
   },
@@ -39,11 +38,10 @@ export const styles = StyleSheet.create({
   },
 
   containerInput: {
-    marginVertical: 15,
+    marginVertical: 10,
   },
 
   containerCard: {
-    padding: "5%",
-    paddingTop: 20,
+    paddingHorizontal: "5%",
   },
 });

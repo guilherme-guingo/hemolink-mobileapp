@@ -57,8 +57,7 @@ export function Login() {
         text2: 'Bem-vindo ao HemoLink!',
       });
 
-    } catch (error) {
-      console.error(error);
+    } catch{
       Toast.show({
         type: 'error',
         text1: 'Falha na autenticação',
@@ -84,8 +83,7 @@ export function Login() {
         });
 
       }
-    } catch (error) {
-      console.error(error);
+    } catch {
       Toast.show({
         type: 'error',
         text1: 'Falha no Login',

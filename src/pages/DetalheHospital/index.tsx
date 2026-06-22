@@ -15,6 +15,7 @@ import { formatCNPJ } from '../../util/formataCNPJ'
 import { apenasNumeros } from '../../util/apenasNumeros'
 import { BLOOD_VAZIO, TIPOS_SANGUE, UF_LIST } from './helper'
 import { ICONS } from '../../icones'
+import Toast from 'react-native-toast-message'
 
 
 export const DetalheHospital = ({ route, navigation }: any) => {
@@ -33,32 +34,55 @@ export const DetalheHospital = ({ route, navigation }: any) => {
       buscarHospital(id).then(res => {
         setHospital(res.data)
         setDados(res.data)
-      }).catch(console.error)
+      }).catch(() => {
+      Toast.show({
+        type: "error",
+        text1: "Erro durante a persistencia dos dados",
+      });
+})
     }
   }, [id])
 
-  function handleSalvar() {
-    if (isCadastro) {
-      cadastrarHospital(dados as Omit<Hospital, 'id'>)
-        .then(() => navigation.goBack())
-        .catch(console.error)
-    } else {
-      atualizarHospital(id, dados)
-        .then(res => {
-          setHospital(res.data)
-          setDados(res.data)
-          setEditando(false)
-        })
-        .catch(console.error)
-    }
+function handleSalvar() {
+  if (isCadastro) {
+    cadastrarHospital(dados as Omit<Hospital, 'id'>)
+      .then(() => navigation.goBack())
+      .catch(() => {
+        Toast.show({
+          type: "error",
+          text1: "Erro ao cadastrar",
+          text2: "Não foi possível salvar o novo hospital.",
+        });
+      });
+  } else {
+    atualizarHospital(id, dados)
+      .then((res) => {
+        setHospital(res.data);
+        setDados(res.data);
+        setEditando(false);
+      })
+      .catch(() => {
+        Toast.show({
+          type: "error",
+          text1: "Erro ao atualizar",
+          text2: "Não foi possível salvar as alterações do hospital.",
+        });
+      });
   }
+}
 
   function handleExcluir() {
     Alert.alert('Excluir hospital', 'Tem certeza que deseja excluir este hospital?', [
       { text: 'Cancelar', style: 'cancel' },
       {
         text: 'Excluir', style: 'destructive', onPress: () => {
-          excluirHospital(id).then(() => navigation.goBack()).catch(console.error)
+          excluirHospital(id).then(() => navigation.goBack()).catch(() => {
+            Toast.show({
+              type: "error",
+              text1: "Erro ao excluir",
+              text2: "Não foi possível remover este hospital no momento.",
+            });
+          });
         }
       },
     ])
