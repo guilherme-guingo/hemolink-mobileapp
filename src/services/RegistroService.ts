@@ -13,7 +13,9 @@ export interface RegistroDoacao {
   horario?: string;
   dataPedido?: string;
   criadoEm: string;
+  doacaoRealizada?: boolean;
 }
+
 
 export async function enviarRegistro(registro: Omit<RegistroDoacao, 'id'>) {
   try {
@@ -23,3 +25,13 @@ export async function enviarRegistro(registro: Omit<RegistroDoacao, 'id'>) {
     throw error;
   }
 }
+
+export async function listarRegistros() {
+  try {
+    const response = await registroApi.get<RegistroDoacao[]>('/registros');
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
