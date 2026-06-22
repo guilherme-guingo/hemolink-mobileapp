@@ -32,8 +32,6 @@ export const Catalogo = () => {
   const botoesFiltros = [
     { id: "1", nome: "Todos" },
     { id: "2", nome: "Urgência Crítica" },
-    { id: "3", nome: "Mais Próximos" },
-    { id: "4", nome: "Favoritos" },
   ];
 
   async function carregarInformacoes() {

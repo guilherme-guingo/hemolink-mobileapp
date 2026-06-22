@@ -14,11 +14,14 @@ import { lerDados, salvarDados } from "../../util/dadosEditaveis";
 import { Input } from "../../components/Input";
 import { acoesRapidas } from "./acoesRapidas";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { listarRegistros } from "../../services/RegistroService";
 
 export const Perfil = () => {
   const [foto, setFoto] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [nome, setNome] = useState<string>('');
+  const [pontos, setPontos] = useState<number>(0)
+  const [vidasSalvas, setVidasSalvas] = useState<number>(0)
   const [telefone, setTelefone] = useState<string>('');
   const [modalEditarVisible, setModalEditarVisible] = useState<boolean>(false);
 
@@ -40,8 +43,16 @@ export const Perfil = () => {
         setNome(user?.nome || "");
         setTelefone(user?.telefone || "Não cadastrado");
       }
+      setPontos(user?.pontos ?? 0);
     };
     carregarDados();
+
+    listarRegistros()
+      .then((res) => {
+        const total = res.data.filter((r) => r.nome === user?.nome).length
+        setVidasSalvas(total * 4)
+      })
+      .catch(() => setVidasSalvas(0))
   }, [user]);
 
 
@@ -108,9 +119,6 @@ export const Perfil = () => {
     }
   }
 
-
-
-
   return (
     <View style={styles.tela}>
       <ScrollView
@@ -118,7 +126,7 @@ export const Perfil = () => {
         contentContainerStyle={styles.scrollConteudo}
       >
         <LinearGradient
-          colors={['#fff', '#ffcfcf']}
+          colors={['#FFF5F5', '#FFE0E0']}
           style={styles.cardPerfil}
         >
           <View style={styles.perfilTopo}>
@@ -142,11 +150,11 @@ export const Perfil = () => {
 
           <View style={styles.estatisticas}>
             <View style={styles.estatItem}>
-              <Text style={styles.estatNumero}>12</Text>
+              <Text style={styles.estatNumero}>{vidasSalvas}</Text>
               <Text style={styles.estatLabel}>VIDAS SALVAS</Text>
             </View>
             <View style={styles.estatItem}>
-              <Text style={styles.estatNumero}>850</Text>
+              <Text style={styles.estatNumero}>{pontos || 0}</Text>
               <Text style={styles.estatLabel}>PONTOS</Text>
             </View>
           </View>
@@ -159,10 +167,17 @@ export const Perfil = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.listaAcoes}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.cardAcao}>
-              <Ionicons name={item.icone} size={28} color={theme.colors.primary} />
-              <Text style={styles.cardAcaoTexto}>{item.titulo}</Text>
-            </TouchableOpacity>
+           <View style={styles.cardAcao}>
+              <View style={styles.headerCard}>
+                <Ionicons name={item.icone} size={18} color="#C8102E" />
+                <Text style={styles.tagTexto}>{item.titulo.toUpperCase()}</Text>
+              </View>
+              <Text style={styles.tituloDicas}>{item.textoPrincipal}</Text>
+              <Text style={styles.destaqueCard}>{item.textoDestaque}</Text>
+              {item.rodape && (
+                <Text style={styles.rodapeCard}>{item.rodape}</Text>
+              )}
+            </View>
           )}
         />
 

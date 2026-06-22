@@ -24,7 +24,7 @@ export const TabsRouters = () => {
         header: () => <Header />,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: "#F6FAFF",
+          backgroundColor: "#ffffff",
           height: 90,
           borderTopWidth: 1,
           borderColor: "#E5BDBB",

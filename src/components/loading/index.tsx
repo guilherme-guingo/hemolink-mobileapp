@@ -1,7 +1,3 @@
-// Nota: Exemplo de implementacao quando tiver os dados vindos da API:
-
-//  import { Loading } from "../../../components/loading";
-//  <Loading size="large" messageStyle={{ fontSize: 20, justifyContent: 'center', alignItems: 'center' }} />
 
 import {
   Text,
@@ -19,7 +15,6 @@ interface PropsLoading {
   containerStyleAdd?: ViewStyle;
 }
 
-// OBS: O componente começa com estilos próprios de cor e message, caso não passem nada de props para ele 
 export const Loading = ({
   size,
   color = "blue",

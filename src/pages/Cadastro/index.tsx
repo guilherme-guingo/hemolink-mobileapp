@@ -4,7 +4,8 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 import { Input } from '../../components/Input';
 import { AuthFormWrapper } from '../../components/AuthFormWrapper';
@@ -16,19 +17,7 @@ import { formatPhone } from '../../util/formataTelefone';
 import { ParametrosRotasAuth } from '../../routers/navigation';
 
 import Toast from 'react-native-toast-message';
-import { 
-  ErrorText, 
-  PasswordContainer, 
-  ToggleButton, 
-  EyeIcon, 
-  SignInContainer,
-  SignInText,
-  SignInBoldText,
-  Label,        
-  BloodGrid,    
-  BloodChip,    
-  BloodText,    
-} from './styles';
+import { styles } from './styles';
 
 const tiposSanguineos = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as const;
 
@@ -115,12 +104,12 @@ export function Cadastro() {
       isLoading={loading}
       onSubmit={handleSubmit(handleCadastro)}
       footer={
-        <SignInContainer>
-          <SignInText>Já tem uma conta? </SignInText>
+        <View style={styles.signInContainer}>
+          <Text style={styles.signInText}>Já tem uma conta? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')} activeOpacity={0.7}>
-            <SignInBoldText>Faça Login</SignInBoldText>
+            <Text style={styles.signInBoldText}>Faça Login</Text>
           </TouchableOpacity>
-        </SignInContainer>
+        </View>
       }
     >
       <Controller
@@ -134,7 +123,7 @@ export function Cadastro() {
               value={value || ''}
               hasError={!!errors.nome}
             />
-            {errors.nome?.message && <ErrorText>{errors.nome.message}</ErrorText>}
+            {errors.nome?.message && <Text style={styles.errorText}>{errors.nome.message}</Text>}
           </>
         )}
       />
@@ -150,7 +139,7 @@ export function Cadastro() {
               value={formatCPF(value || '')}
               hasError={!!errors.cpf}
             />
-            {errors.cpf?.message && <ErrorText>{errors.cpf.message}</ErrorText>}
+            {errors.cpf?.message && <Text style={styles.errorText}>{errors.cpf.message}</Text>}
           </>
         )}
       />
@@ -167,7 +156,7 @@ export function Cadastro() {
               value={formatPhone(value || '')}
               hasError={!!errors.telefone}
             />
-            {errors.telefone?.message && <ErrorText>{errors.telefone.message}</ErrorText>}
+            {errors.telefone?.message && <Text style={styles.errorText}>{errors.telefone.message}</Text>}
           </>
         )}
       />
@@ -186,31 +175,31 @@ export function Cadastro() {
               hasError={!!errors.email}
               
             />
-            {errors.email?.message && <ErrorText>{errors.email.message}</ErrorText>}
+            {errors.email?.message && <Text style={styles.errorText}>{errors.email.message}</Text>}
           </>
         )}
       />
 
-      <Label>Tipo Sanguíneo</Label>
+      <Text style={styles.label}>Tipo Sanguíneo</Text>
       <Controller
         control={control}
         name="tipoSanguineo"
         render={({ field: { onChange, value } }) => (
           <>
-            <BloodGrid>
+            <View style={styles.bloodGrid}>
               {tiposSanguineos.map((tipo) => (
-                <BloodChip
+                <TouchableOpacity
                   key={tipo}
                   activeOpacity={0.7}
-                  selected={value === tipo}
                   onPress={() => onChange(tipo)}
+                  style={[styles.bloodChip, value === tipo ? styles.bloodChipSelected : styles.bloodChipUnselected]}
                 >
-                  <BloodText selected={value === tipo}>{tipo}</BloodText>
-                </BloodChip>
+                  <Text style={[styles.bloodText, value === tipo ? styles.bloodTextSelected : styles.bloodTextUnselected]}>{tipo}</Text>
+                </TouchableOpacity>
               ))}
-            </BloodGrid>
+            </View>
             {errors.tipoSanguineo?.message && (
-              <ErrorText style={{ marginBottom: 12 }}>{errors.tipoSanguineo.message}</ErrorText>
+              <Text style={[styles.errorText, { marginBottom: 12 }]}>{errors.tipoSanguineo.message}</Text>
             )}
           </>
         )}
@@ -221,7 +210,7 @@ export function Cadastro() {
         name="senha"
         render={({ field: { onChange, value } }) => (
           <>
-            <PasswordContainer>
+            <View style={styles.passwordContainer}>
               <Input
                 placeholder="Senha"
                 secureTextEntry={securePassword}
@@ -229,11 +218,11 @@ export function Cadastro() {
                 value={value || ''}
                 hasError={!!errors.senha}
               />
-              <ToggleButton onPress={() => setSecurePassword(!securePassword)}>
-                <EyeIcon name={securePassword ? 'eye' : 'eye-off'} />
-              </ToggleButton>
-            </PasswordContainer>
-            {errors.senha?.message && <ErrorText>{errors.senha.message}</ErrorText>}
+              <TouchableOpacity style={styles.toggleButton} onPress={() => setSecurePassword(!securePassword)}>
+                <Ionicons name={securePassword ? 'eye' : 'eye-off'} size={22} color="#8E8E93" style={styles.eyeIcon} />
+              </TouchableOpacity>
+            </View>
+            {errors.senha?.message && <Text style={styles.errorText}>{errors.senha.message}</Text>}
           </>
         )}
       />
@@ -243,7 +232,7 @@ export function Cadastro() {
         name="confirmarSenha"
         render={({ field: { onChange, value } }) => (
           <>
-            <PasswordContainer>
+            <View style={styles.passwordContainer}>
               <Input
                 placeholder="Confirmar senha"
                 secureTextEntry={secureConfirmPassword}
@@ -251,11 +240,11 @@ export function Cadastro() {
                 value={value || ''}
                 hasError={!!errors.confirmarSenha}
               />
-              <ToggleButton onPress={() => setSecureConfirmPassword(!secureConfirmPassword)}>
-                <EyeIcon name={secureConfirmPassword ? 'eye' : 'eye-off'} />
-              </ToggleButton>
-            </PasswordContainer>
-            {errors.confirmarSenha?.message && <ErrorText>{errors.confirmarSenha.message}</ErrorText>}
+              <TouchableOpacity style={styles.toggleButton} onPress={() => setSecureConfirmPassword(!secureConfirmPassword)}>
+                <Ionicons name={secureConfirmPassword ? 'eye' : 'eye-off'} size={22} color="#8E8E93" style={styles.eyeIcon} />
+              </TouchableOpacity>
+            </View>
+            {errors.confirmarSenha?.message && <Text style={styles.errorText}>{errors.confirmarSenha.message}</Text>}
           </>
         )}
       />

@@ -7,6 +7,7 @@ export interface User {
     id: string;
     nome: string;
     cpf: string;
+    pontos:number;
     tipoSanguineo: string
     email: string;
     tipo: 'doador' | 'admin';

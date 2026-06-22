@@ -4,7 +4,8 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { TouchableOpacity, ActivityIndicator } from 'react-native'; 
+import { TouchableOpacity, View, Text } from 'react-native'; 
+import { Ionicons } from '@expo/vector-icons';
 
 import { Input } from '../../components/Input';
 import { AuthFormWrapper } from '../../components/AuthFormWrapper';
@@ -13,15 +14,7 @@ import { ParametrosRotasAuth } from '../../routers/navigation';
 import Toast from 'react-native-toast-message';
 import { useAuth } from '../../contexts/AuthContext';
 
-import {
-  ErrorText,
-  PasswordContainer,
-  ToggleButton,
-  EyeIcon,
-  SignUpContainer,
-  SignUpText,
-  SignUpBoldText, 
-} from './styles';
+import { styles } from './styles';
 
 const loginSchema = z.object({
   email: z.string().min(1, 'O e-mail é obrigatório.').email({ message: 'Insira um e-mail válido.' }),
@@ -80,12 +73,12 @@ export function Login() {
       onSubmit={handleSubmit(handleLogin)}
       footer={
         <>
-          <SignUpContainer>
-            <SignUpText>Não tem uma conta? </SignUpText>
+          <View style={styles.signUpContainer}>
+            <Text style={styles.signUpText}>Não tem uma conta? </Text>
             <TouchableOpacity onPress={handleNavigateToRegister} activeOpacity={0.7}>
-              <SignUpBoldText>Cadastre-se</SignUpBoldText>
+              <Text style={styles.signUpBoldText}>Cadastre-se</Text>
             </TouchableOpacity>
-          </SignUpContainer>
+          </View>
         </>
       }
     >
@@ -100,7 +93,7 @@ export function Login() {
               value={value || ''}
               hasError={!!errors.email}
             />
-            {errors.email?.message && <ErrorText>{errors.email.message}</ErrorText>}
+            {errors.email?.message && <Text style={styles.errorText}>{errors.email.message}</Text>}
           </>
         )}
       />
@@ -110,7 +103,7 @@ export function Login() {
         name="password"
         render={({ field: { onChange, value } }) => (
           <>
-            <PasswordContainer>
+            <View style={styles.passwordContainer}>
               <Input
                 placeholder="Senha"
                 secureTextEntry={secureMode}
@@ -118,11 +111,11 @@ export function Login() {
                 value={value || ''}
                 hasError={!!errors.password}
               />
-              <ToggleButton onPress={() => setSecureMode(!secureMode)}>
-                <EyeIcon name={secureMode ? 'eye' : 'eye-off'} />
-              </ToggleButton>
-            </PasswordContainer>
-            {errors.password?.message && <ErrorText>{errors.password.message}</ErrorText>}
+              <TouchableOpacity style={styles.toggleButton} onPress={() => setSecureMode(!secureMode)}>
+                <Ionicons name={secureMode ? 'eye' : 'eye-off'} size={22} color="#8E8E93" style={styles.eyeIcon} />
+              </TouchableOpacity>
+            </View>
+            {errors.password?.message && <Text style={styles.errorText}>{errors.password.message}</Text>}
           </>
         )}
       />

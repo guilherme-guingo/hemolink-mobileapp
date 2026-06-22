@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import Toast from 'react-native-toast-message';
@@ -10,7 +10,7 @@ type Props = {
   onChange: (id: string) => void;
 };
 
-export function HospitalPicker({ value, onChange }: Props): JSX.Element {
+export function HospitalPicker({ value, onChange }: Props): ReactElement {
   const [hospitais, setHospitais] = useState<Hospital[]>([]);
   const [loading, setLoading] = useState(true);
 

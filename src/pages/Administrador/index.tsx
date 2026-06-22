@@ -16,6 +16,7 @@ import { obterTiposSanguineosCriticos } from '../../util/obterTiposSanguineosCri
 import { filtrosHospital } from './helper'
 import { theme } from '../../theme'
 import { Loading } from '../../components/loading'
+import { enviarRegistro, listarRegistros } from '../../services/RegistroService'
 
 export const Administrador = () => {
     type NavegacaoProps = NativeStackNavigationProp<ParametrosRotasApp>
@@ -25,6 +26,8 @@ export const Administrador = () => {
     const [filter, setFilter] = useState('')
     const [filtroAtivo, setFiltroAtivo] = useState('todos')
     const [loading, setLoading] = useState(false)
+    const [doacoesAbertas, setDoacoesAbertas] = useState(0)
+    const [doacoesRecebidas, setDoacoesRecebidas] = useState(0)
 
     //Render dos Cards
     useFocusEffect(
@@ -33,11 +36,15 @@ export const Administrador = () => {
 
             Promise.all([
                 listarHospitais(),
-                listarDoadores()
+                listarDoadores(),
+                listarRegistros(),
             ])
-                .then(([hospitaisRes, doadoresRes]) => {
+                .then(([hospitaisRes, doadoresRes, registrosRes]) => {
+                    const data = registrosRes.data as { doacaoRealizada?: boolean }[]
                     setHospitais(hospitaisRes.data)
                     setQtDoadores(doadoresRes.data.length)
+                    setDoacoesAbertas(data.filter((r) => !r.doacaoRealizada).length)
+                    setDoacoesRecebidas(data.filter((r) => r.doacaoRealizada).length)
                 })
                 .catch(err => console.log(err))
                 .finally(() => setLoading(false))
@@ -57,8 +64,8 @@ export const Administrador = () => {
     const data: StatItem[] = [
         { id: '1', title: 'Hospitais', value: hospitais.length, color: '#CE636D', icon: 'medical-services' },
         { id: '2', title: 'Doadores', value: qtDoadores, color: '#CE636D', icon: 'people' },
-        { id: '3', title: 'Doacoes em aberto', value: 45, color: '#CE636D', icon: 'pending-actions' },
-        { id: '4', title: 'Doações recebidas', value: 110, color: '#CE636D', icon: 'check-circle' },
+        { id: '3', title: 'Doacoes em aberto', value: doacoesAbertas, color: '#CE636D', icon: 'pending-actions' },
+        { id: '4', title: 'Doações recebidas', value: doacoesRecebidas, color: '#CE636D', icon: 'check-circle' },
     ];
 
     return (

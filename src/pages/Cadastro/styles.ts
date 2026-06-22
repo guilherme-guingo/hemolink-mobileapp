@@ -1,109 +1,102 @@
-import styled from 'styled-components/native';
-import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet } from 'react-native';
 
-interface ThemeProps {
-  theme?: {
-    colors?: {
-      primary?: string;
-      background?: string;
-      textBase?: string;
-      status?: {
-        danger?: string;
-      };
-    };
-  };
-}
+export const styles = StyleSheet.create({
+  errorText: {
+    fontSize: 12,
+    color: '#C8102E',
+    marginTop: 4,
+    marginBottom: 12,
+    paddingLeft: 4,
+  },
 
-interface BloodChipProps {
-  selected: boolean;
-}
+  passwordContainer: {
+    width: '100%',
+    position: 'relative',
+    justifyContent: 'center',
+  },
 
-export const ErrorText = styled.Text`
-  font-size: 12px;
-  color: ${({ theme }: ThemeProps) => theme?.colors?.status?.danger};
-  margin-top: 4px;
-  margin-bottom: 12px;
-  padding-left: 4px;
-`;
+  toggleButton: {
+    position: 'absolute',
+    right: 16,
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+    marginTop: -6,
+  },
 
-export const PasswordContainer = styled.View`
-  width: 100%;
-  position: relative;
-  justify-content: center;
-`;
+  eyeIcon: {
+    color: '#8E8E93',
+    fontSize: 22,
+  },
 
-export const ToggleButton = styled.TouchableOpacity`
-  position: absolute;
-  right: 16px;
-  top: 0;
-  bottom: 0;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  margin-top: -6px; 
-`;
+  signInContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 8,
+    marginBottom: 16,
+  },
 
-export const EyeIcon = styled(Ionicons).attrs(() => ({
-  color: '#8E8E93', 
-  size: 22,
-}))``;
+  signInText: {
+    fontSize: 14,
+    color: '#141D23',
+  },
 
-export const SignInContainer = styled.View`
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top: 8px;
-  margin-bottom: 16px;
-`;
+  signInBoldText: {
+    fontWeight: '700',
+    color: '#C8102E',
+  },
 
-export const SignInText = styled.Text`
-  font-size: 14px;
-  color: ${({ theme }: ThemeProps) => theme?.colors?.textBase};
-`;
+  label: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#141D23',
+    marginTop: 12,
+    marginBottom: 8,
+    paddingLeft: 4,
+  },
 
-export const SignInBoldText = styled.Text`
-  font-weight: bold;
-  color: ${({ theme }: ThemeProps) => theme?.colors?.primary};
-`;
+  bloodGrid: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
 
+  bloodChip: {
+    paddingVertical: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '22%',
+    marginBottom: 10,
+  },
 
-export const Label = styled.Text`
-  font-size: 14px;
-  font-weight: bold;
-  color: ${({ theme }: ThemeProps) => theme?.colors?.textBase};
-  margin-top: 12px;
-  margin-bottom: 8px;
-  padding-left: 4px;
-`;
+  bloodChipSelected: {
+    borderColor: '#DB4437',
+    backgroundColor: '#DB4437',
+  },
 
-export const BloodGrid = styled.View`
-  width: 100%;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 4px;
-`;
+  bloodChipUnselected: {
+    borderColor: '#D1D5DB',
+    backgroundColor: 'transparent',
+  },
 
-export const BloodChip = styled.TouchableOpacity<BloodChipProps>`
-  padding: 12px 0px;
-  border-radius: 8px;
-  border-width: 1px;
-  align-items: center;
-  justify-content: center;
-  width: 22%; 
-  margin-bottom: 10px;
-  
-  border-color: ${({ selected, theme }) => 
-    selected ? (theme?.colors?.primary || '#DB4437') : '#D1D5DB'};
-    
-  background-color: ${({ selected, theme }) => 
-    selected ? (theme?.colors?.primary || '#DB4437') : 'transparent'};
-`;
+  bloodText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
 
-export const BloodText = styled.Text<BloodChipProps>`
-  font-size: 14px;
-  font-weight: bold;
-  color: ${({ selected, theme }) => 
-    selected ? '#FFFFFF' : (theme?.colors?.textBase)};
-`;
+  bloodTextSelected: {
+    color: '#FFFFFF',
+  },
+
+  bloodTextUnselected: {
+    color: '#141D23',
+  },
+});

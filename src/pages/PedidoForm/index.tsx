@@ -13,11 +13,14 @@ import { enviarRegistro } from '../../services/RegistroService';
 import { jaEnviou, marcarComoEnviado } from '../../util/bloqueioEnvio';
 import { theme } from '../../theme';
 import { styles } from './style';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ParametrosRotasAuth } from '../../routers/navigation';
 
 const TIPOS_SANGUINEOS = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
 export function PedidoForm(): React.JSX.Element {
-  const navigation = useNavigation<any>();
+  type NavegacaoProps = NativeStackNavigationProp<ParametrosRotasAuth>;
+  const navigation = useNavigation<NavegacaoProps>();
   const { user } = useAuth();
 
   const [hospitalId, setHospitalId] = useState('');
