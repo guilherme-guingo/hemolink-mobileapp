@@ -51,6 +51,7 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
         <View style={styles.acoes}>
           <Button 
             texto="Agendar Doação" 
+            //Icaro, faz a boa depois
             onPress={() => console.log('Ir para Formulário')} 
             bg={theme.colors.primary} 
             color="#fff" 
@@ -58,6 +59,7 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
           <View style={{ height: 10 }} />
           <Button 
             texto="Favoritar Hospital" 
+            //deve ficar por isso mesmo
             onPress={() => console.log('Salvar nos favoritos')} 
             bg="#fff" 
             color={theme.colors.primary} 

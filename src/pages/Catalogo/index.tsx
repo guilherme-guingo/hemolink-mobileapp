@@ -2,6 +2,7 @@ import {
   FlatList,
   Text,
   View,
+  TouchableOpacity,
 } from "react-native";
 import { styles } from "./style";
 import { Input } from "../../components/Input";
@@ -17,9 +18,15 @@ import { Button } from "../../components/Button";
 import { useNotifications } from "../../hooks/useNotification";
 import { enviarNotificacaoPromo } from "../../services/notifications";
 import Toast from "react-native-toast-message";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ParametrosRotasApp } from "../../routers/navigation";
+
+type NavegacaoProps = NativeStackNavigationProp<ParametrosRotasApp>;
 
 export const Catalogo = () => {
   useNotifications(10, enviarNotificacaoPromo);
+  const navigation = useNavigation<NavegacaoProps>();
   const [hospitais, setHospitais] = useState<Hospital[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDados, setIsDados] = useState<boolean>(false);
@@ -149,7 +156,11 @@ export const Catalogo = () => {
             const { percentage } = obterBloodStock(item.bloodStock);
             const tipoCritico = obterTiposSanguineosCriticos(item.bloodStock);
             return (
-              <View style={styles.containerCard}>
+              <TouchableOpacity 
+                style={styles.containerCard}
+                onPress={() => navigation.navigate("VisualizarHospital", { id: String(item.id) })}
+                activeOpacity={0.8}
+              >
                 <CardBaseCatalogo
                   tipoCritico={tipoCritico}
                   percentage={percentage}
@@ -158,7 +169,7 @@ export const Catalogo = () => {
                   state={item.state}
                   name={item.name}
                 />
-              </View>
+              </TouchableOpacity>
             );
           }}
         />
