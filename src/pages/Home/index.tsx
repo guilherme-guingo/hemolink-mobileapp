@@ -259,7 +259,7 @@ export const Home = () => {
                     texto="Ver local"
                     fontSizeTexto={12}
                     paddingHorizontal={8}
-                    onPress={() => { }}
+                    onPress={() => navigation.navigate("VisualizarHospital", { id: String(proximoRegistro.unidadeId) })}
                   />
                 </View>
               </View>
