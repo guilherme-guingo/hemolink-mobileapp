@@ -47,6 +47,8 @@ export const Home = () => {
   const [proximoRegistro, setProximoRegistro] = useState<(RegistroDoacao & { doacaoRealizada: boolean }) | null>(null)
   const [hospitalNome, setHospitalNome] = useState("")
 
+  const [temAgendamento, setTemAgendamento] = useState(false)
+
 
   const rotacao = useRef<Animated.Value>(new Animated.Value(0)).current;
 
@@ -54,6 +56,7 @@ export const Home = () => {
     useCallback(() => {
       setProximoRegistro(null)
       setHospitalNome("")
+      setTemAgendamento(false)
 
       listarRegistros()
         .then((registrosRes) => {
@@ -62,10 +65,11 @@ export const Home = () => {
           setDoacoesAno(data.filter((r) => new Date(r.criadoEm).getFullYear() === new Date().getFullYear()).length)
 
           const pendentes = data
-            .filter((r) => !r.doacaoRealizada && r.ultimaDoacao)
+            .filter((r) => r.cpf === user?.cpf && !r.doacaoRealizada && r.ultimaDoacao)
             .sort((a, b) => new Date(b.criadoEm).getTime() - new Date(a.criadoEm).getTime())
 
           if (pendentes.length > 0) {
+            setTemAgendamento(true)
             const ultimo = pendentes[0]
             setProximoRegistro(ultimo)
             buscarHospital(ultimo.unidadeId)
@@ -75,7 +79,7 @@ export const Home = () => {
         })
         .catch(err => console.log(err))
 
-    }, [])
+    }, [user?.cpf])
   )
 
 
@@ -207,7 +211,7 @@ export const Home = () => {
 
         <View style={styles.cardContainer}>
           <View style={styles.headerContainer}>
-            <Text style={styles.headerTitulo}>SEU IMPACTO</Text>
+            <Text style={styles.headerTitulo}>NOSSO IMPACTO</Text>
             <FontAwesome name="heart" size={24} color="#FFDAD8" />
           </View>
           <View style={styles.statusContainer}>
@@ -222,40 +226,45 @@ export const Home = () => {
           </View>
         </View>
 
-        <View style={styles.containerAgendamento}>
-          <View>
-            <Text style={styles.tituloAgendamento}>PRÓXIMO AGENDAMENTO</Text>
-          </View>
-          <View style={styles.containerCalendario}>
-            <TouchableOpacity>
-              <Feather name="calendar" size={16} color="#C8102E" />
-            </TouchableOpacity>
-          </View>
-        </View>
+
+
 
         {proximoRegistro && (() => {
           const data = new Date(proximoRegistro.ultimaDoacao!)
           const meses = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"]
           const diasSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"]
           return (
-            <View style={styles.containerAgenda}>
-              <View style={styles.data}>
-                <Text style={styles.dataMes}>{meses[data.getMonth()]}</Text>
-                <Text style={styles.dataDia}>{data.getDate()}</Text>
+            <>
+              <View style={styles.containerAgendamento}>
+                <View>
+                  <Text style={styles.tituloAgendamento}>PRÓXIMO AGENDAMENTO</Text>
+                </View>
+                <View style={styles.containerCalendario}>
+                  <TouchableOpacity>
+                    <Feather name="calendar" size={16} color="#C8102E" />
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={styles.containerData}>
-                <Text style={styles.tituloData}>{hospitalNome}</Text>
-                <Text style={styles.subtituloData}>{diasSemana[data.getDay()]} as {proximoRegistro.horario}</Text>
+              <View style={styles.containerAgenda}>
+                <View style={styles.data}>
+                  <Text style={styles.dataMes}>{meses[data.getMonth()]}</Text>
+                  <Text style={styles.dataDia}>{data.getDate()}</Text>
+                </View>
+                <View style={styles.containerData}>
+                  <Text style={styles.tituloData}>{hospitalNome}</Text>
+                  <Text style={styles.subtituloData}>{diasSemana[data.getDay()]} as {proximoRegistro.horario}</Text>
+                </View>
+                <View style={styles.containerBotao}>
+                  <Button
+                    texto="Ver local"
+                    fontSizeTexto={12}
+                    paddingHorizontal={8}
+                    onPress={() => { }}
+                  />
+                </View>
               </View>
-              <View style={styles.containerBotao}>
-                <Button
-                  texto="Ver local"
-                  fontSizeTexto={12}
-                  paddingHorizontal={8}
-                  onPress={() => { }}
-                />
-              </View>
-            </View>
+            </>
+
           )
         })()}
 
