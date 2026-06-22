@@ -1,59 +1,41 @@
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
+import { theme } from '../../theme';
 
-interface ThemeProps {
-  theme?: {
-    colors?: {
-      primary?: string;
-      background?: string;
-      textBase?: string;
-    };
-  };
-}
-
-export const Container = styled.KeyboardAvoidingView`
-  flex: 1;
-  background-color: ${({ theme }: ThemeProps) => theme?.colors?.background };
-  padding: 0 24px;
-  justify-content: center;
-`;
-
-export const ScrollContainer = styled.ScrollView.attrs({
-  contentContainerStyle: {
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+    paddingHorizontal: 24,
+    justifyContent: 'center',
+  },
+  scrollContainer: {
+    width: '100%',
+  },
+  scrollContent: {
     flexGrow: 1,
     justifyContent: 'center',
   },
-  showsVerticalScrollIndicator: false,
-})`
-  width: 100%;
-`;
-
-export const Header = styled.View`
-  align-items: center;
-  margin-bottom: 40px;
-`;
-
-export const Title = styled.Text`
-  font-size: 32px;
-  font-weight: bold;
-  color: ${({ theme }: ThemeProps) => theme?.colors?.primary};
-  margin-bottom: 8px;
-`;
-
-export const Subtitle = styled.Text`
-  font-size: 16px;
-  color: ${({ theme }: ThemeProps) => theme?.colors?.textBase};
-  text-align: center;
-`;
-
-export const Form = styled.View`
-  width: 100%;
-  gap: 4px;
-`;
-
-export const LoadingIndicator = styled.ActivityIndicator.attrs(({ theme }: ThemeProps) => ({
-  color: theme?.colors?.primary,
-  size: 'small',
-}))`
-  margin-top: 14px;
-  margin-bottom: 14px;
-`;
+  header: {
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: theme.colors.primary,
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: theme.colors.textBase,
+    textAlign: 'center',
+  },
+  form: {
+    width: '100%',
+    gap: 4,
+  },
+  loadingContainer: {
+    marginTop: 14,
+    marginBottom: 14,
+  },
+});

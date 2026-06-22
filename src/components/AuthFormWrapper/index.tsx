@@ -1,15 +1,8 @@
 import React from 'react';
-import { Platform } from 'react-native'; 
-import { Button } from '../Button'; 
-import {
-  Container,
-  ScrollContainer,
-  Header,
-  Title,
-  Subtitle,
-  Form,
-  LoadingIndicator, 
-} from './styles';
+import { Platform, KeyboardAvoidingView, ScrollView, View, Text, ActivityIndicator } from 'react-native';
+import { Button } from '../Button';
+import { styles } from './styles';
+import { theme } from '../../theme';
 
 interface AuthFormWrapperProps {
   title: string;
@@ -17,7 +10,7 @@ interface AuthFormWrapperProps {
   buttonText: string;
   onSubmit: () => void;
   isLoading: boolean;
-  children: React.ReactNode; 
+  children: React.ReactNode;
   footer?: React.ReactNode;
 }
 
@@ -28,21 +21,32 @@ export function AuthFormWrapper({
   onSubmit,
   isLoading,
   children,
-  footer, 
+  footer,
 }: AuthFormWrapperProps) {
   return (
-    <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <ScrollContainer>
-        <Header>
-          <Title>{title}</Title>
-          <Subtitle>{subtitle}</Subtitle>
-        </Header>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <ScrollView
+        style={styles.scrollContainer}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.header}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.subtitle}>{subtitle}</Text>
+        </View>
 
-        <Form>
+        <View style={styles.form}>
           {children}
-        
+
           {isLoading ? (
-            <LoadingIndicator />
+            <ActivityIndicator
+              color={theme.colors.primary}
+              size="small"
+              style={styles.loadingContainer}
+            />
           ) : (
             <Button
               texto={buttonText}
@@ -50,8 +54,8 @@ export function AuthFormWrapper({
             />
           )}
           {footer}
-        </Form>
-      </ScrollContainer>
-    </Container>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
