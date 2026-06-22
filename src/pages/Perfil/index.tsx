@@ -118,7 +118,7 @@ export const Perfil = () => {
         contentContainerStyle={styles.scrollConteudo}
       >
         <LinearGradient
-          colors={['#fff', '#ffcfcf']}
+          colors={['#FFF5F5', '#FFE0E0']}
           style={styles.cardPerfil}
         >
           <View style={styles.perfilTopo}>
@@ -159,10 +159,17 @@ export const Perfil = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.listaAcoes}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.cardAcao}>
-              <Ionicons name={item.icone} size={28} color={theme.colors.primary} />
-              <Text style={styles.cardAcaoTexto}>{item.titulo}</Text>
-            </TouchableOpacity>
+           <View style={styles.cardAcao}>
+              <View style={styles.headerCard}>
+                <Ionicons name={item.icone} size={18} color="#C8102E" />
+                <Text style={styles.tagTexto}>{item.titulo.toUpperCase()}</Text>
+              </View>
+              <Text style={styles.tituloDicas}>{item.textoPrincipal}</Text>
+              <Text style={styles.destaqueCard}>{item.textoDestaque}</Text>
+              {item.rodape && (
+                <Text style={styles.rodapeCard}>{item.rodape}</Text>
+              )}
+            </View>
           )}
         />
 

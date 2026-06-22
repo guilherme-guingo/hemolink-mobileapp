@@ -178,7 +178,7 @@ export const styles = StyleSheet.create({
   },
 
   listaBotoesConteudo: {
-    flexGrow: 1, //conteúdo expandir e ocupar a tela
+    flexGrow: 1, 
     alignItems: "center",
     justifyContent: "space-between",
   },

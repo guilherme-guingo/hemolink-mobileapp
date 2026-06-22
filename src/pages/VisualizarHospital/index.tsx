@@ -97,12 +97,6 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
     }
   };
 
-  const handleFavoritar = () => {
-    Alert.alert("Sucesso", "Hospital adicionado aos favoritos com sucesso!", [
-      { text: "OK", style: "default" },
-    ]);
-  };
-
   if (loading) {
     return (
       <View style={styles.center}>
@@ -168,13 +162,6 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
             color="#fff"
           />
           <View style={{ height: 10 }} />
-          <Button
-            texto="Favoritar Hospital"
-            onPress={handleFavoritar}
-            bg="#fff"
-            color={theme.colors.primary}
-            borderColor={theme.colors.primary}
-          />
         </View>
       </ScrollView>
       
