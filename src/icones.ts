@@ -35,5 +35,7 @@ export const ICONS = {
   gift:"gift-outline",
   grid:"grid-outline",
   shirt:"shirt-outline",
-  headset:"headset-outline"
+  headset:"headset-outline",
+  arrowRight:"chevron-forward-outline"
+
 } as const;

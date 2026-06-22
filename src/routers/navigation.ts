@@ -21,10 +21,19 @@ export type ParametrosRotasTabs = {
 
 export type ParametrosRotasDrawer = {
   DrawerHome: { screen: keyof ParametrosRotasTabs } | undefined;
+  DrawerLojaDePontos: undefined;
+};
+
+export type ParametrosRotasTestes = {
+  StackLogin: undefined;
+  StackHome: undefined;
+  StackCadastro: undefined;
+  StackCadastroHospital: { id?: string };
+  StackDetalheHospital: { id: string };
 };
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends ParametrosRotasDrawer, ParametrosRotasTabs, ParametrosRotasAuth, ParametrosRotasApp {}
+    interface RootParamList extends ParametrosRotasDrawer, ParametrosRotasTabs, ParametrosRotasAuth, ParametrosRotasApp, ParametrosRotasTestes {}
   }
 }

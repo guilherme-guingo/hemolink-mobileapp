@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import { FlatList, ScrollView, Text, View, Image, TouchableOpacity } from 'react-native'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { ParametrosRotasApp } from '../../routers/navigation'
 import { Hospital, listarHospitais } from '../../services/HospitalService'
 import { listarDoadores } from '../../services/DoadorService'
 import { CardBaseCatalogo as CardBase } from '../../components/CardBaseCatalogo'
@@ -16,7 +18,8 @@ import { theme } from '../../theme'
 import { Loading } from '../../components/loading'
 
 export const Administrador = () => {
-    const navigation = useNavigation()
+    type NavegacaoProps = NativeStackNavigationProp<ParametrosRotasApp>
+    const navigation = useNavigation<NavegacaoProps>()
     const [hospitais, setHospitais] = useState<Hospital[]>([])
     const [qtDoadores, setQtDoadores] = useState(0)
     const [filter, setFilter] = useState('')

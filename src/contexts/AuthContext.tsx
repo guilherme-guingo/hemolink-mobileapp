@@ -14,6 +14,21 @@ export interface AuthContextData {
   signOut: () => Promise<void>;
 }
 
+interface GoogleUser {
+  id: string;
+  name: string;
+  email: string;
+  picture?: string;
+}
+
+interface UsuarioAPI {
+  id?: string;
+  nome: string;
+  email: string;
+  senha: string;
+  avatar?: string;
+}
+
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const STORAGE_KEY = '@hemolink:user';
@@ -43,39 +58,45 @@ export function AuthProvider({ children }: AuthProviderProps) {
     googleDiscovery
   );
 
-  async function handleGoogleResponse(authResponse: any) {
+  async function handleGoogleResponse(
+    authResponse: AuthSession.TokenResponse
+  ) {
     try {
-      const accessToken = authResponse.authentication?.accessToken || authResponse.params?.access_token;
+      const accessToken = authResponse.accessToken;
       if (!accessToken) throw new Error('Token de acesso não encontrado.');
 
-      const userInfoResponse = await fetch('https://www.googleapis.com/userinfo/v2/me', {
+      const response = await fetch('https://www.googleapis.com/userinfo/v2/me', {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
 
-      const googleUser = await userInfoResponse.json();
+      const googleUser: GoogleUser = await response.json();
       if (!googleUser || !googleUser.email) {
         throw new Error('Dados inválidos vindos do Google.');
       }
 
-      const mockApiResponse = await apiAuth.get('/user');
+      const mockApiResponse = await apiAuth.get<UsuarioAPI[]>('/user');
       const listaUsuarios = mockApiResponse.data;
-      let usuarioLogado = listaUsuarios.find((u: any) => u.email === googleUser.email);
+      let usuarioLogado = listaUsuarios.find(
+        (u) => u.email === googleUser.email
+      );
 
       if (!usuarioLogado) {
-        const novoUsuario = {
+        const novoUsuario: Omit<UsuarioAPI, 'id'> = {
           nome: googleUser.name,
           email: googleUser.email,
           senha: 'login_social_google_hemolink',
           avatar: googleUser.picture || '',
         };
-        const createResponse = await apiAuth.post('/user', novoUsuario);
+        const createResponse = await apiAuth.post<UsuarioAPI>('/user', novoUsuario);
         usuarioLogado = createResponse.data;
       }
 
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(usuarioLogado));
-      setUser(usuarioLogado);
-    } catch (error: any) {
-      console.error('Erro ao processar login com Google:', error);
+      setUser(usuarioLogado as unknown as User);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('Erro ao processar login com Google:', error.message);
+      }
       throw error;
     }
   }
@@ -87,8 +108,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
         if (userStoraged) {
           setUser(JSON.parse(userStoraged));
         }
-      } catch (err) {
-        console.error('Erro ao carregar usuário do cache', err);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.error('Erro ao carregar usuário do cache', err.message);
+        }
       } finally {
         setLoading(false);
       }
@@ -98,18 +121,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function signIn(data: SignInData) {
     try {
-      const response = await apiAuth.get('/user');
+      const response = await apiAuth.get<UsuarioAPI[]>('/user');
       const listaUsuarios = response.data;
       const usuarioLogado = listaUsuarios.find(
-        (u: any) => u.email === data.email && u.senha === data.senha
+        (u) => u.email === data.email && u.senha === data.senha
       );
 
       if (!usuarioLogado) throw new Error('E-mail ou senha incorretos.');
 
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(usuarioLogado));
-      setUser(usuarioLogado);
-    } catch (error) {
-      throw error;
+      setUser(usuarioLogado as unknown as User);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Erro desconhecido ao fazer login');
     }
   }
 
@@ -117,15 +143,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function signInWithGoogle() {
     try {
       const result = await promptAsync();
-      
-      if (result?.type === 'success') {
-        await handleGoogleResponse(result);
-        return true; 
+
+      if (result?.type === 'success' && result.authentication) {
+        await handleGoogleResponse(result.authentication);
+        return true;
       }
-      
+
       return false;
-    } catch (error: any) {
-      console.error('Erro ao iniciar fluxo de login:', error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('Erro ao iniciar fluxo de login:', error.message);
+      }
       return false;
     }
   }
@@ -133,8 +161,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function signOut() {
     try {
       await AsyncStorage.removeItem(STORAGE_KEY);
-    } catch (error) {
-      console.error('Erro ao deslogar:', error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('Erro ao deslogar:', error.message);
+      }
     } finally {
       setUser(null);
     }
