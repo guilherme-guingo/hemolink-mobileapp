@@ -10,10 +10,13 @@ import { Catalogo } from "../pages/Catalogo";
 import { Administrador } from "../pages/Administrador";
 import { TabBarIcon } from "../components/TabBarIcon";
 import { Header } from "../components/Header";
+import { useAuth } from "../contexts/AuthContext";
 
 const Tabs = createBottomTabNavigator<ParametrosRotasTabs>();
 
 export const TabsRouters = () => {
+  const { user } = useAuth();
+
   return (
     <Tabs.Navigator
       screenOptions={{
@@ -42,11 +45,7 @@ export const TabsRouters = () => {
         component={Home}
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              focused={focused}
-              label="Home"
-              icon={<FontAwesome5 name="hospital" size={24} color={focused ? "#FFDAD8" : "#5C5F60"} />}
-            />
+            <TabBarIcon focused={focused} label="Home" icon={<FontAwesome5 name="hospital" size={24} color={focused ? "#FFDAD8" : "#5C5F60"} />} />
           ),
         }}
       />
@@ -55,11 +54,7 @@ export const TabsRouters = () => {
         component={Catalogo}
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              focused={focused}
-              label="Catálogo"
-              icon={<FontAwesome5 name="list" size={22} color={focused ? "#FFDAD8" : "#5C5F60"} />}
-            />
+            <TabBarIcon focused={focused} label="Catálogo" icon={<FontAwesome5 name="list" size={22} color={focused ? "#FFDAD8" : "#5C5F60"} />} />
           ),
         }}
       />
@@ -68,27 +63,22 @@ export const TabsRouters = () => {
         component={Perfil}
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              focused={focused}
-              label="Perfil"
-              icon={<FontAwesome5 name="user" size={22} color={focused ? "#FFDAD8" : "#5C5F60"} />}
-            />
+            <TabBarIcon focused={focused} label="Perfil" icon={<FontAwesome5 name="user" size={22} color={focused ? "#FFDAD8" : "#5C5F60"} />} />
           ),
         }}
       />
-      <Tabs.Screen
-        name="TabsAdministrador"
-        component={Administrador}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              focused={focused}
-              label="Admin"
-              icon={<Icon name="home-outline" size={26} color={focused ? "#FFDAD8" : "#5C5F60"} />}
-            />
-          ),
-        }}
-      />
+      
+      {user?.tipo === "admin" && (
+        <Tabs.Screen
+          name="TabsAdministrador"
+          component={Administrador}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <TabBarIcon focused={focused} label="Admin" icon={<Icon name="home-outline" size={26} color={focused ? "#FFDAD8" : "#5C5F60"} />} />
+            ),
+          }}
+        />
+      )}
     </Tabs.Navigator>
   );
 };
