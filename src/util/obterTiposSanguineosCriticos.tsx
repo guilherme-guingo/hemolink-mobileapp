@@ -1,17 +1,4 @@
-// export interface BloodStock {
-//   "A+": number;
-//   "A-": number;
-//   "B+": number;
-//   "B-": number;
-//   "AB+": number;
-//   "AB-": number;
-//   "O+": number;
-//   "O-": number;
-// }
-
 import { BloodStock } from "./tipagemDadosApi";
-
-// OBS: ESSA INTERFACE VALE A PENA SER GLOBAL, VISTO QUE O ADM,CATALOGO E PROVAVELMENTE O DETALHES UTILIZAM ESSA TIPAGEM
 
 export function obterTiposSanguineosCriticos(bloodStock: BloodStock) {
   if (!bloodStock || Object.keys(bloodStock).length === 0) return "Nenhum";

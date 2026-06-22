@@ -57,7 +57,6 @@ export function Login() {
         text2: 'Bem-vindo ao HemoLink!',
       });
 
-      navigation.navigate('Home');
     } catch (error) {
       console.error(error);
       Toast.show({
@@ -84,7 +83,6 @@ export function Login() {
           text2: 'Bem-vindo ao HemoLink!',
         });
 
-        navigation.navigate('Home');
       }
     } catch (error) {
       console.error(error);

@@ -17,13 +17,17 @@ import { BotaoAtalho } from "../../components/BotaoAtalho";
 
 import { Animated, Easing } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
-import { useRef, useCallback, useState } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { ModalDoacao } from "../../components/ModalDoacao";
 import { useNotifications } from "../../hooks/useNotification";
 import { enviarNotificacaoBoasVindas } from "../../services/notifications";
 import { compartilharApp } from "../../util/share";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const Home = () => {
+  const { user } = useAuth();
+  const nome = user?.nome ?? "Doardor";
+
   useNotifications(5, enviarNotificacaoBoasVindas);
   const [modalVisivel, setModalVisivel] = useState(false);
 
@@ -136,7 +140,7 @@ export const Home = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.containerTitulo}>
           <View style={styles.containerSaudacao}>
-            <Text style={styles.titulo}>Olá, "usuário"</Text>
+            <Text style={styles.titulo}>Olá, {nome}</Text>
 
             <Animated.Text
               style={[
