@@ -28,6 +28,8 @@ import { useAuth } from "../../contexts/AuthContext";
 import { limparBloqueios } from "../../util/bloqueioEnvio";
 import { ModalAgendarDoacao } from "../../components/ModalAgendarDoacao";
 import { ModalCarteirinha } from "../../components/ModalCarteirinha";
+import { listarRegistros, RegistroDoacao } from "../../services/RegistroService";
+import { buscarHospital } from "../../services/HospitalService";
 
 export const Home = () => {
   const { user } = useAuth();
@@ -40,7 +42,42 @@ export const Home = () => {
   const [modalAgendarVisivel, setModalAgendarVisivel] = useState(false);
   const [modalCarteirinhaVisivel, setModalCarteirinhaVisivel] = useState(false);
 
+  const [totalRegistros, setTotalRegistros] = useState(0)
+  const [doacoesAno, setDoacoesAno] = useState(0)
+  const [proximoRegistro, setProximoRegistro] = useState<(RegistroDoacao & { doacaoRealizada: boolean }) | null>(null)
+  const [hospitalNome, setHospitalNome] = useState("")
+
+
   const rotacao = useRef<Animated.Value>(new Animated.Value(0)).current;
+
+  useFocusEffect(
+    useCallback(() => {
+      setProximoRegistro(null)
+      setHospitalNome("")
+
+      listarRegistros()
+        .then((registrosRes) => {
+          const data = registrosRes.data as (RegistroDoacao & { doacaoRealizada: boolean })[]
+          setTotalRegistros(data.length)
+          setDoacoesAno(data.filter((r) => new Date(r.criadoEm).getFullYear() === new Date().getFullYear()).length)
+
+          const pendentes = data
+            .filter((r) => !r.doacaoRealizada && r.ultimaDoacao)
+            .sort((a, b) => new Date(b.criadoEm).getTime() - new Date(a.criadoEm).getTime())
+
+          if (pendentes.length > 0) {
+            const ultimo = pendentes[0]
+            setProximoRegistro(ultimo)
+            buscarHospital(ultimo.unidadeId)
+              .then((res) => setHospitalNome(res.data.name))
+              .catch(() => setHospitalNome("Hospital"))
+          }
+        })
+        .catch(err => console.log(err))
+
+    }, [])
+  )
+
 
   const animarMao = useCallback(() => {
     rotacao.setValue(0);
@@ -175,11 +212,11 @@ export const Home = () => {
           </View>
           <View style={styles.statusContainer}>
             <View style={styles.miniCard}>
-              <Text style={styles.numero}>3</Text>
+              <Text style={styles.numero}>{totalRegistros}</Text>
               <Text style={styles.descricaoNumero}>Vidas Salvas</Text>
             </View>
             <View style={styles.miniCard}>
-              <Text style={styles.numero}>1</Text>
+              <Text style={styles.numero}>{doacoesAno}</Text>
               <Text style={styles.descricaoNumero}>Doação este ano</Text>
             </View>
           </View>
@@ -196,24 +233,31 @@ export const Home = () => {
           </View>
         </View>
 
-        <View style={styles.containerAgenda}>
-          <View style={styles.data}>
-            <Text style={styles.dataMes}>OUT</Text>
-            <Text style={styles.dataDia}>25</Text>
-          </View>
-          <View style={styles.containerData}>
-            <Text style={styles.tituloData}>Hospital Central</Text>
-            <Text style={styles.subtituloData}>Terça-feira as 10:00</Text>
-          </View>
-          <View style={styles.containerBotao}>
-            <Button
-              texto="Ver local"
-              fontSizeTexto={12}
-              paddingHorizontal={8}
-              onPress={() => {}}
-            />
-          </View>
-        </View>
+        {proximoRegistro && (() => {
+          const data = new Date(proximoRegistro.ultimaDoacao!)
+          const meses = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"]
+          const diasSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"]
+          return (
+            <View style={styles.containerAgenda}>
+              <View style={styles.data}>
+                <Text style={styles.dataMes}>{meses[data.getMonth()]}</Text>
+                <Text style={styles.dataDia}>{data.getDate()}</Text>
+              </View>
+              <View style={styles.containerData}>
+                <Text style={styles.tituloData}>{hospitalNome}</Text>
+                <Text style={styles.subtituloData}>{diasSemana[data.getDay()]} as {proximoRegistro.horario}</Text>
+              </View>
+              <View style={styles.containerBotao}>
+                <Button
+                  texto="Ver local"
+                  fontSizeTexto={12}
+                  paddingHorizontal={8}
+                  onPress={() => { }}
+                />
+              </View>
+            </View>
+          )
+        })()}
 
         <View style={styles.containerBotoesPai}>
           <FlatList
