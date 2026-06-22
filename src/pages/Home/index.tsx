@@ -87,10 +87,10 @@ export const Home = () => {
     },
     {
       id: "2",
-      label: "Histórico",
-      icon: "time-outline",
+      label: "Solicite",
+      icon: "medkit-outline",
       corIcone: "#9E001F",
-      funcao: () => {},
+      funcao: () => {navigation.navigate('PedidoForm')},
     },
     {
       id: "3",
@@ -160,20 +160,14 @@ export const Home = () => {
           </Text>
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 8 }}>
+        {/* <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 8 }}>
           <BotaoAtalho
             label="Quero doar"
             icon="heart-outline"
             corIcone="#9E001F"
             onPress={() => navigation.navigate('DoacaoForm')}
           />
-          <BotaoAtalho
-            label="Preciso de doação"
-            icon="medkit-outline"
-            corIcone="#9E001F"
-            onPress={() => navigation.navigate('PedidoForm')}
-          />
-        </View>    
+        </View>     */}
 
         <View style={styles.cardContainer}>
           <View style={styles.headerContainer}>
