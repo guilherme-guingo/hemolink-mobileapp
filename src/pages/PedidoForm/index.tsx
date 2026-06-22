@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ParametrosRotasApp } from '../../routers/navigation';
 
 import { AuthFormWrapper } from '../../components/AuthFormWrapper';
 import { Button } from '../../components/Button';
@@ -12,7 +14,8 @@ import { jaEnviou, marcarComoEnviado, limparBloqueios } from '../../util/bloquei
 import { theme } from '../../theme';
 
 export function PedidoForm(): React.JSX.Element {
-  const navigation = useNavigation<any>();
+  type NavegacaoProps = NativeStackNavigationProp<ParametrosRotasApp>;
+  const navigation = useNavigation<NavegacaoProps>();
   const { user } = useAuth();
 
   const [hospitalId, setHospitalId] = useState('');

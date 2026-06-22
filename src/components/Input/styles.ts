@@ -1,3 +1,5 @@
+import { DimensionValue } from 'react-native';
+
 type InputStyleProps = {
   color?: string;
   borderColor?: string;
@@ -29,7 +31,7 @@ export const getInputStyles = ({
 
   return {
     container: {
-      width: width as any,
+      width: width as DimensionValue,
       marginBottom: 16,
     },
     wrapper: {
@@ -53,6 +55,9 @@ export const getInputStyles = ({
     iconLeft: {
       position: 'absolute',
       left: 8
+    },
+    label:{
+      fontWeight:'600'
     },
     iconRight: {
       marginLeft: 12,

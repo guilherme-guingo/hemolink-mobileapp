@@ -3,6 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TouchableOpacity } from 'react-native';
 
 import { Input } from '../../components/Input';
@@ -12,6 +13,7 @@ import { apiAuth } from '../../services/api/api';
 import { formatCPF } from '../../util/formataCPF'; 
 import { apenasNumeros } from '../../util/apenasNumeros'; 
 import { formatPhone } from '../../util/formataTelefone'; 
+import { ParametrosRotasAuth } from '../../routers/navigation';
 
 import Toast from 'react-native-toast-message';
 import { 
@@ -52,16 +54,25 @@ const cadastroSchema = z.object({
 
 type CadastroFormData = z.infer<typeof cadastroSchema>;
 
+interface UsuarioAPI {
+  id?: string;
+  nome: string;
+  email: string;
+  senha: string;
+  avatar?: string;
+}
+
 export function Cadastro() {
   const [loading, setLoading] = useState(false);
   const [securePassword, setSecurePassword] = useState(true);
   const [secureConfirmPassword, setSecureConfirmPassword] = useState(true);
 
-  const navigation = useNavigation<any>();
+  type NavegacaoProps = NativeStackNavigationProp<ParametrosRotasAuth>;
+  const navigation = useNavigation<NavegacaoProps>();
 
   const { control, handleSubmit, formState: { errors } } = useForm<CadastroFormData>({
     resolver: zodResolver(cadastroSchema),
-    defaultValues: { nome: '', cpf: '', telefone: '', email: '', tipoSanguineo: '' as any, senha: '', confirmarSenha: '' },
+    defaultValues: { nome: '', cpf: '', telefone: '', email: '', senha: '', confirmarSenha: '' },
   });
 
   async function handleCadastro(data: CadastroFormData) {
@@ -76,7 +87,7 @@ export function Cadastro() {
         tipo: 'doador'
       };
 
-      await apiAuth.post('/user', payload);
+      await apiAuth.post<UsuarioAPI>('/user', payload);
 
       Toast.show({
         type: 'success',
@@ -85,10 +96,11 @@ export function Cadastro() {
 
       navigation.navigate('Login');
 
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const mensagem = error instanceof Error ? error.message : 'Erro no cadastro';
       Toast.show({
         type: 'error',
-        text1: 'Erro no cadastro',
+        text1: mensagem,
       });
     } finally {
       setLoading(false);

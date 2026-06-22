@@ -3,10 +3,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TouchableOpacity, ActivityIndicator } from 'react-native'; 
 
 import { Input } from '../../components/Input';
 import { AuthFormWrapper } from '../../components/AuthFormWrapper';
+import { ParametrosRotasAuth } from '../../routers/navigation';
 
 import Toast from 'react-native-toast-message';
 import { useAuth } from '../../contexts/AuthContext';
@@ -36,7 +38,8 @@ export function Login() {
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [secureMode, setSecureMode] = useState(true);
 
-  const navigation = useNavigation<any>();
+  type NavegacaoProps = NativeStackNavigationProp<ParametrosRotasAuth>;
+  const navigation = useNavigation<NavegacaoProps>();
   const { signIn, signInWithGoogle } = useAuth();
 
   const { control, handleSubmit, formState: { errors } } = useForm<LoginFormData>({

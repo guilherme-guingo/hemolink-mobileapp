@@ -16,7 +16,7 @@ export interface RegistroDoacao {
 
 export async function enviarRegistro(registro: Omit<RegistroDoacao, 'id'>) {
   try {
-    const response = await registroApi.post('/registros', registro);
+    const response = await registroApi.post<RegistroDoacao>('/registros', registro);
     return response;
   } catch (error) {
     throw error;

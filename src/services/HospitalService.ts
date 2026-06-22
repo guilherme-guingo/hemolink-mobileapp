@@ -30,7 +30,7 @@ export interface BloodStock {
 
 export async function listarHospitais() {
   try {
-    const response = await api.get('/hospital');
+    const response = await api.get<Hospital[]>('/hospital');
     return response;
   } catch (error) {
     throw error;
@@ -39,7 +39,7 @@ export async function listarHospitais() {
 
 export async function cadastrarHospital(data: Omit<Hospital, 'id'>) {
   try {
-    const response = await api.post('hospital', data)
+    const response = await api.post<Hospital>('hospital', data)
     return response
   } catch (error) {
     throw error
@@ -48,7 +48,7 @@ export async function cadastrarHospital(data: Omit<Hospital, 'id'>) {
 
 export async function buscarHospital(id: string) {
   try {
-    const response = await api.get(`/hospital/${id}`)
+    const response = await api.get<Hospital>(`/hospital/${id}`)
     return response
   } catch (err) {
     throw err
@@ -57,7 +57,7 @@ export async function buscarHospital(id: string) {
 
 export async function atualizarHospital(id: string, data: Partial<Hospital>) {
   try {
-    const response = await api.put(`/hospital/${id}`, data)
+    const response = await api.put<Hospital>(`/hospital/${id}`, data)
     return response
   } catch (err) {
     throw err
@@ -66,7 +66,7 @@ export async function atualizarHospital(id: string, data: Partial<Hospital>) {
 
 export async function excluirHospital(id: string) {
   try {
-    await api.delete(`/hospital/${id}`)
+    await api.delete<void>(`/hospital/${id}`)
 
   } catch (err) {
     throw err

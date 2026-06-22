@@ -178,7 +178,7 @@ export const Perfil = () => {
         </CardBasePerfil>
         <TouchableOpacity onPress={handleLogout} style={styles.botaoLogout}>
           <Ionicons name="log-out-outline" size={20} color={theme.colors.primary} />
-          <Text style={{ color: theme.colors.primary, fontSize: 16, fontWeight: '600' }}>
+          <Text style={{ color: theme.colors.primary, fontSize: 16, fontWeight: '600',paddingBottom:40 }}>
             Sair da Conta
           </Text>
         </TouchableOpacity>

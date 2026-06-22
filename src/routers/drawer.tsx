@@ -35,6 +35,11 @@ const CustomizacaoDrawer = (props: DrawerContentComponentProps) => {
         icon={({ color, size }) => <Feather name="user" color={color} size={size} />}
         onPress={() => props.navigation.navigate("DrawerHome", { screen: "TabsPerfil" })}
       />
+      <DrawerItem
+        label="Loja de Pontos"
+        icon={({ color, size }) => <Feather name="gift" color={color} size={size} />}
+        onPress={() => props.navigation.navigate("DrawerLojaDePontos")}
+      />
     </DrawerContentScrollView>
   );
 };
@@ -46,6 +51,7 @@ export const DrawerRouters = () => {
       drawerContent={(props) => <CustomizacaoDrawer {...props} />}
     >
       <Drawer.Screen name="DrawerHome" component={TabsRouters} />
+      <Drawer.Screen name="DrawerLojaDePontos" component={LojaDePontos} />
     </Drawer.Navigator>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, Alert, ScrollView, Modal, FlatList } from 'react-native'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Input } from '../../components/Input'
 import {
   Hospital, BloodStock,
@@ -16,9 +17,11 @@ import { apenasNumeros } from '../../util/apenasNumeros'
 import { BLOOD_VAZIO, TIPOS_SANGUE, UF_LIST } from './helper'
 import { ICONS } from '../../icones'
 import Toast from 'react-native-toast-message'
+import { ParametrosRotasApp } from '../../routers/navigation'
 
+type Props = NativeStackScreenProps<ParametrosRotasApp, 'DetalheHospital' | 'CadastroHospital'>
 
-export const DetalheHospital = ({ route, navigation }: any) => {
+export const DetalheHospital = ({ route, navigation }: Props) => {
   const id = route.params?.id
   const isCadastro = !id
 
@@ -32,13 +35,20 @@ export const DetalheHospital = ({ route, navigation }: any) => {
       setDados({ bloodStock: { ...BLOOD_VAZIO } })
     } else {
       buscarHospital(id).then(res => {
-        setHospital(res.data)
-        setDados(res.data)
+        const hospitalData = {
+          ...res.data,
+          bloodStock: res.data.bloodStock ?? { ...BLOOD_VAZIO },
+        }
+        setHospital(hospitalData)
+        setDados(hospitalData)
       }).catch(() => {
-      Toast.show({
-        type: "error",
-        text1: "Erro durante a persistencia dos dados",
-      });
+        setHospital({ bloodStock: { ...BLOOD_VAZIO } } as Hospital)
+        setDados({ bloodStock: { ...BLOOD_VAZIO } })
+        Toast.show({
+          type: "error",
+          text1: "Erro ao carregar dados",
+          text2: "Não foi possível carregar as informações do hospital.",
+        });
 })
     }
   }, [id])
@@ -57,8 +67,12 @@ function handleSalvar() {
   } else {
     atualizarHospital(id, dados)
       .then((res) => {
-        setHospital(res.data);
-        setDados(res.data);
+        const hospitalData = {
+          ...res.data,
+          bloodStock: res.data.bloodStock ?? { ...BLOOD_VAZIO },
+        }
+        setHospital(hospitalData);
+        setDados(hospitalData);
         setEditando(false);
       })
       .catch(() => {
