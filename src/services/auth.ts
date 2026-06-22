@@ -6,6 +6,8 @@ export interface SignInData {
 export interface User {
     id: string;
     nome: string;
+    cpf: string;
+    tipoSanguineo: string
     email: string;
     tipo: 'doador' | 'admin';
     token?: string;

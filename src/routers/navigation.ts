@@ -8,6 +8,8 @@ export type ParametrosRotasApp = {
   DetalheHospital: { id: string };
   CadastroHospital: { id?: string };
   VisualizarHospital: { id: string }
+  DoacaoForm: undefined;
+  PedidoForm: undefined;
 };
 
 export type ParametrosRotasTabs = {

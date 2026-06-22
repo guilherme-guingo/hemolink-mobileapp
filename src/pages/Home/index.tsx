@@ -16,7 +16,7 @@ import { Button } from "../../components/Button";
 import { BotaoAtalho } from "../../components/BotaoAtalho";
 
 import { Animated, Easing } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useRef, useCallback, useState, useEffect } from "react";
 import { ModalDoacao } from "../../components/ModalDoacao";
 import { useNotifications } from "../../hooks/useNotification";
@@ -26,6 +26,7 @@ import { useAuth } from "../../contexts/AuthContext";
 
 export const Home = () => {
   const { user } = useAuth();
+  const navigation = useNavigation<any>();
   const nome = user?.nome ?? "Doardor";
 
   useNotifications(5, enviarNotificacaoBoasVindas);
@@ -158,6 +159,21 @@ export const Home = () => {
             Seu gesto salva vidas todos os dias.
           </Text>
         </View>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 8 }}>
+          <BotaoAtalho
+            label="Quero doar"
+            icon="heart-outline"
+            corIcone="#9E001F"
+            onPress={() => navigation.navigate('DoacaoForm')}
+          />
+          <BotaoAtalho
+            label="Preciso de doação"
+            icon="medkit-outline"
+            corIcone="#9E001F"
+            onPress={() => navigation.navigate('PedidoForm')}
+          />
+        </View>    
 
         <View style={styles.cardContainer}>
           <View style={styles.headerContainer}>
