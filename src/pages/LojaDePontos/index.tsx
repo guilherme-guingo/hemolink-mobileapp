@@ -1,27 +1,28 @@
-import React, { useState } from 'react'
-import { ScrollView, View, Text, FlatList, Image } from 'react-native'
-import { styles } from './style'
+import React, { useState } from "react";
+import { ScrollView, View, Text, FlatList, Image } from "react-native";
+import { styles } from "./style";
 
-import { ICONS } from '../../icones'
+import { ICONS } from "../../icones";
 import Icon from "@expo/vector-icons/Ionicons";
-import { BotaoAtalho } from '../../components/BotaoAtalho'
-import { categorias, giftCards } from './helper'
-import { theme } from '../../theme'
-import googplePlay from '../../assets/imagens/googleplay.webp'
-import { Header } from '../../components/Header';
-
+import { BotaoAtalho } from "../../components/BotaoAtalho";
+import { categorias, giftCards } from "./helper";
+import { theme } from "../../theme";
+import googplePlay from "../../assets/imagens/googleplay.webp";
+import { Header } from "../../components/Header";
 
 export const LojaDePontos = () => {
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todos")
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todos");
 
-  const giftCardsFiltrados = categoriaSelecionada === "Todos"
-    ? giftCards
-    : giftCards.filter(item =>
-      item.tipo?.toLowerCase() === categoriaSelecionada.toLowerCase()
-    )
+  const giftCardsFiltrados =
+    categoriaSelecionada === "Todos"
+      ? giftCards
+      : giftCards.filter(
+          (item) =>
+            item.tipo?.toLowerCase() === categoriaSelecionada.toLowerCase(),
+        );
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "#F6FAFF" }}>
       <Header />
 
       <FlatList
@@ -54,16 +55,16 @@ export const LojaDePontos = () => {
 
               <View style={{ padding: 20, gap: 10 }}>
                 <Text style={styles.textWhite}>Seus pontos disponíveis</Text>
-                <Text style={[styles.textWhite, styles.points]}>
-                  3000
-                </Text>
+                <Text style={[styles.textWhite, styles.points]}>3000</Text>
                 <Text style={styles.textWhite}>
                   Faça uma doação e ganhe pontos
                 </Text>
               </View>
             </View>
 
-            <Text style={{ fontWeight: "600", marginVertical: 10 }}>Categorias</Text>
+            <Text style={{ fontWeight: "600", marginVertical: 10 }}>
+              Categorias
+            </Text>
 
             <FlatList
               data={categorias}
@@ -91,17 +92,17 @@ export const LojaDePontos = () => {
           <View style={styles.shopItensContainer}>
             <Image style={styles.shopItensCard} source={item.imagem} />
 
-            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-around' }}>
-
-
-              <Text style={{ fontWeight: "600" }}>
-                {item.nome}
-              </Text>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "column",
+                justifyContent: "space-around",
+              }}
+            >
+              <Text style={{ fontWeight: "600" }}>{item.nome}</Text>
               <Text>{item.description}</Text>
 
-              <Text style={styles.pointCard}>
-                {item.pontos}
-              </Text>
+              <Text style={styles.pointCard}>{item.pontos}</Text>
             </View>
 
             <Icon name={ICONS.arrowRight} size={20} />
@@ -109,5 +110,5 @@ export const LojaDePontos = () => {
         )}
       />
     </View>
-  )
-}
+  );
+};

@@ -119,9 +119,6 @@ export const Perfil = () => {
     }
   }
 
-
-
-
   return (
     <View style={styles.tela}>
       <ScrollView

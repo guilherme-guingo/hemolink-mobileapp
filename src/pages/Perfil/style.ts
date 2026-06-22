@@ -4,7 +4,7 @@ import { theme } from "../../theme";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F6FAFF",
     paddingTop: 40,
     gap: 16,
   },
@@ -164,25 +164,25 @@ export const styles = StyleSheet.create({
   tagTexto: {
     fontSize: 11,
     fontWeight: "600",
-    color: "#5C5F60", 
-    letterSpacing: 0.5, 
+    color: "#5C5F60",
+    letterSpacing: 0.5,
   },
   tituloDicas: {
     fontSize: 18,
     fontWeight: "700",
-    color: "#141D23", 
+    color: "#141D23",
     lineHeight: 24,
   },
   destaqueCard: {
     fontSize: 24,
     fontWeight: "900",
-    color: "#C8102E", 
+    color: "#C8102E",
   },
   rodapeCard: {
     fontSize: 13,
     fontStyle: "italic",
     color: "#5C5F60",
-    marginTop: 6, 
+    marginTop: 6,
   },
 
   modalFundo: {
