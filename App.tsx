@@ -14,7 +14,7 @@ export default function App() {
       <AuthProvider>
         <FavoritosProvider>
           <NavigationContainer>
-            <StatusBar style="auto" />
+           
             <Routers />
             <Toast />
           </NavigationContainer>

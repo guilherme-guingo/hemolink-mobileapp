@@ -1,71 +1,60 @@
-import styled from 'styled-components/native';
-import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import { StyleSheet } from "react-native";
 
-interface ThemeProps {
-  theme?: {
-    colors?: {
-      primary?: string;
-      background?: string;
-      textBase?: string;
-      status?: {
-        danger?: string;
-      };
-    };
-  };
-}
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F6FAFF", 
+    paddingHorizontal: 24,
+    justifyContent: "center",
+  },
 
-export const Container = styled.KeyboardAvoidingView`
-  flex: 1;
-  background-color: ${({ theme }: ThemeProps) => theme?.colors?.background};
-  padding: 0 24px;
-  justify-content: center;
-`;
+  errorText: {
+    fontSize: 12,
+    color: "#C8102E",
+    marginTop: 4,
+    marginBottom: 12,
+    paddingLeft: 4,
+  },
 
-export const ErrorText = styled.Text`
-  font-size: 12px;
-  color: ${({ theme }: ThemeProps) => theme?.colors?.status?.danger};
-  margin-top: 4px;
-  margin-bottom: 12px;
-  padding-left: 4px;
-`;
+  passwordContainer: {
+    width: "100%",
+    position: "relative",
+    justifyContent: "center",
+  },
 
-export const PasswordContainer = styled.View`
-  width: 100%;
-  position: relative;
-  justify-content: center;
-`;
+  toggleButton: {
+    position: "absolute",
+    right: 16,
+    top: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 10,
+    marginTop: -6,
+  },
 
-export const ToggleButton = styled.TouchableOpacity`
-  position: absolute;
-  right: 16px;
-  top: 0;
-  bottom: 0;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  margin-top: -6px; 
-`;
+  eyeIcon: {
+    color: "#8E8E93",
+    fontSize: 22,
+    top:-4
+  },
 
-export const EyeIcon = styled(Ionicons).attrs(() => ({
-  color: '#8E8E93', 
-  size: 22,
-}))``;
+  signUpContainer: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 8,
+    marginBottom: 16,
+  },
 
-export const SignUpContainer = styled.View`
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top: 8px;
-  margin-bottom: 16px;
-`;
+  signUpText: {
+    fontSize: 14,
+    color: "#141D23", 
+  },
 
-export const SignUpText = styled.Text`
-  font-size: 14px;
-  color: ${({ theme }: ThemeProps) => theme?.colors?.textBase};
-`;
-
-export const SignUpBoldText = styled.Text`
-  font-weight: bold;
-  color: ${({ theme }: ThemeProps) => theme?.colors?.primary};
-`;
+  signUpBoldText: {
+    fontWeight: "700",
+    color: "#C8102E", 
+  },
+});
