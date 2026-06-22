@@ -10,6 +10,7 @@ export interface RegistroDoacao {
   tipoRegistro: TipoRegistro;
   unidadeId: string;
   ultimaDoacao?: string;
+  horario?: string;
   dataPedido?: string;
   criadoEm: string;
 }

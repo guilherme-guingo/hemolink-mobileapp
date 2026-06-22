@@ -10,6 +10,8 @@ import { theme } from "../../theme";
 import { styles } from "./style";
 import MapView, { Marker } from "react-native-maps";
 import Toast from "react-native-toast-message";
+import { ModalAgendarDoacao } from "../../components/ModalAgendarDoacao";
+
 
 type Props = NativeStackScreenProps<ParametrosRotasApp, "VisualizarHospital">;
 
@@ -22,6 +24,7 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
   const id = route.params?.id;
   const [hospital, setHospital] = useState<Hospital | null>(null);
   const [loading, setLoading] = useState(true);
+  const [modalAgendarVisivel, setModalAgendarVisivel] = useState(false);
 
   const [coordenadas, setCoordenadas] = useState<Coordenadas | null>(null);
 
@@ -160,7 +163,7 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
         <View style={styles.acoes}>
           <Button
             texto="Agendar Doação"
-            onPress={() => console.log("Ir para Formulário")}
+            onPress={() => setModalAgendarVisivel(true)}
             bg={theme.colors.primary}
             color="#fff"
           />
@@ -174,6 +177,14 @@ export const VisualizarHospital = ({ route, navigation }: Props) => {
           />
         </View>
       </ScrollView>
+      
+      <ModalAgendarDoacao
+        visible={modalAgendarVisivel}
+        onClose={() => setModalAgendarVisivel(false)}
+        hospitalId={String(hospital.id)}
+        hospitalNome={hospital.name}
+      />
+
     </View>
   );
 };

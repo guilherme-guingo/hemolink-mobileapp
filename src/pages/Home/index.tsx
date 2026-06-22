@@ -1,3 +1,4 @@
+
 import {
   ScrollView,
   Text,
@@ -14,7 +15,7 @@ import {
 } from "@expo/vector-icons";
 import { Button } from "../../components/Button";
 import { BotaoAtalho } from "../../components/BotaoAtalho";
-
+import Toast from 'react-native-toast-message';
 import { Animated, Easing } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -25,6 +26,8 @@ import { useNotifications } from "../../hooks/useNotification";
 import { enviarNotificacaoBoasVindas } from "../../services/notifications";
 import { compartilharApp } from "../../util/share";
 import { useAuth } from "../../contexts/AuthContext";
+import { limparBloqueios } from '../../util/bloqueioEnvio';
+import { ModalAgendarDoacao } from "../../components/ModalAgendarDoacao";
 
 
 
@@ -37,6 +40,7 @@ export const Home = () => {
 
   useNotifications(5, enviarNotificacaoBoasVindas);
   const [modalVisivel, setModalVisivel] = useState(false);
+  const [modalAgendarVisivel, setModalAgendarVisivel] = useState(false);
 
   const rotacao = useRef<Animated.Value>(new Animated.Value(0)).current;
 
@@ -83,13 +87,20 @@ export const Home = () => {
     outputRange: ["-18deg", "0deg", "18deg"],
   });
 
+  const handleReset = async () => {
+    if (user?.cpf) {
+      await limparBloqueios(user.cpf);
+      Toast.show({ type: 'success', text1: 'Bloqueio resetado!' });
+    }
+  };
+
   const botoesFiltros = [
     {
       id: "1",
       label: "Agendar",
       icon: "calendar-outline",
       corIcone: "#9E001F",
-      funcao: () => {},
+      funcao: () => setModalAgendarVisivel(true),
     },
     {
       id: "2",
@@ -103,7 +114,7 @@ export const Home = () => {
       label: "Carteirinha",
       icon: "card-outline",
       corIcone: "#9E001F",
-      funcao: () => {},
+      funcao: handleReset,
     },
     {
       id: "4",
@@ -165,15 +176,6 @@ export const Home = () => {
             Seu gesto salva vidas todos os dias.
           </Text>
         </View>
-
-        {/* <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 8 }}>
-          <BotaoAtalho
-            label="Quero doar"
-            icon="heart-outline"
-            corIcone="#9E001F"
-            onPress={() => navigation.navigate('DoacaoForm')}
-          />
-        </View>     */}
 
         <View style={styles.cardContainer}>
           <View style={styles.headerContainer}>
@@ -321,6 +323,12 @@ export const Home = () => {
         </View>
         <View style={{ marginTop: 100 }}></View>
       </ScrollView>
+      
+      <ModalAgendarDoacao
+        visible={modalAgendarVisivel}
+        onClose={() => setModalAgendarVisivel(false)}
+      />
+
     </View>
   );
 };
