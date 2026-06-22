@@ -159,4 +159,26 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#333',
     },
+    modalFundo: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'flex-end',
+    },
+    modalCaixa: {
+        backgroundColor: '#fff',
+        padding: 20,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        gap: 10,
+    },
+    modalTitulo: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 8,
+    },
+    modalLabel: {
+        marginBottom: 4,
+        fontWeight: '500',
+    },
 });
