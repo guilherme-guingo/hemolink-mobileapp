@@ -16,10 +16,10 @@ import { acoesRapidas } from "./acoesRapidas";
 
 export const Perfil = () => {
   const [foto, setFoto] = useState<string | null>(null);
-  const [modalVisible, setModalVisible] = useState(false)
-  const [nome, setNome] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [modalEditarVisible, setModalEditarVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false)
+  const [nome, setNome] = useState<string>('');
+  const [telefone, setTelefone] = useState<string>('');
+  const [modalEditarVisible, setModalEditarVisible] = useState<boolean>(false);
 
   const { user, signOut } = useAuth();
 
@@ -91,10 +91,10 @@ export const Perfil = () => {
 
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.tela}>
       <ScrollView
         style={styles.container}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={styles.scrollConteudo}
       >
         <LinearGradient
           colors={['#fff', '#ffcfcf']}
@@ -136,7 +136,7 @@ export const Perfil = () => {
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 12, gap: 12 }}
+          contentContainerStyle={styles.listaAcoes}
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.cardAcao}>
               <Ionicons name={item.icone} size={28} color={theme.colors.primary} />
@@ -176,7 +176,7 @@ export const Perfil = () => {
             </View>
           </View>
         </CardBasePerfil>
-        <TouchableOpacity onPress={handleLogout} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 20 }}>
+        <TouchableOpacity onPress={handleLogout} style={styles.botaoLogout}>
           <Ionicons name="log-out-outline" size={20} color={theme.colors.primary} />
           <Text style={{ color: theme.colors.primary, fontSize: 16, fontWeight: '600' }}>
             Sair da Conta
