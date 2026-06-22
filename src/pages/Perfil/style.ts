@@ -181,4 +181,27 @@ export const styles = StyleSheet.create({
         marginBottom: 4,
         fontWeight: '500',
     },
+    tela: {
+        flex: 1,
+    },
+    scrollConteudo: {
+        paddingBottom: 100,
+    },
+    botaoLogout: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+        marginTop: 20,
+    },
+    textoLogout: {
+        color: theme.colors.primary,
+        fontSize: 16,
+        fontWeight: '600',
+    },
+    listaAcoes: {
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        gap: 12,
+    },
 });
