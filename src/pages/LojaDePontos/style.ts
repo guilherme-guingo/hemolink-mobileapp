@@ -5,7 +5,8 @@ import { theme } from "../../theme";
 export const styles = StyleSheet.create({
     container: {
         paddingTop: 20,
-        paddingHorizontal: 30
+        paddingHorizontal: 30,
+        backgroundColor:'#F6FAFF',
     },
     pointsContainer: {
         borderRadius: 12,
@@ -23,7 +24,7 @@ export const styles = StyleSheet.create({
         right: 16,
         top: 10,
         transform: [
-            { rotate: '10deg' } 
+            { rotate: '10deg' }
         ]
 
     },
@@ -32,14 +33,37 @@ export const styles = StyleSheet.create({
     },
     points: {
         fontSize: 22,
-        marginTop:-8,
-        fontWeight:'600'
+        marginTop: -8,
+        fontWeight: '600'
     },
-        fullWidthSection: {
+    fullWidthSection: {
         marginHorizontal: -30,
     },
-    categoriesContainer:{
-        margin:0
+    categoriesContainer: {
+        margin: 0,
+        marginHorizontal: 10,
+    },
+    shopItensContainer: {
+        backgroundColor: `${theme.colors.terciary}`,
+        padding: 10,
+        borderRadius: 8,
+        gap:10,
+        flexDirection: 'row',
+        alignItems:'center',
+        boxShadow: '0 3px 8px rgba(0,0,0,.12)',
+    },
+    shopItensCard: {
+        borderRadius: 8,
+        height: 70,
+        width: 120,
+        objectFit: "fill"
+    },
+    Icon:{
+        marginRight:12
+    },
+    pointCard:{
+        color:`${theme.colors.primary}`,
+        fontWeight:600
     }
 
 })

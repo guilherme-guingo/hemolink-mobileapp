@@ -1,7 +1,5 @@
 // Nota: caso queiram pesquisar mais icones, adicionem aqui. Link da pagina dos icones caso queiram mais: https://ionic.io/ionicons
 
-import { ChipsGrid } from "./pages/Cadastro/styles";
-
 // Obs: como usar:
 // 1- Import na pagina desejada;
 // 2- Import do arquivo de icones global na pagina desejada;
@@ -35,5 +33,7 @@ export const ICONS = {
   close: "close-outline",
   alert: "alert-outline",
   gift:"gift-outline",
-  grid:"grid-outline"
+  grid:"grid-outline",
+  shirt:"shirt-outline",
+  headset:"headset-outline"
 } as const;
