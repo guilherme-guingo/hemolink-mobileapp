@@ -30,8 +30,6 @@ import { limparBloqueios } from '../../util/bloqueioEnvio';
 import { ModalAgendarDoacao } from "../../components/ModalAgendarDoacao";
 
 
-
-type NavegacaoProps = NativeStackNavigationProp<ParametrosRotasApp>;
 export const Home = () => {
   const { user } = useAuth();
   type NavegacaoProps = NativeStackNavigationProp<ParametrosRotasApp>;
@@ -158,7 +156,7 @@ export const Home = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.containerTitulo}>
           <View style={styles.containerSaudacao}>
-            <Text style={styles.titulo}>Olá, {nome}</Text>
+            
 
             <Animated.Text
               style={[
@@ -171,7 +169,7 @@ export const Home = () => {
               👋
             </Animated.Text>
           </View>
-
+            <Text style={styles.titulo}>Olá, {nome}</Text>
           <Text style={styles.subTitulo}>
             Seu gesto salva vidas todos os dias.
           </Text>

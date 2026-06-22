@@ -27,6 +27,9 @@ export const theme = {
     lg: 16,
     full: 9999,
   },
+  background: {
+    fundoSite: "#F6FAFF"
+  }
 };
 
 export type Theme = typeof theme;

@@ -12,6 +12,7 @@ export interface AuthContextData {
   signIn: (data: SignInData) => Promise<void>;
   signInWithGoogle: () => Promise<boolean>; 
   signOut: () => Promise<void>;
+  updateUser: (updatedUser: User) => Promise<void>;
 }
 
 interface GoogleUser {
@@ -158,6 +159,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  async function updateUser(updatedUser: User) {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedUser));
+      setUser(updatedUser);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('Erro ao atualizar usuário no cache:', error.message);
+      }
+    }
+  }
+
   async function signOut() {
     try {
       await AsyncStorage.removeItem(STORAGE_KEY);
@@ -171,7 +183,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signInWithGoogle, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signIn, signInWithGoogle, signOut, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

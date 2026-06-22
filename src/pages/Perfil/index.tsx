@@ -21,7 +21,7 @@ export const Perfil = () => {
   const [telefone, setTelefone] = useState<string>('');
   const [modalEditarVisible, setModalEditarVisible] = useState<boolean>(false);
 
-  const { user, signOut } = useAuth();
+  const { user, signOut, updateUser } = useAuth();
 
   useEffect(() => {
     const carregarFoto = async () => {
@@ -80,6 +80,13 @@ export const Perfil = () => {
 
   const salvarEdicao = async () => {
     await salvarDados({ nome, telefone });
+
+    if (user) {
+      await updateUser({
+        ...user,
+        nome: nome
+      });
+    }
     setModalEditarVisible(false);
   };
 
@@ -178,7 +185,7 @@ export const Perfil = () => {
         </CardBasePerfil>
         <TouchableOpacity onPress={handleLogout} style={styles.botaoLogout}>
           <Ionicons name="log-out-outline" size={20} color={theme.colors.primary} />
-          <Text style={{ color: theme.colors.primary, fontSize: 16, fontWeight: '600',paddingBottom:40 }}>
+          <Text style={{ color: theme.colors.primary, fontSize: 16, fontWeight: '600'}}>
             Sair da Conta
           </Text>
         </TouchableOpacity>

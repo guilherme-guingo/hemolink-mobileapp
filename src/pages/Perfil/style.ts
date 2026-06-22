@@ -193,6 +193,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         gap: 8,
         marginTop: 20,
+        marginBottom: 30
     },
     textoLogout: {
         color: theme.colors.primary,
