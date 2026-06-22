@@ -14,7 +14,6 @@ import {
 } from "@expo/vector-icons";
 import { Button } from "../../components/Button";
 import { BotaoAtalho } from "../../components/BotaoAtalho";
-import Toast from "react-native-toast-message";
 import { Animated, Easing } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -25,7 +24,6 @@ import { useNotifications } from "../../hooks/useNotification";
 import { enviarNotificacaoBoasVindas } from "../../services/notifications";
 import { compartilharApp } from "../../util/share";
 import { useAuth } from "../../contexts/AuthContext";
-import { limparBloqueios } from "../../util/bloqueioEnvio";
 import { ModalAgendarDoacao } from "../../components/ModalAgendarDoacao";
 import { ModalCarteirinha } from "../../components/ModalCarteirinha";
 import { listarRegistros, RegistroDoacao } from "../../services/RegistroService";

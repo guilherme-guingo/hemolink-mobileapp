@@ -4,7 +4,8 @@ import { theme } from "../../theme";
 export const styles = StyleSheet.create({
     container: {
         paddingTop: 20,
-        paddingHorizontal: 30
+        paddingHorizontal: 30,
+        backgroundColor: "#F6FAFF"
 
     },
     heroContainer: {

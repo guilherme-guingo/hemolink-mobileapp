@@ -27,15 +27,7 @@ export const theme = {
     lg: 16,
     full: 9999,
   },
-  background: {
-    fundoSite: "#F6FAFF",
-    fundoContainerVermelho: "#C8102E",
-    fundoContainerBranco: "#FFFFFF"
-  },
-  colorsSite: {
-    tituloTexto: "#141D23",
-    subTituloTexto:  "#5C5F60",
-  }
+
 };
 
 export type Theme = typeof theme;

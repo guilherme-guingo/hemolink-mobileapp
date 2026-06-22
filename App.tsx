@@ -13,8 +13,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <AuthProvider>
         <FavoritosProvider>
-          <NavigationContainer>
-           
+          <NavigationContainer>           
             <Routers />
             <Toast />
           </NavigationContainer>
