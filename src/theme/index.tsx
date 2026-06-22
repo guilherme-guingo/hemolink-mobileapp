@@ -28,7 +28,13 @@ export const theme = {
     full: 9999,
   },
   background: {
-    fundoSite: "#F6FAFF"
+    fundoSite: "#F6FAFF",
+    fundoContainerVermelho: "#C8102E",
+    fundoContainerBranco: "#FFFFFF"
+  },
+  colorsSite: {
+    tituloTexto: "#141D23",
+    subTituloTexto:  "#5C5F60",
   }
 };
 

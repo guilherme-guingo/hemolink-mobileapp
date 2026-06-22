@@ -13,6 +13,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { lerDados, salvarDados } from "../../util/dadosEditaveis";
 import { Input } from "../../components/Input";
 import { acoesRapidas } from "./acoesRapidas";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Perfil = () => {
   const [foto, setFoto] = useState<string | null>(null);
@@ -37,11 +38,11 @@ export const Perfil = () => {
         setTelefone(dados.telefone);
       } else {
         setNome(user?.nome || "");
-        setTelefone("+55 (11) 98765-4321");
+        setTelefone(user?.telefone || "Não cadastrado");
       }
     };
     carregarDados();
-  }, []);
+  }, [user]);
 
 
   const escolherDaGaleria = async () => {
@@ -90,8 +91,21 @@ export const Perfil = () => {
     setModalEditarVisible(false);
   };
 
-  const handleLogout = async () => {
-    await signOut();
+ const handleLogout = async () => {
+    try {
+      setNome('');
+      setTelefone('');
+      setFoto(null);
+      const keys = await AsyncStorage.getAllKeys();
+      
+      if (keys.length > 0) {
+        await AsyncStorage.multiRemove(keys);
+      }
+      await signOut();
+
+    } catch (error) {
+      console.error("Erro ao limpar os dados:", error);
+    }
   }
 
 

@@ -21,9 +21,6 @@ import {
   SignUpContainer,
   SignUpText,
   SignUpBoldText, 
-  GoogleButton,
-  GoogleButtonText,
-  GoogleIcon,
 } from './styles';
 
 const loginSchema = z.object({
@@ -35,12 +32,11 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export function Login() {
   const [loading, setLoading] = useState(false);
-  const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [secureMode, setSecureMode] = useState(true);
 
   type NavegacaoProps = NativeStackNavigationProp<ParametrosRotasAuth>;
   const navigation = useNavigation<NavegacaoProps>();
-  const { signIn, signInWithGoogle } = useAuth();
+  const { signIn} = useAuth();
 
   const { control, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -49,7 +45,7 @@ export function Login() {
 
   // Login tradicional com E-mail e Senha
   async function handleLogin(data: LoginFormData) {
-    if (loading || loadingGoogle) return;
+    if (loading ) return;
     try {
       setLoading(true);
       await signIn({ email: data.email, senha: data.password });
@@ -71,32 +67,6 @@ export function Login() {
     }
   }
 
-  async function handleGoogleLogin() {
-    if (loading || loadingGoogle) return;
-    try {
-      setLoadingGoogle(true);
-      
-      const logadoComSucesso = await signInWithGoogle();
-
-      if (logadoComSucesso) {
-        Toast.show({
-          type: 'success',
-          text1: 'Sucesso',
-          text2: 'Bem-vindo ao HemoLink!',
-        });
-
-      }
-    } catch {
-      Toast.show({
-        type: 'error',
-        text1: 'Falha no Login',
-        text2: 'Não foi possível autenticar com a conta Google.',
-      });
-    } finally {
-      setLoadingGoogle(false);
-    }
-  }
-
   function handleNavigateToRegister() {
     navigation.navigate('Cadastro');
   }
@@ -106,25 +76,10 @@ export function Login() {
       title="HemoLink"
       subtitle="Conectando doadores a vidas"
       buttonText="Entrar"
-      isLoading={loading || loadingGoogle}
+      isLoading={loading}
       onSubmit={handleSubmit(handleLogin)}
       footer={
         <>
-          <GoogleButton
-            activeOpacity={0.8}
-            disabled={loading || loadingGoogle}
-            onPress={handleGoogleLogin}
-          >
-            {loadingGoogle ? (
-              <ActivityIndicator color='#DB4437' size="small" />
-            ) : (
-              <>
-                <GoogleIcon />
-                <GoogleButtonText>Entrar com o Google</GoogleButtonText>
-              </>
-            )}
-          </GoogleButton>
-
           <SignUpContainer>
             <SignUpText>Não tem uma conta? </SignUpText>
             <TouchableOpacity onPress={handleNavigateToRegister} activeOpacity={0.7}>

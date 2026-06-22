@@ -179,9 +179,12 @@ export function Cadastro() {
           <>
             <Input
               placeholder="E-mail"
-              onChangeText={onChange}
+              onChangeText={(text) => 
+                onChange(text ? text.charAt(0).toLowerCase() + text.slice(1) : '')
+              }
               value={value || ''}
               hasError={!!errors.email}
+              
             />
             {errors.email?.message && <ErrorText>{errors.email.message}</ErrorText>}
           </>

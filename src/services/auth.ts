@@ -11,6 +11,7 @@ export interface User {
     email: string;
     tipo: 'doador' | 'admin';
     token?: string;
+    telefone?: string
 }
 export async function signInRequest(data: SignInData): Promise<User> {
     try {
