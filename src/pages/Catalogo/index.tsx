@@ -152,7 +152,7 @@ export const Catalogo = () => {
     </View>
   );
 
- return (
+  return (
     <View style={styles.containerMain}>
       {isLoading ? (
         <View style={styles.loadingContainer}>
@@ -172,6 +172,14 @@ export const Catalogo = () => {
             gap: 12,
           }}
           keyExtractor={(item) => String(item.id)}
+          ListEmptyComponent={() => (
+            <View style={{justifyContent: "center", alignItems: "center"}}>
+              <EmptyState/>
+              <Text>
+                Nenhum hospital encontrado para os filtros aplicados.
+              </Text>
+            </View>
+          )}
           renderItem={({ item }) => {
             const { percentage } = obterBloodStock(item.bloodStock);
             const tipoCritico = obterTiposSanguineosCriticos(item.bloodStock);
