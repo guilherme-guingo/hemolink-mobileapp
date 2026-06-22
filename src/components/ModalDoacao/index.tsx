@@ -1,6 +1,5 @@
-import { Modal, Text, View, Pressable, TouchableOpacity } from "react-native";
+import { Modal, Text, View, Pressable} from "react-native";
 import { styles } from "./style";
-import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import QRCode from "react-native-qrcode-svg";
 import { Button } from "../Button";
@@ -94,7 +93,6 @@ export const ModalDoacao = ({
               </View>
             </View>
             <View style={styles.botaoVoltar}>
-              {/* OBS: NAO FOI USADO O COMPONENTE BACKBUTTON. VER COM O PESSOAL SE VAI SER USADO MAIS PARA FRENTE */}
               <Button
                 texto="voltar"
                 fontSizeTexto={12}
